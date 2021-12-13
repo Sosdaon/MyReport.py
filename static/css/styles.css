@@ -8,6 +8,7 @@ html, body {
 
 a {
     color: #F8F8FF;
+    background: #3F4137;
     text-decoration: none;
 }
 a:hover {
@@ -43,4 +44,23 @@ ul.mainmanu li a:hover {
 
 div.content {
     margin: 30px;
+}
+
+.form-contact label {
+    display: inline-block;
+    min-width: 80px;
+}
+.form-contact p {margin: 10px 0 10px 0;}
+.form-contact input[type=submit], textarea {
+    font-size: 16px;
+}
+
+.flash {padding: 10px;}
+.flash.success {
+    border: 1px solid #21DB56;
+    background: #98fb98;
+}
+.flash.error{
+    boarder: 1px solid #21DB56;
+    background: #fa8072;
 }

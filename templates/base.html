@@ -3,30 +3,20 @@
 <head>
     <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
     <meta charset="UTF-8">
-    {% block title -%}
-    {% if title %}
-        <title>Назва сайту - {{title}}</title>
-    {% else %}
-        <title>Веб-сторінка</title>
-    {% endif %}
-    {% endblock %}
+    <title>Рест.Інфо - {{title}}</title>
 </head>
 <body>
 {% block content -%}
     {%- block mainmenu -%}
 <ul class="mainmenu">
     {% for m in menu -%}
-    <li><a href="{{m.url}}">{{m}}</a></li>
+    <li><a href="{{m.url}}">{{m.name}}</a></li>
         {% endfor -%}
 </ul>
         {% endblock mainmenu -%}
 <div class="clear"></div>
 <div class="content">
-        {% if title -%}
-<h1> {{title}}</h1>
-        {% else -%}
 <h1>Зміст головної сторінки</h1>
-        {% endif -%}
 {% endblock -%}
 </div>
 </body>

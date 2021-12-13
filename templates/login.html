@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+<form action="/login" method="post", class="form-contact">
+    <p><label>Прізвище та ім'я: </label> <input type="text" name="user_name" value="" required />
+    <p><label>Пароль: </label> <input type="text" name="psw" value="" required />
+    <p><input type="submit" value="Увійти" />
+</form>
+{% endblock %}
