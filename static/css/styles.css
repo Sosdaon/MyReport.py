@@ -21,16 +21,16 @@ a:hover {
 ul.mainmenu {
     list-style: none;
     background: #3F4137;
-    height: 60px;
+    height: 70px;
     margin: 0;
-    padding: 0;
+    padding: 20;
     color: #fdc073;
     font-size: 20px;
     overflow: hidden;
 }
 ul.mainmenu li {
     float: left;
-    margin: 18px 20px 0 20px;
+    margin: 22px 35px 0 22px;
 }
 ul.mainmanu li.last {float: right;}
 
@@ -38,6 +38,7 @@ ul.mainmanu li a {
     color: #fdc073;
     text-decoration: none;
 }
+
 ul.mainmanu li a:hover {
     color: #FDA83D;
 }
