@@ -39,3 +39,14 @@ class FDataBase:
             print('Помилка отримання статті з бази даних' + str(e))
 
         return (False, False)
+
+    def getPostsAnonce(self):
+        try:
+            self.__cur.execute(f'SELECT id, title, text FROM posts ORDER BY time DESC')
+            res = self.__cur.fetchall()
+            if res:
+                return res
+        except sqlite3.Error as e:
+            print('Помилка отримання статті з бази даних'+str(e))
+
+        return []

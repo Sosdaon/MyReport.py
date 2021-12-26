@@ -1,4 +1,4 @@
-# 9
+# 10
 import sqlite3
 import os
 from flask import Flask, render_template, url_for, request, flash, session, redirect, abort, g
@@ -40,7 +40,7 @@ def index():
     db = get_db()
     dbase = FDataBase(db)
     print(url_for('index'))
-    return render_template('index.html', menu=dbase.getMenu(), title='Головна')
+    return render_template('index.html', menu=dbase.getMenu(), web_page_title='Головна', posts=dbase.getPostsAnonce())
 
 @app.route('/add_post', methods=['POST', 'GET'])
 def addPost():
@@ -56,7 +56,7 @@ def addPost():
                 flash('Стаття успішно опублікована', category='success')
         else:
             flash('Назва статті має бути не менш ніж чотири символи.', category='error')
-    return render_template('add_post.html', menu=dbase.getMenu(), title='Публікація')
+    return render_template('add_post.html', menu=dbase.getMenu(), web_page_title='Публікація')
 
 @app.route('/post/<int:id_post>')
 def showPost(id_post):
@@ -66,20 +66,20 @@ def showPost(id_post):
     if not title:
         abort(404)
 
-    return render_template('post.html', menu=dbase.getMenu(), title=title, post=post)
+    return render_template('post.html', menu=dbase.getMenu(), web_page_title=title, post=post)
 
 @app.route('/about_us')
 def about_us():
     db = get_db()
     dbase = FDataBase(db)
     print(url_for('about_us'))
-    return render_template('about.html', menu=dbase.getMenu(), title='Про нас')
+    return render_template('about.html', menu=dbase.getMenu(), web_page_title='Про нас')
 
 @app.errorhandler(404)
 def pageNotFound(error):
     db = get_db()
     dbase = FDataBase(db)
-    return render_template('page404.html', menu=dbase.getMenu(), title='Не знайдено'), 404
+    return render_template('page404.html', menu=dbase.getMenu(), web_page_title='Не знайдено'), 404
 
 @app.route('/contact', methods=['POST', 'GET'])
 def contact():
@@ -91,7 +91,7 @@ def contact():
         else:
             flash('На жаль, виникла помилка відправлення', category='error')
 
-    return render_template('contact.html', menu=dbase.getMenu(), title='Повідомити')
+    return render_template('contact.html', menu=dbase.getMenu(), web_page_title='Повідомити')
 
 if __name__ == '__main__':
     app.run(debug=True)

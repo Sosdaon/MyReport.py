@@ -65,3 +65,34 @@ div.content {
     boarder: 1px solid #21DB56;
     background: #fa8072;
 }
+
+ul.list-posts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 600px;
+}
+ul.list-posts li {
+    margin: 20px 0 0 0;
+    border: 1px solid #eee;
+}
+ul.list-posts .title {
+    margin: 0;
+    padding: 5px;
+    background: #eee;
+}
+ul.list-posts .announce {
+    margin: 0;
+    padding: 10px 5px 10px 5px
+}
+TABLE {
+    width: 850px; /* Ширина таблицы */
+    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+}
+TD, TH {
+    padding: 3px; /* Поля вокруг содержимого таблицы */
+    border: 1px solid black; /* Параметры рамки */
+}
+TH {
+    background: #8FBC8F; /* Цвет фона */
+}
