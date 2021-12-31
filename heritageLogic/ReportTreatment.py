@@ -1,7 +1,7 @@
 class Passport:
-    def __init__(self, mylist=[], pasport_num=0, obj_name='ім\'я', invent_num='інвентарний номер',
+    def __init__(self, objects_list=[], pasport_num=0, obj_name='ім\'я', invent_num='інвентарний номер',
                  execute_restorer='Ім\'я виконавця реставрації', time='час створення', material='матеріал'):
-        self.__mylist = mylist
+        self.__objects_list = objects_list
         self.__pasport_num = pasport_num
         self.__obj_name = obj_name
         self.__invent_num = invent_num
@@ -11,8 +11,8 @@ class Passport:
 
     def set_name(self, obj_name):
         self.__obj_name = obj_name
-        self.__mylist.append(obj_name)
-        self.__pasport_num = len(self.__mylist)
+        self.__objects_list.append(obj_name)
+        self.__pasport_num = len(self.__objects_list)
 
     def set_invent_num(self, invent_num):
         self.__invent_num = invent_num
@@ -42,7 +42,7 @@ class Passport:
         return self.__material
 
     def get_mylist(self):
-        return self.__mylist
+        return self.__objects_list
 
     def get_pasport_num(self):
         return self.__pasport_num

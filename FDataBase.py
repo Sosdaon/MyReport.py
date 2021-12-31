@@ -18,10 +18,11 @@ class FDataBase:
             print('Помилка читання з бази даних')
         return []
 
-    def addPost(self, title, text):
+    def addPost(self, title, text, passport_number, institution_name, department_name):
         try:
             tm = math.floor(time.time())
-            self.__cur.execute('INSERT INTO posts VALUES(NULL, ?, ?, ?)',(title, text, tm))
+            self.__cur.execute('INSERT INTO posts VALUES(NULL, ?, ?, ?, ?, ?, ?)',(title, text, passport_number,
+                                                                             institution_name, department_name, tm))
             self.__db.commit()
         except sqlite3.Error as e:
             print('Помилка додавання статті в базу даних' + str(e))
@@ -31,7 +32,8 @@ class FDataBase:
 
     def getPost(self, postId):
         try:
-            self.__cur.execute(f'SELECT title, text FROM posts WHERE id = {postId} LIMIT 1')
+            self.__cur.execute(f'SELECT title, text, passport_number, institution_name,'
+                               f'department_name FROM posts WHERE id = {postId} LIMIT 1')
             res = self.__cur.fetchone()
             if res:
                 return res

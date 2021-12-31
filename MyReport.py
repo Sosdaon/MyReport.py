@@ -3,10 +3,12 @@ import sqlite3
 import os
 from flask import Flask, render_template, url_for, request, flash, session, redirect, abort, g
 from FDataBase import FDataBase
+from heritageLogic import ReportTreatment
 
 DATABASE = '/tmp/flsite.db'
 DEBUG = True
 SECRET_KEY = 'fdgdfgdfggf786hfg6hfg6h7f'
+
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -46,10 +48,12 @@ def index():
 def addPost():
     db = get_db()
     dbase = FDataBase(db)
+    RestorerPassport = ReportTreatment.Passport()
 
     if request.method == 'POST':
         if len(request.form['name']) > 4 and len(request.form['post']) > 10:
-            res = dbase.addPost(request.form['name'], request.form['post'])
+            res = dbase.addPost(request.form['name'], request.form['post'], request.form['passport_number'],
+                                request.form['institution_name'], request.form['department_name'])
             if not res:
                 flash('Виникла, помилка публікування статті', category='error')
             else:
@@ -58,15 +62,18 @@ def addPost():
             flash('Назва статті має бути не менш ніж чотири символи.', category='error')
     return render_template('add_post.html', menu=dbase.getMenu(), web_page_title='Публікація')
 
+
 @app.route('/post/<int:id_post>')
 def showPost(id_post):
     db = get_db()
     dbase = FDataBase(db)
-    title, post = dbase.getPost(id_post)
+    title, post, passport_number, institution_name, department_name = dbase.getPost(id_post)
     if not title:
         abort(404)
 
-    return render_template('post.html', menu=dbase.getMenu(), web_page_title=title, post=post)
+    return render_template('post.html', menu=dbase.getMenu(), web_page_title=title, title=title, post=post,
+                           passport_number=passport_number, institution_name=institution_name,
+                           department_name=department_name)
 
 @app.route('/about_us')
 def about_us():
