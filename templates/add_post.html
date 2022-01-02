@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ua">
 <head>
+
     <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
     <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
     <meta charset="UTF-8">
@@ -83,15 +84,18 @@
         <th>археологічна пам'ятка</th><th>документальна пам'ятка</th><th>інша пам'ятка історії та культури</th>
    </tr>
     <tr>
-    <td><input type="text" placeholder="Цільова приналежність"></td><td><button>1</button></td><td><button>2</button>
-    </td><td><button>3</button></td><td><button>4</button></td><td><button>5</button></td>
+    <td><input type="text" name="definition" placeholder="Цільова приналежність"></td>
+        <td><input type="radio" name="typological" value="(1)">1</input></td>
+        <td><input type="radio" name="typological" value="(2)">2</input></td>
+        <td><input type="radio" name="typological" value="(3)">3</input></td>
+        <td><input type="radio" name="typological" value="(4)">4</input></td>
+        <td><input type="radio" name="typological" value="(5)">5</input></td>
    </tr>
 </table>
 </p>
 
 <p><b>2. Місце постійного зберігання, власник пам'ятки</b></p>
-<p><textarea type="text" rows="3" cols="92" placeholder="Назва установи/ім'я та прізвище хранителя/приватна колекція">
-</textarea>
+<p><textarea type="text" name="object_owner" rows="3" cols="92" placeholder="Назва установи/ім'я та прізвище хранителя/приватна колекція"></textarea>
 </p>
 
 <p>
@@ -100,31 +104,31 @@
     <th>3. Атрибутивні дані про пам'ятку згідно з актом приймання</th><th>Уточнення в процесі реставрації</th>
    </tr>
    <tr>
-    <td>Автор:<input type="text" placeholder="Ім'я автора/культура/школа"></td><td><input type="text" placeholder="Ім'я автора/культура/школа"></td>
+    <td>Автор:<input type="text" name="author" placeholder="Ім'я автора/культура/школа"></td><td><input type="text" name="clarified_author" placeholder="Ім'я автора/культура/школа"></td>
    </tr>
    <tr>
-    <td>Назва:<input type="text" placeholder="Введіть назву предмета"></td><td><input type="text" placeholder="Введіть назву предмета"></td>
+    <td>Назва:<input type="text" name="object_title" placeholder="Введіть назву предмета"></td><td><input type="text" name="clarified_object_title" placeholder="Введіть назву предмета"></td>
    </tr>
    <tr>
-       <td>Час створення:<input type="text" placeholder="Рік/століття/проміжок часу"></td><td><input type="text" placeholder="Рік/століття/проміжок часу"></td>
+       <td>Час створення:<input type="text" name="time_of_creation" placeholder="Рік/століття/проміжок часу"></td><td><input type="text" name="clarified_time_of_creation" placeholder="Рік/століття/проміжок часу"></td>
    </tr>
     <tr>
-       <td>Матеріал, основа:<input type="text" placeholder="Перелік назв матеріалів"></td><td><input type="text" placeholder="Перелік назв матеріалів"></td>
+       <td>Матеріал, основа:<input type="text" name=material placeholder="Перелік назв матеріалів"></td><td><input type="text" name="clarified_material" placeholder="Перелік назв матеріалів"></td>
    </tr>
     <tr>
-       <td>Техніка виконання:<input type="text" placeholder="Введіть назву техніки"></td><td><input type="text" placeholder="Введіть назву техніки"></td>
+       <td>Техніка виконання:<input type="text" name="technique" placeholder="Введіть назву техніки"></td><td><input type="text" name="clarified_technique" placeholder="Введіть назву техніки"></td>
    </tr>
     <tr>
-       <td>Розміри:<input type="text" placeholder="Довжина/висота/ширина"></td><td><input type="text" placeholder="Довжина/висота/ширина"></td>
+       <td>Розміри:<input type="text" name="object_size" placeholder="Довжина/висота/ширина"></td><td><input type="text" name="clarified_size" placeholder="Довжина/висота/ширина"></td>
    </tr>
     <tr>
-       <td>Вага:<input type="text" placeholder="Кілограм/грам"></td><td><input type="text" placeholder="Кілограм/грам"></td>
+       <td>Вага:<input type="text" name="weight" placeholder="Кілограм/грам"></td><td><input type="text" name="clarified_weight" placeholder="Кілограм/грам"></td>
    </tr>
 </table>
 </p>
 
     <p><b>4. Підстава для проведення реставраційних заходів</b></p>
-    <p><textarea type="text" contenteditable="true" rows="5" cols="140" placeholder="Вкажіть підставу проведення реставрації">
+    <p><textarea type="text" name="reason" contenteditable="true" rows="5" cols="140" placeholder="Вкажіть підставу проведення реставрації">
 Пам'ятка вкрита нестійкими пиловими/пило-брудовими нашаруваннями/кородована/має сколи/тріщини/вибоїни/втрати,
 уражена грибами/бактеріями/комахами/продуктами їх життєдіяльності.
     </textarea>
@@ -137,12 +141,12 @@
     <th>Дати</th><th>Реставратори</th>
    </tr>
    <tr>
-    <td>Дата передання пам'ятки на реставрацію:<input type="text" placeholder="число/місяць/рік"></td>
-       <td><input placeholder="Студент (курс)" type="text" ></td>
+    <td>Дата передання пам'ятки на реставрацію:<input name="object_input_date" type="text" placeholder="число/місяць/рік"></td>
+       <td><input name="execute_restorer" placeholder="Студент (курс)" type="text" ></td>
    </tr>
     <tr>
-    <td>Дата завершення реставраційних заходів:<input type="text" placeholder="число/місяць/рік"></td>
-        <td><input type="text" placeholder="Керівник (Кваліфікація)"></td>
+    <td>Дата завершення реставраційних заходів:<input type="text" name="object_output_date" placeholder="число/місяць/рік"></td>
+        <td><input type="text" name="responsible_restorer" placeholder="Керівник (Кваліфікація)"></td>
    </tr>
 </table>
     </p>
@@ -150,13 +154,13 @@
 
     <p><b>5. Основні дані з історії пам'ятки (довідка про побутування; відомості про умови зберігання,</b></p>
         <p><b>попередні дослідження, консерваційно-реставраційні заходи тощо), джерело надходження інформації</b></p>
-    <p><textarea type="text" contenteditable="true" rows="6" cols="140" placeholder="Вкажіть дані з історії пам'ятки">
+    <p><textarea type="text" name="origin_description" contenteditable="true" rows="6" cols="140" placeholder="Вкажіть дані з історії пам'ятки">
 Пам'ятка походить з (вказати регіон) та перебувала у фондах (введіть назву установи або власність колекції).</textarea>
     </p>
 
     <p><b>6. Стан пам'ятки до реставрації</b></p>
     <p><i>6.1 За візуальним спостереженням:</i></p>
-    <p><textarea type="text" contenteditable="true" rows="30" cols="140" placeholder="Вкажіть опис пам'ятки">
+    <p><textarea type="text" name="appearance_description" contenteditable="true" rows="30" cols="140" placeholder="Вкажіть опис пам'ятки">
 За візуальним спостереженням: ...
 I. Візуальне дослідження (опис пам’ятки):
     1.Вказати назву (якщо є спеціальний термін).
@@ -171,7 +175,7 @@ II. Описати вигляд предмета:
     2. Вказати колір металу.
 III. Забруднення:
     1.Нестійкі (пилові, брудові, ґрунтові) .
-    2.Стійки (вапнякові, природні та синтетичні смоли, висоли, гіпсові забруднення, плями кислів металів, сліди кіптяви,
+    2.Стійкі (вапнякові, природні та синтетичні смоли, висоли, гіпсові забруднення, плями кислів металів, сліди кіптяви,
         пеку, жиру, плями від пластиліну, масляної фарби, воску, клейові забруднення, чорнила, туш,
         записи фарбами (якого кольору), забруднення фарбами  від попередніх тонувань – місцезнаходження фарби,
         забруднення на зламах фрагментів (від клею, вапнякових нашарувань, пило брудові, ґрунтові і т.д.).
@@ -180,7 +184,7 @@ III. Забруднення:
 Визначити форму забруднення (у вигляді локальних плям, неправильної форми, повсюдно, забруднення якоїсь частини пам’ятки).
     </textarea></p>
     <p><i>6.1.2 Втрати та пошкодження:</i></p>
-    <p><textarea type="text" contenteditable="true" rows="30" cols="140" placeholder="Вкажіть втрати та пошкодження">
+    <p><textarea type="text" name="damages_description" contenteditable="true" rows="30" cols="140" placeholder="Вкажіть втрати та пошкодження">
 ІV. Попередня реставрація:
     1. Якщо була – описати якість попередньої реставрації).
     2. Свідчення про попередню реставрацію (відсутні, якщо є вказати джерело чи з чиїх слів записано).
@@ -215,11 +219,11 @@ V. Опис наявних втрат та пошкоджень:
 VІ. Біологічні пошкодження і руйнування:
 1.Бактерії, гриби та продукти їх життєдіяльності.</textarea></p>
     <p><i>6.1.3 Старі номери та позначення:</i></p>
-    <p><textarea type="text" contenteditable="true" rows="6" cols="140" placeholder="Вкажіть номери та позначення">
+    <p><textarea type="text" name="signs_description" contenteditable="true" rows="6" cols="140" placeholder="Вкажіть номери та позначення">
 1. Вказати де, яким чорнилом, які номери написано (написи та шифри необхідно фотофіксувати).
  Марки (описати місцезнаходження, зовнішній вигляд марки або етикетки, колір і розмір, чим написано і чим приклеєний шифр).</textarea></p>
     <p><i>6.1.4 Розміри:</i></p>
-    <p><textarea type="text" contenteditable="true" rows="10" cols="92" placeholder="Вкажіть розміри">
+    <p><textarea type="text" name="size_description" contenteditable="true" rows="10" cols="92" placeholder="Вкажіть розміри">
 Довжина: см/мм;
 Висота: см/мм;
 Ширина: см/мм;
@@ -490,7 +494,7 @@ VІ. Біологічні пошкодження і руйнування:
 </TABLE>
 
 <p>
-<button><img src="{{url_for('static', filename='Intelligible_illustrations/restInfoLogo.ico')}}"alt="Завантажити паспорт на інтернет-платформу" type="submit" style="vertical-align: middle;"><b>Додати</b></button>
+<button><img src="{{url_for('static', filename='Intelligible_illustrations/restInfoLogo.ico')}}" alt="Завантажити паспорт на інтернет-платформу" type="submit" style="vertical-align: middle;"><b>Додати</b></button>
 </p>
 </div>
 </form>

@@ -9,16 +9,17 @@ DATABASE = '/tmp/flsite.db'
 DEBUG = True
 SECRET_KEY = 'fdgdfgdfggf786hfg6hfg6h7f'
 
-
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-app.config.update(dict(DATABASE=os.path.join(app.root_path,'flsite,db')))
+app.config.update(dict(DATABASE=os.path.join(app.root_path, 'flsite,db')))
+
 
 def connect_db():
     conn = sqlite3.connect(app.config['DATABASE'])
     conn.row_factory = sqlite3.Row
     return conn
+
 
 def create_db():
     db = connect_db()
@@ -27,15 +28,18 @@ def create_db():
     db.commit()
     db.close()
 
+
 def get_db():
     if not hasattr(g, 'link_db'):
         g.link_db = connect_db()
     return g.link_db
 
+
 @app.teardown_appcontext
 def close_db(error):
     if hasattr(g, 'link_db'):
         g.link_db.close()
+
 
 @app.route('/')
 def index():
@@ -43,6 +47,7 @@ def index():
     dbase = FDataBase(db)
     print(url_for('index'))
     return render_template('index.html', menu=dbase.getMenu(), web_page_title='Головна', posts=dbase.getPostsAnonce())
+
 
 @app.route('/add_post', methods=['POST', 'GET'])
 def addPost():
@@ -52,8 +57,22 @@ def addPost():
 
     if request.method == 'POST':
         if len(request.form['name']) > 4 and len(request.form['post']) > 10:
-            res = dbase.addPost(request.form['name'], request.form['post'], request.form['passport_number'],
-                                request.form['institution_name'], request.form['department_name'])
+            res = dbase.addPost(request.form['passport_number'], request.form['name'], request.form['post'],
+                                request.form['institution_name'], request.form['department_name'],
+                                request.form['definition'], request.form['typological'],
+                                request.form['object_owner'], request.form['author'], request.form['clarified_author'],
+                                request.form['object_title'],
+                                request.form['clarified_object_title'], request.form['time_of_creation'],
+                                request.form['clarified_time_of_creation'],
+                                request.form['material'], request.form['clarified_material'], request.form['technique'],
+                                request.form['clarified_technique'],
+                                request.form['object_size'], request.form['clarified_size'], request.form['weight'],
+                                request.form['clarified_weight'], request.form['reason'],
+                                request.form['object_input_date'], request.form['execute_restorer'],
+                                request.form['object_output_date'], request.form['responsible_restorer'],
+                                request.form['origin_description'], request.form['appearance_description'],
+                                request.form['damages_description'], request.form['signs_description'],
+                                request.form['size_description'])
             if not res:
                 flash('Виникла, помилка публікування статті', category='error')
             else:
@@ -67,13 +86,28 @@ def addPost():
 def showPost(id_post):
     db = get_db()
     dbase = FDataBase(db)
-    title, post, passport_number, institution_name, department_name = dbase.getPost(id_post)
+    passport_number, title, post, institution_name, department_name, definition, typological, object_owner, author, clarified_author, object_title, clarified_object_title, time_of_creation, clarified_time_of_creation, material, clarified_material, technique, clarified_technique, object_size, clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer, object_output_date, responsible_restorer, origin_description, appearance_description, damages_description, signs_description, size_description = dbase.getPost(
+        id_post)
     if not title:
         abort(404)
 
-    return render_template('post.html', menu=dbase.getMenu(), web_page_title=title, title=title, post=post,
-                           passport_number=passport_number, institution_name=institution_name,
-                           department_name=department_name)
+    return render_template('post.html', menu=dbase.getMenu(), web_page_title=title, passport_number=passport_number,
+                           title=title, post=post, institution_name=institution_name,
+                           department_name=department_name, definition=definition, typological=typological,
+                           object_owner=object_owner, author=author, clarified_author=clarified_author,
+                           object_title=object_title,
+                           clarified_object_title=clarified_object_title, time_of_creation=time_of_creation,
+                           clarified_time_of_creation=clarified_time_of_creation, material=material,
+                           clarified_material=clarified_material,
+                           technique=technique, clarified_technique=clarified_technique, object_size=object_size,
+                           clarified_size=clarified_size,
+                           weight=weight, clarified_weight=clarified_weight, reason=reason,
+                           object_input_date=object_input_date, execute_restorer=execute_restorer,
+                           object_output_date=object_output_date, responsible_restorer=responsible_restorer,
+                           origin_description=origin_description, appearance_description=appearance_description,
+                           damages_description=damages_description, signs_description=signs_description,
+                           size_description=size_description)
+
 
 @app.route('/about_us')
 def about_us():
@@ -82,11 +116,13 @@ def about_us():
     print(url_for('about_us'))
     return render_template('about.html', menu=dbase.getMenu(), web_page_title='Про нас')
 
+
 @app.errorhandler(404)
 def pageNotFound(error):
     db = get_db()
     dbase = FDataBase(db)
     return render_template('page404.html', menu=dbase.getMenu(), web_page_title='Не знайдено'), 404
+
 
 @app.route('/contact', methods=['POST', 'GET'])
 def contact():
@@ -99,6 +135,7 @@ def contact():
             flash('На жаль, виникла помилка відправлення', category='error')
 
     return render_template('contact.html', menu=dbase.getMenu(), web_page_title='Повідомити')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
