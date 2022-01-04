@@ -8,6 +8,7 @@ from heritageLogic import ReportTreatment
 DATABASE = '/tmp/flsite.db'
 DEBUG = True
 SECRET_KEY = 'fdgdfgdfggf786hfg6hfg6h7f'
+MAX_CONTENT_LENGTH = 1024 * 1024
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -56,7 +57,7 @@ def addPost():
     RestorerPassport = ReportTreatment.Passport()
 
     if request.method == 'POST':
-        if len(request.form['name']) > 4 and len(request.form['post']) > 10:
+        if len(request.form['name']) > 0 and len(request.form['post']) > 0:
             res = dbase.addPost(request.form['passport_number'], request.form['name'], request.form['post'],
                                 request.form['institution_name'], request.form['department_name'],
                                 request.form['definition'], request.form['typological'],
@@ -72,13 +73,17 @@ def addPost():
                                 request.form['object_output_date'], request.form['responsible_restorer'],
                                 request.form['origin_description'], request.form['appearance_description'],
                                 request.form['damages_description'], request.form['signs_description'],
-                                request.form['size_description'])
+                                request.form['size_description'], request.form['purposes_researches'],
+                                request.form['methods_researches'], request.form['executor_date_researches'],
+                                request.form['results_researches'],  request.form['restoration_program'],
+                                request.form['treatments_descriptions'], request.form['treatments_chemicals'],
+                                request.form['treatments_executor_date'], request.form['treatments_results'])
             if not res:
-                flash('Виникла, помилка публікування статті', category='error')
+                flash('Виникла, помилка публікування', category='error')
             else:
-                flash('Стаття успішно опублікована', category='success')
+                flash('Успішно опубліковано!', category='success')
         else:
-            flash('Назва статті має бути не менш ніж чотири символи.', category='error')
+            flash("Спочатку введіть, будь ласка, інвентарний номер та дані акта приймання пам'ятки.", category='error')
     return render_template('add_post.html', menu=dbase.getMenu(), web_page_title='Публікація')
 
 
@@ -86,7 +91,7 @@ def addPost():
 def showPost(id_post):
     db = get_db()
     dbase = FDataBase(db)
-    passport_number, title, post, institution_name, department_name, definition, typological, object_owner, author, clarified_author, object_title, clarified_object_title, time_of_creation, clarified_time_of_creation, material, clarified_material, technique, clarified_technique, object_size, clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer, object_output_date, responsible_restorer, origin_description, appearance_description, damages_description, signs_description, size_description = dbase.getPost(
+    passport_number, title, post, institution_name, department_name, definition, typological, object_owner, author, clarified_author, object_title, clarified_object_title, time_of_creation, clarified_time_of_creation, material, clarified_material, technique, clarified_technique, object_size, clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer, object_output_date, responsible_restorer, origin_description, appearance_description, damages_description, signs_description, size_description, purposes_researches, methods_researches, executor_date_researches, results_researches, restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results = dbase.getPost(
         id_post)
     if not title:
         abort(404)
@@ -106,7 +111,11 @@ def showPost(id_post):
                            object_output_date=object_output_date, responsible_restorer=responsible_restorer,
                            origin_description=origin_description, appearance_description=appearance_description,
                            damages_description=damages_description, signs_description=signs_description,
-                           size_description=size_description)
+                           size_description=size_description, purposes_researches=purposes_researches,
+                           methods_researches=methods_researches, executor_date_researches=executor_date_researches,
+                           results_researches=results_researches, restoration_program=restoration_program,
+                           treatments_descriptions=treatments_descriptions, treatments_chemicals=treatments_chemicals,
+                           treatments_executor_date=treatments_executor_date, treatments_results=treatments_results)
 
 
 @app.route('/about_us')

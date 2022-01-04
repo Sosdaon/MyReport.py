@@ -66,10 +66,11 @@
 
     <p></p><h3>Освітня інтернет-платформа "Рест.Інфо"</h3></p>
     <p></p><h3>ЗРАЗОК БЛАНКА ПАСПОРТА РЕСТАВРАЦІЇ ПАМ'ЯТКИ ІСТОРІЇ ТА КУЛЬТУРИ(РУХОМОЇ)</h3></p>
-<p><b>Назва закладу, який здійснює реставрацію</b></p>
-<p>{{institution_name}}</p>
-<p><b>Назва відділу/сектору</b></p>
-<p>{{department_name}}</p>
+
+<p><h3>{{institution_name}}</h3></p>
+<p>Назва закладу, який здійснює реставрацію</p>
+<p><h3>{{department_name}}</h3></p>
+<p>Назва відділу/сектору</p>
 
 <p>
 <b>1. Типологічна приналежність пам'ятки</b>
@@ -142,7 +143,7 @@
 </p>
 
     <p><b>4. Підстава для проведення реставраційних заходів</b></p>
-    <p>{{reason}}</p>
+    <div align="justify"><p>{{reason}}</p></div>
 
 
     <p>
@@ -287,27 +288,14 @@
 <th>Мета дослідження</th><th>Методи і результати дослідження</th><th>Виконавець та дата</th>
 </tr>
 <tr>
-<td><textarea type="text" contenteditable="true" rows="30" cols="22">
-Визначення заліза фізичним методом
-</textarea></td><td><textarea type="text" contenteditable="true" rows="30" cols="35">
-Для визначення заліза використовувався магніт.
-Висновок:
-Усі деталі предмета мають магнітні властивості та виготовлені з заліза.
-</textarea></td>
-<td><textarea type="text" rows="30" cols="20" placeholder="Ім'я та прізвище виконавця;
-число/місяць/рік.">
-</textarea></td>
+<td><div align="justify"><p>{{purposes_researches}}</p></div></td><td><div align="justify"><p>{{methods_researches}}</p></div></td><td><div align="justify"><p>{{executor_date_researches}}</p></div></td>
 </tr>
 </table>
 </p>
 
 
 <p><b>6.3 Загальний висновок за результатами досліджень:</b></p>
-<p><textarea type="text" contenteditable="true" rows="5" cols="140" placeholder="Вкажіть підставу проведення реставрації">
-Пам'ятка вкрита нестійкими пиловими/пило-брудовими нашаруваннями/кородована/має сколи/тріщини/вибоїни/втрати,
-уражена грибами/бактеріями/комахами/продуктами їх життєдіяльності. Предмет потребує надання експозиційного вигляду.
-</textarea>
-</p>
+<div align="justify"><p>{{results_researches}}</p></div>
 
 
 <TABLE>
@@ -368,14 +356,7 @@
 <th>7. Програма проведення реставраційних заходів та їх обгрунтування</th>
 </tr>
 <tr>
-<td><textarea type="text" contenteditable="true" rows="20" cols="91">
-1.Видалити поверхневі забруднення
-2.Видалити стійкі забруднення
-3.Видалити продукти корозії
-4.Виготовити втрачений елемент
-5.Провести стабілізацію продуктів корозії
-6.Провести консервацію
-</textarea></td>
+<td><div align="justify"><p>{{restoration_program}}</p></div></td>
 
 </TABLE>
 
@@ -388,56 +369,15 @@
     <th>Матеріали, хімікати (консентрація %)</th><th>Виконавець та дата</th>
 </tr>
 <tr>
-<td><textarea type="text" contenteditable="true" rows="29" cols="60">
-Видалення поверхневих забруднень:
-Проводили тампонами змоченими в нафтовому розчиннику нефрас "Калоша".
-</textarea></td><td><textarea type="text" contenteditable="true" rows="29" cols="35">
-Нефрас "Калоша".
-</textarea></td>
-<td><textarea type="text" rows="29" cols="20" placeholder="Ім'я та прізвище виконавця;
-число/місяць/рік.">
-</textarea></td>
+<td><div align="justify"><p>{{treatments_descriptions}}</p></div></td><td><div align="justify"><p>{{treatments_chemicals}}</p></div></td><td><div align="justify"><p>{{treatments_executor_date}}</p></div></td>
 </tr>
 </table>
 </p>
 
 
 <p><b>6.3 Загальний висновок за результатами досліджень:</b></p>
-<p><textarea type="text" contenteditable="true" rows="5" cols="140" placeholder="Вкажіть підставу проведення реставрації">
-Пам'ятка була очищена від нестійких пилових/пило-брудових нашаруваннь, корозія була видалена /сколи/тріщини/вибоїни/втрати
-були доповнені. Предмет набув експозиційного вигляду.
-</textarea>
-</p>
+<div align="justify"><p>{{treatments_results}}</p></div>
 
-<TABLE>
-<tr>
-<th>Ілюстративний матеріал:</th>
-</tr>
-
-<tr>
-<td>
-<tr>
-<td>
-<label>До реставрації:</label>
-<input type="file" name="photo_before_restoration" multiple accept="image/*,video/*">
-</td>
-</tr>
-
-<tr>
-<td>
-<label>В процесі реставрації:</label>
-<input type="file" name="photo_in_proses_restoration" multiple accept="image/*,video/*">
-</td>
-</tr>
-
-
-<tr>
-<td>
-<label>Після реставрації:</label>
-<input type="file" name="photo_after_restoration" multiple accept="image/*,video/*">
-</td>
-</tr>
-</TABLE>
 
 <div align="left">
 <p><label>Використовувати зміст даної сторінки виключно з освітньою метою. 2021 рік. Україна. Київ.</label></p>

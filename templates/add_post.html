@@ -62,8 +62,8 @@
     <th>№ реставраційного паспорта:</th><th>інвентарний № пам'ятки</th><th>Акт приймання</th>
    </tr>
     <tr>
-    <td><input name="passport_number" type="text" placeholder="№ паспорта"></td><td><input type="text" name="name" placeholder="інвентарний №"></td>
-        <td><textarea type="text" name="post" placeholder="№
+    <td><input name="passport_number" type="text" placeholder="№ паспорта"></td><td><input type="text" name="name" placeholder="інвентарний №" required></td>
+        <td><textarea type="text" name="post" required placeholder="№
 від: число/місяць/рік"></textarea></td>
     </tr>
     </table>
@@ -85,11 +85,11 @@
    </tr>
     <tr>
     <td><input type="text" name="definition" placeholder="Цільова приналежність"></td>
-        <td><input type="radio" name="typological" value="(1)">1</input></td>
-        <td><input type="radio" name="typological" value="(2)">2</input></td>
-        <td><input type="radio" name="typological" value="(3)">3</input></td>
-        <td><input type="radio" name="typological" value="(4)">4</input></td>
-        <td><input type="radio" name="typological" value="(5)">5</input></td>
+        <td><input type="radio" name="typological" value="(1)" required>1</input></td>
+        <td><input type="radio" name="typological" value="(2)" required>2</input></td>
+        <td><input type="radio" name="typological" value="(3)" required>3</input></td>
+        <td><input type="radio" name="typological" value="(4)" required>4</input></td>
+        <td><input type="radio" name="typological" value="(5)" required>5</input></td>
    </tr>
 </table>
 </p>
@@ -341,14 +341,14 @@ VІ. Біологічні пошкодження і руйнування:
 <th>Мета дослідження</th><th>Методи і результати дослідження</th><th>Виконавець та дата</th>
 </tr>
 <tr>
-<td><textarea type="text" contenteditable="true" rows="30" cols="22">
+<td><textarea type="text" name="purposes_researches" contenteditable="true" rows="30" cols="22">
 Визначення заліза фізичним методом
-</textarea></td><td><textarea type="text" contenteditable="true" rows="30" cols="35">
+</textarea></td><td><textarea type="text" name="methods_researches" contenteditable="true" rows="30" cols="35">
 Для визначення заліза використовувався магніт.
 Висновок:
 Усі деталі предмета мають магнітні властивості та виготовлені з заліза.
 </textarea></td>
-<td><textarea type="text" rows="30" cols="20" placeholder="Ім'я та прізвище виконавця;
+<td><textarea type="text" name="executor_date_researches" rows="30" cols="20" placeholder="Ім'я та прізвище виконавця;
 число/місяць/рік.">
 </textarea></td>
 </tr>
@@ -357,7 +357,7 @@ VІ. Біологічні пошкодження і руйнування:
 
 
 <p><b>6.3 Загальний висновок за результатами досліджень:</b></p>
-<p><textarea type="text" contenteditable="true" rows="5" cols="140" placeholder="Вкажіть підставу проведення реставрації">
+<p><textarea type="text" name="results_researches" contenteditable="true" rows="5" cols="140" placeholder="Вкажіть підставу проведення реставрації">
 Пам'ятка вкрита нестійкими пиловими/пило-брудовими нашаруваннями/кородована/має сколи/тріщини/вибоїни/втрати,
 уражена грибами/бактеріями/комахами/продуктами їх життєдіяльності. Предмет потребує надання експозиційного вигляду.
 </textarea>
@@ -422,7 +422,7 @@ VІ. Біологічні пошкодження і руйнування:
 <th>7. Програма проведення реставраційних заходів та їх обгрунтування</th>
 </tr>
 <tr>
-<td><textarea type="text" contenteditable="true" rows="20" cols="91">
+<td><textarea type="text" name="restoration_program" contenteditable="true" rows="20" cols="91">
 1.Видалити поверхневі забруднення
 2.Видалити стійкі забруднення
 3.Видалити продукти корозії
@@ -442,13 +442,13 @@ VІ. Біологічні пошкодження і руйнування:
     <th>Матеріали, хімікати (консентрація %)</th><th>Виконавець та дата</th>
 </tr>
 <tr>
-<td><textarea type="text" contenteditable="true" rows="29" cols="60">
+<td><textarea type="text" name="treatments_descriptions" contenteditable="true" rows="29" cols="60">
 Видалення поверхневих забруднень:
 Проводили тампонами змоченими в нафтовому розчиннику нефрас "Калоша".
-</textarea></td><td><textarea type="text" contenteditable="true" rows="29" cols="35">
+</textarea></td><td><textarea type="text" name="treatments_chemicals" contenteditable="true" rows="29" cols="35">
 Нефрас "Калоша".
 </textarea></td>
-<td><textarea type="text" rows="29" cols="20" placeholder="Ім'я та прізвище виконавця;
+<td><textarea type="text" name="treatments_executor_date" rows="29" cols="20" placeholder="Ім'я та прізвище виконавця;
 число/місяць/рік.">
 </textarea></td>
 </tr>
@@ -457,41 +457,11 @@ VІ. Біологічні пошкодження і руйнування:
 
 
 <p><b>6.3 Загальний висновок за результатами досліджень:</b></p>
-<p><textarea type="text" contenteditable="true" rows="5" cols="140" placeholder="Вкажіть підставу проведення реставрації">
+<p><textarea type="text" name="treatments_results" contenteditable="true" rows="5" cols="140" placeholder="Вкажіть результат проведення реставраційних заходів">
 Пам'ятка була очищена від нестійких пилових/пило-брудових нашаруваннь, корозія була видалена /сколи/тріщини/вибоїни/втрати
 були доповнені. Предмет набув експозиційного вигляду.
 </textarea>
 </p>
-
-<TABLE>
-<tr>
-<th>Ілюстративний матеріал:</th>
-</tr>
-
-<tr>
-<td>
-<tr>
-<td>
-<label>До реставрації:</label>
-<input type="file" name="photo_before_restoration" multiple accept="image/*,video/*">
-</td>
-</tr>
-
-<tr>
-<td>
-<label>В процесі реставрації:</label>
-<input type="file" name="photo_in_proses_restoration" multiple accept="image/*,video/*">
-</td>
-</tr>
-
-
-<tr>
-<td>
-<label>Після реставрації:</label>
-<input type="file" name="photo_after_restoration" multiple accept="image/*,video/*">
-</td>
-</tr>
-</TABLE>
 
 <p>
 <button><img src="{{url_for('static', filename='Intelligible_illustrations/restInfoLogo.ico')}}" alt="Завантажити паспорт на інтернет-платформу" type="submit" style="vertical-align: middle;"><b>Додати</b></button>

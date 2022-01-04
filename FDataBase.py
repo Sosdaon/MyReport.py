@@ -25,11 +25,13 @@ class FDataBase:
                 object_output_date,
                 responsible_restorer, origin_description, appearance_description, damages_description,
                 signs_description,
-                size_description):
+                size_description, purposes_researches, methods_researches, executor_date_researches, results_researches,
+                restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date,
+                treatments_results):
         try:
             tm = math.floor(time.time())
             self.__cur.execute(
-                'INSERT INTO posts VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                'INSERT INTO posts VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 (passport_number,
                  title, text, institution_name, department_name, definition, typological, object_owner, author,
                  clarified_author, object_title,
@@ -37,10 +39,12 @@ class FDataBase:
                  technique, clarified_technique, object_size,
                  clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer,
                  object_output_date, responsible_restorer, origin_description,
-                 appearance_description, damages_description, signs_description, size_description, tm))
+                 appearance_description, damages_description, signs_description, size_description, purposes_researches,
+                 methods_researches, executor_date_researches, results_researches, restoration_program,
+                 treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results, tm))
             self.__db.commit()
         except sqlite3.Error as e:
-            print('Помилка додавання статті в базу даних' + str(e))
+            print('Помилка додавання публікації в базу даних' + str(e))
             return False
 
         return True
@@ -53,12 +57,15 @@ class FDataBase:
                                f'technique, clarified_technique, object_size, clarified_size, weight, clarified_weight,'
                                f'reason, object_input_date, execute_restorer, object_output_date, responsible_restorer,'
                                f'origin_description, appearance_description, damages_description, signs_description,'
-                               f'size_description FROM posts WHERE id = {postId} LIMIT 1')
+                               f'size_description, purposes_researches, methods_researches, executor_date_researches,'
+                               f' results_researches, restoration_program, treatments_descriptions,'
+                               f' treatments_chemicals, treatments_executor_date,'
+                               f' treatments_results FROM posts WHERE id = {postId} LIMIT 1')
             res = self.__cur.fetchone()
             if res:
                 return res
         except sqlite3.Error as e:
-            print('Помилка отримання статті з бази даних' + str(e))
+            print('Помилка отримання публікації з бази даних' + str(e))
 
         return (False, False)
 
@@ -69,6 +76,6 @@ class FDataBase:
             if res:
                 return res
         except sqlite3.Error as e:
-            print('Помилка отримання статті з бази даних' + str(e))
+            print('Помилка отримання публікації з бази даних' + str(e))
 
         return []
