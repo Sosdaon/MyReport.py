@@ -4,6 +4,8 @@
 
     <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
     <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
+    <script type="text/javascript" src="{{url_for('static', filename='javascripts/formsForDifferentMaterials.mjs')}}">
+    import {wooden} from 'javascripts/formsForDifferentMaterials.mjs')'</script>
     <meta charset="UTF-8">
     <title>Рест.Інфо - {{web_page_title}}</title>
 </head>
@@ -113,7 +115,8 @@
        <td>Час створення:<input type="text" name="time_of_creation" placeholder="Рік/століття/проміжок часу"></td><td><input type="text" name="clarified_time_of_creation" placeholder="Рік/століття/проміжок часу"></td>
    </tr>
     <tr>
-       <td>Матеріал, основа:<input type="text" name=material placeholder="Перелік назв матеріалів"></td><td><input type="text" name="clarified_material" placeholder="Перелік назв матеріалів"></td>
+       <td>Матеріал, основа:<button type="button" onclick="let ceramican = '\n(КЕРАМІКА):\n    1.Вказати спосіб виготовлення (ручне ліплення, гончарний круг); якщо є ангоб, глазур вказати колір.\n    4.Описати орнамент (заглиблений, рельєфний).\n    5.Описати орнамент (заглиблений, рельєфний, розписний).\n    6.Описати розпис (монохромний, поліхромний, колір фарб).\n    7.Вказати систему розпису, стиль (геометричний, рослинний, зооморфний, антропоморфний і т.д.).\n    8.Вказати місце розпису (на вінці, тулубі, по всьому полі посудини або орнаментальний пояс і т.д.).\n    II. Опис черепка:\n    1. Структура черепка (неоднорідна, однородна);грубозерниста, погано  вимучена, з включенням кварцу, шамоту, дрісви і т.д.; дрібнозерниста, добре вимучена;\n    2. Визначити черепок (дзвінкий, глухий, щільний, пористий).;\n    3. Домішки: органічні (солома, полова, мушль і т.д.); неорганічні (кварц, пісок, шамот, кровавик і т.д.);\n    4. Вказати колір черепка, міцність.5. Визначити випал (рівномірний, нерівномірний, деформований під дією високої температури, повторний випал, деформації, поверхня спучена, слоїста і т.д.)'; server.addOneMoreMaterialForm(ceramican)"> Глина </button>
+       <button type="button" onclick="let wood = '\n(ДЕРЕВИНА):\n    1.Вказати спосіб виготовлення (різьблення, слюсарні роботи); Вказати якій породі деревини відповідає орнамент.\n    4.Описати стан деревини (відмінний, уражений шкідниками, трухлявий, деформації, поверхня спучена, слоїста і т.д.)\n    5.Описати різьблення, орнамент (заглиблений, рельєфний).\n    6.Описати стан фарбового шару (ступінь зчеплення), розпис (монохромний, поліхромний, колір фарб)'; server.addOneMoreMaterialForm(wood)"> Дерево </button><input type="text" name="material" placeholder="Вкажіть матеріал"></td><td><input type="text" name="clarified_material" placeholder="Перелік назв матеріалів"></td>
    </tr>
     <tr>
        <td>Техніка виконання:<input type="text" name="technique" placeholder="Введіть назву техніки"></td><td><input type="text" name="clarified_technique" placeholder="Введіть назву техніки"></td>
@@ -160,7 +163,7 @@
 
     <p><b>6. Стан пам'ятки до реставрації</b></p>
     <p><i>6.1 За візуальним спостереженням:</i></p>
-    <p><textarea type="text" name="appearance_description" contenteditable="true" rows="30" cols="140" placeholder="Вкажіть опис пам'ятки">
+    <p><textarea type="text" name="appearance_description" id="changed_appearance_description" contenteditable="true" rows="30" cols="140" placeholder="Вкажіть опис пам'ятки">
 За візуальним спостереженням: ...
 I. Візуальне дослідження (опис пам’ятки):
     1.Вказати назву (якщо є спеціальний термін).

@@ -96,3 +96,9 @@ TD, TH {
 TH {
     background: #8FBC8F; /* Цвет фона */
 }
+.hide{
+  display:none;
+}
+.show{
+  display:block;
+}

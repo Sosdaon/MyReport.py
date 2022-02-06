@@ -4,6 +4,7 @@ import os
 from flask import Flask, render_template, url_for, request, flash, session, redirect, abort, g
 from FDataBase import FDataBase
 from heritageLogic import ReportTreatment
+import jyserver.Flask as jsf
 
 DATABASE = '/tmp/flsite.db'
 DEBUG = True
@@ -15,6 +16,30 @@ app.config.from_object(__name__)
 
 app.config.update(dict(DATABASE=os.path.join(app.root_path, 'flsite,db')))
 
+@jsf.use(app)
+class ChangeFormsForMaterial:
+    def __init__(self, material='Опис обраного матеріалу'):
+        self.changed_appearance_description = '''За візуальним спостереженням: ...
+I. Візуальне дослідження (опис пам’ятки):
+    1.Вказати назву (якщо є спеціальний термін).
+    2.Описати форму.
+II. Описати вигляд предмета:
+    1. Складові предмета, їх геометрична форма;
+III. Забруднення:
+    1.Нестійкі (пилові, брудові, ґрунтові) .
+    2.Стійкі (вапнякові, природні та синтетичні смоли, висоли, гіпсові забруднення, плями кислів металів, сліди кіптяви,
+        пеку, жиру, плями від пластиліну, масляної фарби, воску, клейові забруднення, чорнила, туш,
+        записи фарбами (якого кольору), забруднення фарбами  від попередніх тонувань – місцезнаходження фарби,
+        забруднення на зламах фрагментів (від клею, вапнякових нашарувань, пило брудові, ґрунтові і т.д.).
+    3.Визначити за візуальним спостереженням яким клеєм склеєно фрагменти (клеєм БФ (світло-коричневого, коричневого, червоного кольору, прозорий),
+        ПВА (полівінилацетатний клей молочного кольору, непрозорий, безбарвний, прозорий)
+Визначити форму забруднення (у вигляді локальних плям, неправильної форми, повсюдно, забруднення якоїсь частини пам’ятки).
+    Матеріали:'''
+        self.material = material
+
+    def addOneMoreMaterialForm(self, material):
+        self.changed_appearance_description += material
+        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
 
 def connect_db():
     conn = sqlite3.connect(app.config['DATABASE'])
@@ -48,7 +73,6 @@ def index():
     dbase = FDataBase(db)
     print(url_for('index'))
     return render_template('index.html', menu=dbase.getMenu(), web_page_title='Головна', posts=dbase.getPostsAnonce())
-
 
 @app.route('/add_post', methods=['POST', 'GET'])
 def addPost():
@@ -84,7 +108,7 @@ def addPost():
                 flash('Успішно опубліковано!', category='success')
         else:
             flash("Спочатку введіть, будь ласка, інвентарний номер та дані акта приймання пам'ятки.", category='error')
-    return render_template('add_post.html', menu=dbase.getMenu(), web_page_title='Публікація')
+    return ChangeFormsForMaterial.render(render_template('add_post.html', menu=dbase.getMenu(), web_page_title='Публікація', ))
 
 
 @app.route('/post/<int:id_post>')
