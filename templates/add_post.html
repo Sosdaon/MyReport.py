@@ -232,8 +232,8 @@ VІ. Біологічні пошкодження і руйнування:
 
 <tr>
 <td>
-<button type="button" id="choose_iron_cunduct" onclick="">Залізо</button>
-<button type="button" id="choose_cuprum_cunduct" onclick="">Мідь</button>
+<button type="button" id="choose_iron_cunduct" onclick="server.fillInIronForm();">Залізо</button>
+<button type="button" id="choose_cuprum_cunduct" onclick="server.fillInCuprumForm();">Мідь</button>
 <button type="button" id="choose_silver_cunduct" onclick="">Срібло</button>
 <input type="text" name="chosen_iron_lab_researches" id="iron_lab_researches" list="iron_lab_researches_list">
 <datalist id="iron_lab_researches_list">
@@ -335,10 +335,10 @@ VІ. Біологічні пошкодження і руйнування:
 <th>Мета дослідження</th><th>Методи і результати дослідження</th><th>Виконавець та дата</th>
 </tr>
 <tr>
-<td><textarea type="text" name="purposes_researches" contenteditable="true" rows="30" cols="22">
-Визначення заліза фізичним методом
-</textarea></td><td><textarea type="text" name="methods_researches" contenteditable="true" rows="30" cols="35">
-Для визначення заліза використовувався магніт.
+<td><textarea type="text" name="purposes_researches" id="purposes_of_conduction" contenteditable="true" rows="30" cols="22">
+(ЗРАЗОК)Визначення заліза фізичним методом
+</textarea></td><td><textarea type="text" name="methods_researches" id="methods_conduction" contenteditable="true" rows="30" cols="35">
+(ЗРАЗОК)Для визначення заліза використовувався магніт.
 Висновок:
 Усі деталі предмета мають магнітні властивості та виготовлені з заліза.
 </textarea></td>
@@ -361,22 +361,6 @@ VІ. Біологічні пошкодження і руйнування:
 <TABLE>
 <tr>
 <th>Орієнтовні зразки описів проведення реставраційних заходів за матеріалами:</th>
-</tr>
-
-
-<tr>
-<td>
-<label for="iron_treatments">Залізо</label>
-<input type="text" name="chosen_iron_treatments" id="iron_treatments" list="iron_treatments_list">
-<datalist id="iron_treatments_list">
-    <option>Видалити поверхневі забруднення</option>
-    <option>Видалити стійкі забруднення</option>
-    <option>Видалити продукти корозії</option>
-    <option>Виготовити втрачений елемент</option>
-    <option>Провести стабілізацію продуктів корозії</option>
-    <option>Провести консервацію</option>
-</datalist>
-</td>
 </tr>
 
 <tr>
@@ -416,7 +400,8 @@ VІ. Біологічні пошкодження і руйнування:
 <th>7. Програма проведення реставраційних заходів та їх обгрунтування</th>
 </tr>
 <tr>
-<td><textarea type="text" name="restoration_program" contenteditable="true" rows="20" cols="91">
+<td><textarea type="text" name="restoration_program" id="restoration_program_by_material" contenteditable="true" rows="20" cols="91">
+(ЗРАЗОК)
 1.Видалити поверхневі забруднення
 2.Видалити стійкі забруднення
 3.Видалити продукти корозії
@@ -436,10 +421,12 @@ VІ. Біологічні пошкодження і руйнування:
     <th>Матеріали, хімікати (консентрація %)</th><th>Виконавець та дата</th>
 </tr>
 <tr>
-<td><textarea type="text" name="treatments_descriptions" contenteditable="true" rows="29" cols="60">
+<td><textarea type="text" name="treatments_descriptions" id="treatments_descriptions_by_material" contenteditable="true" rows="29" cols="60">
+(ЗРАЗОК)
 Видалення поверхневих забруднень:
 Проводили тампонами змоченими в нафтовому розчиннику нефрас "Калоша".
-</textarea></td><td><textarea type="text" name="treatments_chemicals" contenteditable="true" rows="29" cols="35">
+</textarea></td><td><textarea type="text" name="treatments_chemicals" id="treatments_chemicals_by_material" contenteditable="true" rows="29" cols="35">
+(ЗРАЗОК)
 Нефрас "Калоша".
 </textarea></td>
 <td><textarea type="text" name="treatments_executor_date" rows="29" cols="20" placeholder="Ім'я та прізвище виконавця;

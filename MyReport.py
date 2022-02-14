@@ -18,7 +18,8 @@ app.config.update(dict(DATABASE=os.path.join(app.root_path, 'flsite,db')))
 
 @jsf.use(app)
 class ChangeFormsForMaterial:
-    def __init__(self, material='Опис обраного матеріалу', damages='пошкодження та втрати'):
+    def __init__(self, material='Опис обраного матеріалу', damages='Пошкодження та втрати'):
+#Iron
         self.changed_appearance_description = '''За візуальним спостереженням: ...
 I. Візуальне дослідження (опис пам’ятки):
     1.Вказати назву (якщо є спеціальний термін).
@@ -56,6 +57,86 @@ V. Опис наявних втрат та пошкоджень:
         наявні значні або незначні, часткові, локальні втрати, потертості відшарування (вказати форму, розмір, розташування);
 VІ. Біологічні пошкодження і руйнування:
     6.Бактерії, гриби та продукти їх життєдіяльності.'''
+        self.changed_ConductTitle = 'q'
+        self.changed_ConductDescription = 'w'
+        self.ironConductTitle = '''Визначення заліза фізичним методом\n\n\n\n
+Визначення продуктів корозії заліза методом світлової мікроскопії\n\n'''
+        self.ironConductDescription = '''Для визначення заліза використовувався магніт.
+Висновок:
+Усі деталі предмета мають магнітні властивості та виготовлені з заліза
+
+Під мікроскопом МБС-10 були виявлені продукти корозії заліза,
+колір яких характерний для :
+-оксидів заліза
+-гідроксидів заліза
+Висновок:
+сплав на основі заліза'''
+        self.restoration_program_iron = '''1.Видалити поверхневі забруднення
+2.Видалити стійкі забруднення
+3.Видалити продукти корозії
+4.Виготовити втрачений елемент
+5.Провести стабілізацію продуктів корозії
+6.Провести консервацію'''
+        self.iron_treatments_descriptions = '''Видалення поверхневих забруднень:
+Проводили м'яким щетинним пензлем.\n
+Видалення стійних забруднень:
+Проводили тампонами змоченими в нафтовому розчиннику нефрас "Калоша".\n
+Видалення продуктів корозії:
+Проводили механічно, за допомогою скальпелю, бор машинки та з використанням спец. інструментів.\n
+Виготовлення втраченого елементу:
+Було виготовлено втрачений елемент в авторській техніці з заліза відповідно до аналогів.\n
+Проведення стабілізації:
+Нанесення розчину проводилося один раз. Після дії реагенту,
+розчин було видалено за допомогою ватних тампонів змочених у розчині спирту.\n
+Провести консервацію:
+Проводили шляхом нанесення синтетичного воску Cosmoloid H80
+за допомогою пензля по всій поверхні предмета.'''
+        self.iron_treatments_chemicals = '''-\n\n\n
+Нефрас "Калоша".\n\n\n
+-\n\n\n
+-\n\n\n
+Танін-20%;
+C2H5OH-50%(Спирт етиловий-96%);
+H2O-50%(дист.)\n\n
+Cosmoloid H80;
+Ацетон-97%.'''
+#Cuprum
+        self.cuprumConductTitle = '''Визначення металу фізичним методом\n\n\n\n\n\n\n\n\n\n\n\n\n
+Визначення металу мідного кольору\n'''
+        self.cuprumConductDescription = '''Метал мідного кольору визначено за допомогою 50% азотної кислоти.
+На очищену поверхню досліджуваного матеріалу було нанесено краплю розчину азотної кислоти з водою в співвідношенні 1:1.
+Після початку реакції і газовиділення крплю обережно промокнули фільтрувальним папером.
+Папір було вміщено в пари аміаку, після чого пляма на папері забарвилась у темно-блакитний колір.
+Висновок:
+сплав на основі міді.\n
+Під мікроскопом МБС-10 були виявлені продукти корозії міді,
+колір яких характерний для:
+-вуглекислих солей міді.
+Висновок:
+сплав  на основі міді.'''
+        self.restoration_program_cuprum = '''1.Видалити поверхневі забруднення
+2.Видалити стійкі забруднення
+3.Видалити продукти корозії
+4.Провести стабілізацію продуктів корозії
+5.Провести консервацію'''
+        self.cuprum_treatments_descriptions = '''Видалення поверхневих забруднень:
+Проводили м'яким щетинним пензлем.\n
+Видалення стійних забруднень:
+Проводили тампонами змоченими в нафтовому розчиннику нефрас "Калоша".\n
+Видалення продуктів корозії:
+Проводили механічно, за допомогою скальпелю, бор машинки та з використанням спец. інструментів.\n
+Проведення стабілізації:
+Проводили шляхом нанесення розчину бензотриазолу на всю поверхню металу за допомогою щетинного пензля.\n
+Проведення консервації:
+Проводили шляхом нанесення синтетичного воску Cosmoloid H80
+за допомогою пензля по всій поверхні предмета.'''
+        self.cuprum_treatments_chemicals = '''-\n\n
+Нефрас "Калоша".\n\n\n
+-\n\n\n
+C6H5N3(Бензотриазол)-2%;
+C2H5OH-98%(Спирт етиловий-96%).\n\n
+Cosmoloid H80;
+Ацетон-97%.'''
         self.material = material
         self.damages = damages
 
@@ -74,6 +155,23 @@ VІ. Біологічні пошкодження і руйнування:
         self.js.document.getElementById("choose_iron_cunduct").style.visibility = 'visible'
         self.js.document.getElementById("choose_cuprum_cunduct").style.visibility = 'visible'
         self.js.document.getElementById("choose_silver_cunduct").style.visibility = 'visible'
+
+    def fillInIronForm(self):
+        self.changed_ConductTitle += self.ironConductTitle
+        self.js.document.getElementById("purposes_of_conduction").innerHTML = self.changed_ConductTitle
+        self.changed_ConductDescription += self.ironConductDescription
+        self.js.document.getElementById("methods_conduction").innerHTML = self.changed_ConductDescription
+        self.js.document.getElementById("restoration_program_by_material").innerHTML = self.restoration_program_iron
+        self.js.document.getElementById("treatments_descriptions_by_material").innerHTML = self.iron_treatments_descriptions
+        self.js.document.getElementById("treatments_chemicals_by_material").innerHTML = self.iron_treatments_chemicals
+
+    def fillInCuprumForm(self):
+        self.changed_ConductTitle += self.cuprumConductTitle
+        self.js.document.getElementById("purposes_of_conduction").innerHTML = self.changed_ConductTitle
+        self.js.document.getElementById("methods_conduction").innerHTML = self.cuprumConductDescription
+        self.js.document.getElementById("restoration_program_by_material").innerHTML = self.restoration_program_cuprum
+        self.js.document.getElementById("treatments_descriptions_by_material").innerHTML = self.cuprum_treatments_descriptions
+        self.js.document.getElementById("treatments_chemicals_by_material").innerHTML = self.cuprum_treatments_chemicals
 
 def connect_db():
     conn = sqlite3.connect(app.config['DATABASE'])
