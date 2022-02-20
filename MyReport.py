@@ -107,10 +107,10 @@ Cosmoloid H80;
 #Cuprum
         self.cuprumConductTitle = '''Визначення металу мідного кольору\n\n\n\n\n\n\n\n\n\n\n\n\n\n
 Визначення продуктів корозії міді методом світлової мікроскопії\n\n\n\n\n'''
-        self.cuprumConductDescription = '''Метал мідного кольору визначено за допомогою 50% азотної кислоти.
-На очищену поверхню досліджуваного матеріалу було нанесено краплю розчину азотної кислоти з водою в співвідношенні 1:1.
-Після початку реакції і газовиділення крплю обережно промокнули фільтрувальним папером.
-Папір було вміщено в пари аміаку, після чого пляма на папері забарвилась у темно-блакитний колір.
+        self.cuprumConductDescription = '''Метал мідного кольору визначено \nза допомогою 50% азотної кислоти. 
+На очищену поверхню досліджуваного \nматеріалу було нанесено краплю \nрозчину азотної кислоти з водою в співвідношенні 1:1. 
+Після початку реакції і \nгазовиділення краплю обережно \nпромокнули фільтрувальним папером. 
+Папір було вміщено в пари аміаку, \nпісля чого пляма на папері \nзабарвилась у темно-блакитний \nколір.
 Висновок:
 сплав на основі міді.\n
 Під мікроскопом МБС-10 були виявлені продукти корозії міді,
@@ -139,6 +139,59 @@ Cosmoloid H80;
 Нефрас "Калоша".\n\n\n
 -\n\n\n
 C6H5N3(Бензотриазол)-2%;
+C2H5OH-98%(Спирт етиловий-96%).\n\n
+Cosmoloid H80;
+Ацетон-97%.\n\n'''
+#Silver
+        self.silverConductTitle = '''Визначення металу на вміст срібла\n\n\n\n\n\n\n
+Визначення продуктів корозії методом світлової мікроскопії\n\n\n\n\n
+Визначення якості металу\n\n\n\n\n'''
+        self.silverConductDescription = '''На очищену поверхню було нанесено \nкраплю "червоної пробірної \nкислоти",
+через кілька секунд пляма \nзабарвилась у колір червоного \nбіхромату срібла.
+Висновок:
+сплав на основі срібла.\n
+Під мікроскопом МБС-10 були виявлені продукти корозії міді,
+колір яких характерний для:
+-хлорної міді
+-сульфідів срібла
+Висновок:
+сплав має вміст міді.\n
+Апробація проводилась пробірним наглядом.
+Висновок:
+експонат відповідає пробі срібла 875.\n\n'''
+        self.restoration_program_silver = '''(СРІБЛО)\nВидалити поверхневі забруднення
+Видалити стійкі забруднення
+Видалити продукти корозії
+Видалити залишки олов’яного припою
+Провести стабілізацію
+Провести консервацію\n'''
+        self.silver_treatments_descriptions = '''(СРІБЛО)\nВидалення поверхневих забруднень:
+Проводили м'яким щетинним пензлем.\n
+Видалення стійних забруднень:
+Проводили в теплій проточній воді з використанням ПАР та м'якого щетинного пензля з подальшою просушкою при t-45°.\n
+Видалення осередків рецидивуючої корозії міді:
+Проводили механічно під мікроскопом МБС-10 з застосуванням компресів з розчином сульфамінової кислоти,
+з послідуючим ретельним промиванням в дистильованій воді та просушкою(t-45°с);
+продукти корозії срібла (сульфідну плівку) видаляли за допомогою щетинного пензля та розчину на основі тіосечовини 
+з подальшою промивкою та просушкою при t-45°.\n
+Видалення залишків олов’яного припою:
+Проводили механічно під мікроскопом, не доходячи до авторської поверхні.
+Для потоншення олов’яного припою використовували компреси з водним розчином соляної кислоти,
+з послідуючою нейтралізацією розчином кальцинованої соди та ретельною промивкою дистильованою водою.\n
+Проведення стабілізації:
+Проводили шляхом нанесення розчину бензотриазолу на всю поверхню металу за допомогою ватних тампонів.\n
+Проведення консервації:
+Проводили шляхом нанесення синтетичного воску Cosmoloid H80
+за допомогою пензля по всій поверхні предмета.\n'''
+        self.silver_treatments_chemicals = '''(СРІБЛО)\n-\n\n\nПАР\n\n\n\nH3NSO3(Cульфамінова кислота)-3%;
+CH4N2S(Тіосечовина)-80г;
+H3PO4(Ортофосфорна кислота)-10г;
+C2H5OH(Етанол)-60г;
+Емульгатор-10г;
+(дист.)-1000г.\n\n\n
+HCl(Соляна кислота)водний розчин-60%;
+Na2CO3(Кальцинована сода)водний розчин-1%.\n\n\n\n
+C6H5N3(Бензотриазол)-1%;
 C2H5OH-98%(Спирт етиловий-96%).\n\n
 Cosmoloid H80;
 Ацетон-97%.\n\n'''
@@ -183,6 +236,18 @@ Cosmoloid H80;
         self.changed_treatments_descriptions += self.cuprum_treatments_descriptions
         self.js.document.getElementById("treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
         self.changed_treatments_chemicals += self.cuprum_treatments_chemicals
+        self.js.document.getElementById("treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
+
+    def fillInSilverForm(self):
+        self.changed_ConductTitle += self.silverConductTitle
+        self.js.document.getElementById("purposes_of_conduction").innerHTML = self.changed_ConductTitle
+        self.changed_ConductDescription += self.silverConductDescription
+        self.js.document.getElementById("methods_conduction").innerHTML = self.changed_ConductDescription
+        self.changed_restoration_program += self.restoration_program_silver
+        self.js.document.getElementById("restoration_program_by_material").innerHTML = self.changed_restoration_program
+        self.changed_treatments_descriptions += self.silver_treatments_descriptions
+        self.js.document.getElementById("treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
+        self.changed_treatments_chemicals += self.silver_treatments_chemicals
         self.js.document.getElementById("treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
 
 def connect_db():
