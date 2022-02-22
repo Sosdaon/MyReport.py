@@ -4,6 +4,7 @@ import os
 from flask import Flask, render_template, url_for, request, flash, session, redirect, abort, g
 from FDataBase import FDataBase
 from heritageLogic import ReportTreatment
+from heritageLogic import GeneralHeritageDescription, Materials
 import jyserver.Flask as jsf
 
 DATABASE = '/tmp/flsite.db'
@@ -13,195 +14,64 @@ MAX_CONTENT_LENGTH = 1024 * 1024
 
 app = Flask(__name__)
 app.config.from_object(__name__)
-
 app.config.update(dict(DATABASE=os.path.join(app.root_path, 'flsite,db')))
+
 
 @jsf.use(app)
 class ChangeFormsForMaterial:
-    def __init__(self, material='Опис обраного матеріалу', damages='Пошкодження та втрати'):
-#Iron
-        self.changed_appearance_description = '''За візуальним спостереженням: ...
-I. Візуальне дослідження (опис пам’ятки):
-    1.Вказати назву (якщо є спеціальний термін).
-    2.Описати форму та колір.
-II. Описати вигляд предмета:
-    1. Складові предмета, їх геометрична форма;
-III. Забруднення:
-    1.Нестійкі (пилові, брудові, ґрунтові) .
-    2.Стійкі (вапнякові, природні та синтетичні смоли, висоли, гіпсові забруднення, плями кислів металів, сліди кіптяви,
-        пеку, жиру, плями від пластиліну, масляної фарби, воску, клейові забруднення, чорнила, туш,
-        записи фарбами (якого кольору), забруднення фарбами  від попередніх тонувань – місцезнаходження фарби,
-        забруднення на зламах фрагментів (від клею, вапнякових нашарувань, пило брудові, ґрунтові і т.д.).
-    3.Визначити за візуальним спостереженням яким клеєм склеєно фрагменти (клеєм БФ (світло-коричневого, коричневого, червоного кольору, прозорий),
-        ПВА (полівінилацетатний клей молочного кольору, непрозорий, безбарвний, прозорий)
-Визначити форму забруднення (у вигляді локальних плям, неправильної форми, повсюдно, забруднення якоїсь частини пам’ятки).
-    Матеріали:'''
-        self.changed_damages_description = '''ІV. Попередня реставрація:
-    1. Якщо була – описати якість попередньої реставрації).
-    2. Свідчення про попередню реставрацію (відсутні, якщо є вказати джерело чи з чиїх слів записано).
-    3. Реставрація не повна якщо:
-        -  фрагменти склеєні, а втрати не восповнені;
-        -восповнені частково;
-        -є втрати у будь-якій частині виробу (вказати місце втрати, форму, розмір).
-V. Опис наявних втрат та пошкоджень:
-    1. Вказати із якої кількості фрагментів складається пам’ятка.
-    2. Вказати на якість попереднього склеювання, доповнення.
-    3. Вказати які частини пам’ятки відсутні (вказати розмір в см/мм та кв. см/мм).
-    4. Вказати пошкодження, відслоюваня, розшарування, деформації.
-    5. Визначити дефекти:
-        -привнесені від археологічного чи реставраційного інструменту, помітки олівцем і т.д.;
-        -виробничі;
-        -тріщини (наскрізні, не наскрізні, волосяні (вказати форму, розмір, розташування);
-        -сколи, вибоїни, незначні втрати, каверни, пробоїни, викришування, потертості, подряпини (вказати форму, розмір, розташування);
-        -визначити дефекти тонувань (якщо є розпис, консерваційного покриття – описати колір, стан збереження,
-        наявні значні або незначні, часткові, локальні втрати, потертості відшарування (вказати форму, розмір, розташування);
-VІ. Біологічні пошкодження і руйнування:
-    6.Бактерії, гриби та продукти їх життєдіяльності.'''
-        self.changed_ConductTitle = '=>'
-        self.changed_ConductDescription = '->'
-        self.changed_restoration_program = '}'
-        self.changed_treatments_descriptions = '>'
-        self.changed_treatments_chemicals = ')'
-        self.ironConductTitle = '''Визначення заліза фізичним методом\n\n\n\n
-Визначення продуктів корозії заліза методом світлової мікроскопії\n\n\n\n\n\n'''
-        self.ironConductDescription = '''Для визначення заліза використовувався магніт.
-Висновок:
-Усі деталі предмета мають магнітні властивості та виготовлені з заліза
+    def __init__(self, initial_changed_value='>>>', fillInExamples=GeneralHeritageDescription.AppearanceDescription(),
+                 fillInCeramics=Materials.Ceramics(), fillInIron=Materials.Iron(), fillInCuprum=Materials.Cuprum(),
+                 fillInSilver=Materials.Silver(), fillInWood=Materials.Wood(), fillInMetal=Materials.Metal()):
+        # General texts for any heritage object
+        self.changed_appearance_description = fillInExamples.general_appearance_description
+        self.changed_damages_description = fillInExamples.general_damages_description
+        self.changed_ConductTitle, self.changed_ConductDescription, self.changed_restoration_program, \
+        self.changed_treatments_descriptions, self.changed_treatments_chemicals = initial_changed_value, \
+                                                                                  initial_changed_value, initial_changed_value, initial_changed_value, initial_changed_value
+        # Ceramics (wide material field)
+        self.ceramics_appearance_description = fillInCeramics.ceramics_appearance_description
+        self.ceramics_damage_description = fillInCeramics.ceramics_damage_description
+        # Wood (wide material field)
+        self.wood_appearance_description = fillInWood.wood_appearance_description
+        self.wood_damage_description = fillInWood.wood_damage_description
+        # Metal (wide material field)
+        self.metal_appearance_description = fillInMetal.metal_appearance_description
+        self.metal_damage_description = fillInMetal.metal_damage_description
+        # Iron
+        self.ironConductTitle = fillInIron.iron_research_titles
+        self.ironConductDescription = fillInIron.iron_research_descriptions
+        self.restoration_program_iron = fillInIron.iron_restoration_program
+        self.iron_treatments_descriptions = fillInIron.iron_treatments_descriptions
+        self.iron_treatments_chemicals = fillInIron.iron_treatments_chemicals
+        # Cuprum
+        self.cuprumConductTitle = fillInCuprum.cuprum_research_titles
+        self.cuprumConductDescription = fillInCuprum.cuprum_research_descriptions
+        self.restoration_program_cuprum = fillInCuprum.cuprum_restoration_program
+        self.cuprum_treatments_descriptions = fillInCuprum.cuprum_treatments_descriptions
+        self.cuprum_treatments_chemicals = fillInCuprum.cuprum_treatments_chemicals
+        # Silver
+        self.silverConductTitle = fillInSilver.silver_research_titles
+        self.silverConductDescription = fillInSilver.silver_research_descriptions
+        self.restoration_program_silver = fillInSilver.silver_restoration_program
+        self.silver_treatments_descriptions = fillInSilver.silver_treatments_descriptions
+        self.silver_treatments_chemicals = fillInSilver.silver_treatments_chemicals
 
-Під мікроскопом МБС-10 були виявлені продукти корозії заліза,
-колір яких характерний для :
--оксидів заліза
--гідроксидів заліза
-Висновок:
-сплав на основі заліза\n\n'''
-        self.restoration_program_iron = '''(ЗАЛІЗО)\n1.Видалити поверхневі забруднення
-2.Видалити стійкі забруднення
-3.Видалити продукти корозії
-4.Виготовити втрачений елемент
-5.Провести стабілізацію продуктів корозії
-6.Провести консервацію\n'''
-        self.iron_treatments_descriptions = '''(ЗАЛІЗО)\nВидалення поверхневих забруднень:
-Проводили м'яким щетинним пензлем.\n
-Видалення стійних забруднень:
-Проводили тампонами змоченими в нафтовому розчиннику нефрас "Калоша".\n
-Видалення продуктів корозії:
-Проводили механічно, за допомогою скальпелю, бор машинки та з використанням спец. інструментів.\n
-Виготовлення втраченого елементу:
-Було виготовлено втрачений елемент в авторській техніці з заліза відповідно до аналогів.\n
-Проведення стабілізації:
-Нанесення розчину проводилося один раз. Після дії реагенту,
-розчин було видалено за допомогою ватних тампонів змочених у розчині спирту.\n
-Провести консервацію:
-Проводили шляхом нанесення синтетичного воску Cosmoloid H80
-за допомогою пензля по всій поверхні предмета.\n'''
-        self.iron_treatments_chemicals = '''(ЗАЛІЗО)
--\n\n
-Нефрас "Калоша".\n\n\n
--\n\n\n
--\n\n\n
-Танін-20%;
-C2H5OH-50%(Спирт етиловий-96%);
-H2O-50%(дист.)\n\n
-Cosmoloid H80;
-Ацетон-97%.\n\n'''
-#Cuprum
-        self.cuprumConductTitle = '''Визначення металу мідного кольору\n\n\n\n\n\n\n\n\n\n\n\n\n\n
-Визначення продуктів корозії міді методом світлової мікроскопії\n\n\n\n\n'''
-        self.cuprumConductDescription = '''Метал мідного кольору визначено \nза допомогою 50% азотної кислоти. 
-На очищену поверхню досліджуваного \nматеріалу було нанесено краплю \nрозчину азотної кислоти з водою в співвідношенні 1:1. 
-Після початку реакції і \nгазовиділення краплю обережно \nпромокнули фільтрувальним папером. 
-Папір було вміщено в пари аміаку, \nпісля чого пляма на папері \nзабарвилась у темно-блакитний \nколір.
-Висновок:
-сплав на основі міді.\n
-Під мікроскопом МБС-10 були виявлені продукти корозії міді,
-колір яких характерний для:
--вуглекислих солей міді.
-Висновок:
-сплав  на основі міді.\n\n'''
-        self.restoration_program_cuprum = '''(МІДЬ)\n1.Видалити поверхневі забруднення
-2.Видалити стійкі забруднення
-3.Видалити продукти корозії
-4.Провести стабілізацію продуктів корозії
-5.Провести консервацію\n'''
-        self.cuprum_treatments_descriptions = '''(МІДЬ)\nВидалення поверхневих забруднень:
-Проводили м'яким щетинним пензлем.\n
-Видалення стійних забруднень:
-Проводили тампонами змоченими в нафтовому розчиннику нефрас "Калоша".\n
-Видалення продуктів корозії:
-Проводили механічно, за допомогою скальпелю, бор машинки та з використанням спец. інструментів.\n
-Проведення стабілізації:
-Проводили шляхом нанесення розчину бензотриазолу на всю поверхню металу за допомогою щетинного пензля.\n
-Проведення консервації:
-Проводили шляхом нанесення синтетичного воску Cosmoloid H80
-за допомогою пензля по всій поверхні предмета.\n'''
-        self.cuprum_treatments_chemicals = '''(МІДЬ)
--\n\n
-Нефрас "Калоша".\n\n\n
--\n\n\n
-C6H5N3(Бензотриазол)-2%;
-C2H5OH-98%(Спирт етиловий-96%).\n\n
-Cosmoloid H80;
-Ацетон-97%.\n\n'''
-#Silver
-        self.silverConductTitle = '''Визначення металу на вміст срібла\n\n\n\n\n\n\n
-Визначення продуктів корозії методом світлової мікроскопії\n\n\n\n\n
-Визначення якості металу\n\n\n\n\n'''
-        self.silverConductDescription = '''На очищену поверхню було нанесено \nкраплю "червоної пробірної \nкислоти",
-через кілька секунд пляма \nзабарвилась у колір червоного \nбіхромату срібла.
-Висновок:
-сплав на основі срібла.\n
-Під мікроскопом МБС-10 були виявлені продукти корозії міді,
-колір яких характерний для:
--хлорної міді
--сульфідів срібла
-Висновок:
-сплав має вміст міді.\n
-Апробація проводилась пробірним наглядом.
-Висновок:
-експонат відповідає пробі срібла 875.\n\n'''
-        self.restoration_program_silver = '''(СРІБЛО)\nВидалити поверхневі забруднення
-Видалити стійкі забруднення
-Видалити продукти корозії
-Видалити залишки олов’яного припою
-Провести стабілізацію
-Провести консервацію\n'''
-        self.silver_treatments_descriptions = '''(СРІБЛО)\nВидалення поверхневих забруднень:
-Проводили м'яким щетинним пензлем.\n
-Видалення стійних забруднень:
-Проводили в теплій проточній воді з використанням ПАР та м'якого щетинного пензля з подальшою просушкою при t-45°.\n
-Видалення осередків рецидивуючої корозії міді:
-Проводили механічно під мікроскопом МБС-10 з застосуванням компресів з розчином сульфамінової кислоти,
-з послідуючим ретельним промиванням в дистильованій воді та просушкою(t-45°с);
-продукти корозії срібла (сульфідну плівку) видаляли за допомогою щетинного пензля та розчину на основі тіосечовини 
-з подальшою промивкою та просушкою при t-45°.\n
-Видалення залишків олов’яного припою:
-Проводили механічно під мікроскопом, не доходячи до авторської поверхні.
-Для потоншення олов’яного припою використовували компреси з водним розчином соляної кислоти,
-з послідуючою нейтралізацією розчином кальцинованої соди та ретельною промивкою дистильованою водою.\n
-Проведення стабілізації:
-Проводили шляхом нанесення розчину бензотриазолу на всю поверхню металу за допомогою ватних тампонів.\n
-Проведення консервації:
-Проводили шляхом нанесення синтетичного воску Cosmoloid H80
-за допомогою пензля по всій поверхні предмета.\n'''
-        self.silver_treatments_chemicals = '''(СРІБЛО)\n-\n\n\nПАР\n\n\n\nH3NSO3(Cульфамінова кислота)-3%;
-CH4N2S(Тіосечовина)-80г;
-H3PO4(Ортофосфорна кислота)-10г;
-C2H5OH(Етанол)-60г;
-Емульгатор-10г;
-(дист.)-1000г.\n\n\n
-HCl(Соляна кислота)водний розчин-60%;
-Na2CO3(Кальцинована сода)водний розчин-1%.\n\n\n\n
-C6H5N3(Бензотриазол)-1%;
-C2H5OH-98%(Спирт етиловий-96%).\n\n
-Cosmoloid H80;
-Ацетон-97%.\n\n'''
-        self.material = material
-        self.damages = damages
-
-    def addOneMoreMaterialForm(self, material, damages):
-        self.changed_appearance_description += material
+    def addCeramics(self):
+        self.changed_appearance_description += self.ceramics_appearance_description
         self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
-        self.changed_damages_description += damages
+        self.changed_damages_description += self.ceramics_damage_description
+        self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
+
+    def addWood(self):
+        self.changed_appearance_description += self.wood_appearance_description
+        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
+        self.changed_damages_description += self.wood_damage_description
+        self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
+
+    def addMetal(self):
+        self.changed_appearance_description += self.metal_appearance_description
+        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
+        self.changed_damages_description += self.metal_damage_description
         self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
 
     def hideMetalResearches(self):
@@ -234,9 +104,11 @@ Cosmoloid H80;
         self.changed_restoration_program += self.restoration_program_cuprum
         self.js.document.getElementById("restoration_program_by_material").innerHTML = self.changed_restoration_program
         self.changed_treatments_descriptions += self.cuprum_treatments_descriptions
-        self.js.document.getElementById("treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
+        self.js.document.getElementById(
+            "treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
         self.changed_treatments_chemicals += self.cuprum_treatments_chemicals
-        self.js.document.getElementById("treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
+        self.js.document.getElementById(
+            "treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
 
     def fillInSilverForm(self):
         self.changed_ConductTitle += self.silverConductTitle
@@ -246,9 +118,12 @@ Cosmoloid H80;
         self.changed_restoration_program += self.restoration_program_silver
         self.js.document.getElementById("restoration_program_by_material").innerHTML = self.changed_restoration_program
         self.changed_treatments_descriptions += self.silver_treatments_descriptions
-        self.js.document.getElementById("treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
+        self.js.document.getElementById(
+            "treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
         self.changed_treatments_chemicals += self.silver_treatments_chemicals
-        self.js.document.getElementById("treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
+        self.js.document.getElementById(
+            "treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
+
 
 def connect_db():
     conn = sqlite3.connect(app.config['DATABASE'])
@@ -283,6 +158,7 @@ def index():
     print(url_for('index'))
     return render_template('index.html', menu=dbase.getMenu(), web_page_title='Головна', posts=dbase.getPostsAnonce())
 
+
 @app.route('/add_post', methods=['POST', 'GET'])
 def addPost():
     db = get_db()
@@ -308,7 +184,7 @@ def addPost():
                                 request.form['damages_description'], request.form['signs_description'],
                                 request.form['size_description'], request.form['purposes_researches'],
                                 request.form['methods_researches'], request.form['executor_date_researches'],
-                                request.form['results_researches'],  request.form['restoration_program'],
+                                request.form['results_researches'], request.form['restoration_program'],
                                 request.form['treatments_descriptions'], request.form['treatments_chemicals'],
                                 request.form['treatments_executor_date'], request.form['treatments_results'])
             if not res:
@@ -317,7 +193,8 @@ def addPost():
                 flash('Успішно опубліковано!', category='success')
         else:
             flash("Спочатку введіть, будь ласка, інвентарний номер та дані акта приймання пам'ятки.", category='error')
-    return ChangeFormsForMaterial.render(render_template('add_post.html', menu=dbase.getMenu(), web_page_title='Публікація', ))
+    return ChangeFormsForMaterial.render(
+        render_template('add_post.html', menu=dbase.getMenu(), web_page_title='Публікація', ))
 
 
 @app.route('/post/<int:id_post>')
