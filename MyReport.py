@@ -3,7 +3,6 @@ import sqlite3
 import os
 from flask import Flask, render_template, url_for, request, flash, session, redirect, abort, g
 from FDataBase import FDataBase
-from heritageLogic import ReportTreatment
 from heritageLogic import GeneralHeritageDescription, Materials
 import jyserver.Flask as jsf
 
@@ -19,7 +18,7 @@ app.config.update(dict(DATABASE=os.path.join(app.root_path, 'flsite,db')))
 
 @jsf.use(app)
 class ChangeFormsForMaterial:
-    def __init__(self, initial_changed_value='>>>', fillInExamples=GeneralHeritageDescription.AppearanceDescription(),
+    def __init__(self, initial_changed_value='', fillInExamples=GeneralHeritageDescription.AppearanceDescription(),
                  fillInCeramics=Materials.Ceramics(), fillInIron=Materials.Iron(), fillInCuprum=Materials.Cuprum(),
                  fillInSilver=Materials.Silver(), fillInWood=Materials.Wood(), fillInMetal=Materials.Metal()):
         # General texts for any heritage object
@@ -118,11 +117,9 @@ class ChangeFormsForMaterial:
         self.changed_restoration_program += self.restoration_program_silver
         self.js.document.getElementById("restoration_program_by_material").innerHTML = self.changed_restoration_program
         self.changed_treatments_descriptions += self.silver_treatments_descriptions
-        self.js.document.getElementById(
-            "treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
+        self.js.document.getElementById("treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
         self.changed_treatments_chemicals += self.silver_treatments_chemicals
-        self.js.document.getElementById(
-            "treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
+        self.js.document.getElementById("treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
 
 
 def connect_db():
@@ -163,7 +160,6 @@ def index():
 def addPost():
     db = get_db()
     dbase = FDataBase(db)
-    RestorerPassport = ReportTreatment.Passport()
 
     if request.method == 'POST':
         if len(request.form['name']) > 0 and len(request.form['post']) > 0:

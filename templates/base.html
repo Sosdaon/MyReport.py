@@ -143,7 +143,7 @@
 </p>
 
     <p><b>4. Підстава для проведення реставраційних заходів</b></p>
-    <div align="justify"><p>{{reason}}</p></div>
+    <div align="justify"><p>{{ reason | safe }}</p></div>
 
 
     <p>
@@ -165,121 +165,20 @@
 
     <p><b>5. Основні дані з історії пам'ятки (довідка про побутування; відомості про умови зберігання,</b></p>
         <p><b>попередні дослідження, консерваційно-реставраційні заходи тощо), джерело надходження інформації</b></p>
-    <div align="justify"><p>{{origin_description}}</p></div>
+    <div align="justify"><p>{{ origin_description | safe }}</p></div>
 
     <p><b>6. Стан пам'ятки до реставрації</b></p>
     <p><i>6.1 За візуальним спостереженням:</i></p>
-    <div align="justify"><p>{{appearance_description}}</p></div>
+    <div align="justify"><p>{{ appearance_description | safe }}</p></div>
     <p><i>6.1.2 Втрати та пошкодження:</i></p>
-    <div align="justify"><p>{{damages_description}}</p></div>
+    <div align="justify"><p>{{ damages_description | safe }}</p></div>
     <p><i>6.1.3 Старі номери та позначення:</i></p>
-    <div align="justify"><p>{{signs_description}}</p></div>
+    <div align="justify"><p>{{ signs_description | safe }}</p></div>
     <p><i>6.1.4 Розміри:</i></p>
-    <p>{{size_description}}</p>
+    <p>{{ size_description | safe }}</p>
 
 
 <b>6.2. За даними лабораторних досліджень:</b>
-<TABLE>
-<tr>
-<th>Орієнтовні зразки описів проведення лабораторних досліджень за матеріалами:</th>
-</tr>
-
-
-<tr>
-<td>
-<label for="iron_lab_researches">Залізо</label>
-<input type="text" name="chosen_iron_lab_researches" id="iron_lab_researches" list="iron_lab_researches_list">
-<datalist id="iron_lab_researches_list">
-    <option>Визначення заліза фізичним методом</option>
-    <option>Визначення продуктів корозії заліза методом світлової мікроскопії</option>
-</datalist>
-</td>
-</tr>
-
-<tr>
-<td>
-<label for="iron_lab_researches_description">Обрати опис проведеня дослідження заліза</label>
-<input type="text" name="chosen_iron_lab_researches_description" id="iron_lab_researches_description" list="iron_lab_researches_list_description">
-<datalist id="iron_lab_researches_list_description">
-    <option>Для визначення заліза використовувався магніт.
-Висновок:
-Усі деталі предмета мають магнітні властивості та виготовлені з заліза</option>
-    <option>Під мікроскопом МБС-10 були виявлені продукти корозії заліза,
-колір яких характерний для :
--оксидів заліза
--гідроксидів заліза
-Висновок:
-сплав на основі заліза</option>
-</datalist>
-</td>
-</tr>
-
-
-<tr>
-<td>
-<label for="copper_lab_researches">Мідь</label>
-<input type="text" name="chosen_copper_lab_researches" id="copper_lab_researches" list="copper_lab_researches_list">
-<datalist id="copper_lab_researches_list">
-    <option>Визначення металу мідного кольору</option>
-    <option>Визначення продуктів корозії міді методом світлової мікроскопії</option>
-</datalist>
-</td>
-</tr>
-
-
-<tr>
-<td>
-<label for="copper_lab_researches_description">Обрати опис проведеня дослідження міді</label>
-<input type="text" name="chosen_copper_lab_researches_description" id="copper_lab_researches_description" list="copper_lab_researches_description_list">
-<datalist id="copper_lab_researches_description_list">
-    <option>Нанесену краплю розчину азотної кислоти з водою 1:1 промокнули фільтрувальним папером. Папір після вміщення в пари аміаку забарвився у темно-блакитний колір.
-Висновок:
-сплав на основі міді.</option>
-    <option>Під мікроскопом МБС-10 були виявлені продукти корозії міді,
-колір яких характерний для:
--вуглекислих солей міді.
-Висновок:
-сплав  на основі міді.</option>
-</datalist>
-</td>
-</tr>
-
-
-<tr>
-<td>
-<label for="silver_lab_researches">Срібло</label>
-<input type="text" name="chosen_silver_lab_researches" id="silver_lab_researches" list="silver_lab_researches_list">
-<datalist id="silver_lab_researches_list">
-    <option>Визначення металу на вміст срібла</option>
-    <option>Визначення продуктів корозії міді методом світлової мікроскопії</option>
-    <option>Визначення якості металу</option>
-</datalist>
-</td>
-</tr>
-
-
-<tr>
-<td>
-<label for="silver_lab_research_description">Обрати опис проведеня дослідження срібла</label>
-<input type="text" name="chosen_silver_lab_research_description" id="silver_lab_research_description" list="silver_lab_research_description_list">
-<datalist id="silver_lab_research_description_list">
-    <option>На очищену поверхню було нанесено краплю "червоної пробірної кислоти",
-через кілька секунд пляма забарвилась у колір червоного біхромату срібла.
-Висновок:
-сплав на основі срібла.</option>
-    <option>Під мікроскопом МБС-10 були виявлені продукти корозії міді,
-колір яких характерний для :
--хлорної міді
--сульфідів срібла
-Висновок:
-сплав має вміст міді.</option>
-    <option>Апробація проводилась пробірним наглядом.
-Висновок:
-експонат відповідає пробі срібла 875.</option>
-</datalist>
-</td>
-</tr>
-</TABLE>
 
 
 <p>
@@ -288,75 +187,21 @@
 <th>Мета дослідження</th><th>Методи і результати дослідження</th><th>Виконавець та дата</th>
 </tr>
 <tr>
-<td><div align="justify"><p>{{purposes_researches}}</p></div></td><td><div align="justify"><p>{{methods_researches}}</p></div></td><td><div align="justify"><p>{{executor_date_researches}}</p></div></td>
+<td><div align="justify"><p>{{ purposes_researches | safe }}</p></div></td><td><div align="justify"><p>{{ methods_researches | safe }}</p></div></td><td><div align="justify"><p>{{ executor_date_researches | safe }}</p></div></td>
 </tr>
 </table>
 </p>
 
 
 <p><b>6.3 Загальний висновок за результатами досліджень:</b></p>
-<div align="justify"><p>{{results_researches}}</p></div>
+<div align="justify"><p>{{ results_researches | safe }}</p></div>
 
-
-<TABLE>
-<tr>
-<th>Орієнтовні зразки описів проведення реставраційних заходів за матеріалами:</th>
-</tr>
-
-
-<tr>
-<td>
-<label for="iron_treatments">Залізо</label>
-<input type="text" name="chosen_iron_treatments" id="iron_treatments" list="iron_treatments_list">
-<datalist id="iron_treatments_list">
-    <option>Видалити поверхневі забруднення</option>
-    <option>Видалити стійкі забруднення</option>
-    <option>Видалити продукти корозії</option>
-    <option>Виготовити втрачений елемент</option>
-    <option>Провести стабілізацію продуктів корозії</option>
-    <option>Провести консервацію</option>
-</datalist>
-</td>
-</tr>
-
-<tr>
-<td>
-
-<label for="copper_treatments">Мідь</label>
-<input type="text" name="chosen_copper_treatments" id="copper_treatments" list="copper_treatments_list">
-<datalist id="copper_treatments_list">
-    <option>Видалити поверхневі забруднення</option>
-    <option>Видалити стійкі забруднення</option>
-    <option>Видалити продукти корозії</option>
-    <option>Провести стабілізацію продуктів корозії</option>
-    <option>Провести консервацію</option>
-</datalist>
-
-</td>
-</tr>
-
-
-
-<tr>
-<td>
-<label for="silver_treatments">Срібло</label>
-<input type="text" name="chosen_silver_treatments" id="silver_treatments" list="silver_treatments_list">
-<datalist id="silver_treatments_list">
-    <option>Видалити поверхневі забруднення</option>
-    <option>Видалити стійкі забруднення</option>
-    <option>Видалити продукти корозії</option>
-    <option>Видалити залишки олов’яного припою</option>
-    <option>Провести стабілізацію</option>
-    <option>Провести консервацію</option>
-</datalist>
-</td>
-</tr>
 
 <tr>
 <th>7. Програма проведення реставраційних заходів та їх обгрунтування</th>
 </tr>
 <tr>
-<td><div align="justify"><p>{{restoration_program}}</p></div></td>
+<td><div align="justify"><p>{{ restoration_program | safe }}</p></div></td>
 
 </TABLE>
 
@@ -369,14 +214,14 @@
     <th>Матеріали, хімікати (консентрація %)</th><th>Виконавець та дата</th>
 </tr>
 <tr>
-<td><div align="justify"><p>{{treatments_descriptions}}</p></div></td><td><div align="justify"><p>{{treatments_chemicals}}</p></div></td><td><div align="justify"><p>{{treatments_executor_date}}</p></div></td>
+<td><div align="justify"><p>{{ treatments_descriptions | safe }}</p></div></td><td><div align="justify"><p>{{ treatments_chemicals | safe }}</p></div></td><td><div align="justify"><p>{{ treatments_executor_date | safe }}</p></div></td>
 </tr>
 </table>
 </p>
 
 
 <p><b>6.3 Загальний висновок за результатами досліджень:</b></p>
-<div align="justify"><p>{{treatments_results}}</p></div>
+<div align="justify"><p>{{ treatments_results | safe }}</p></div>
 
 
 <div align="left">

@@ -1,6 +1,7 @@
 import math
 import sqlite3
 import time
+import re
 
 
 class FDataBase:
@@ -29,6 +30,23 @@ class FDataBase:
                 restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date,
                 treatments_results):
         try:
+            reason = re.sub(r'\n','<br>', reason)
+            origin_description = re.sub(r'\n','<br>', origin_description)
+            appearance_description = re.sub(r'\n','<br>', appearance_description)
+            damages_description = re.sub(r'\n','<br>', damages_description)
+            signs_description = re.sub(r'\n','<br>', signs_description)
+            size_description = re.sub(r'\n','<br>', size_description)
+            purposes_researches = re.sub(r'\n','<br>', purposes_researches)
+            methods_researches = re.sub(r'\n','<br>', methods_researches)
+            executor_date_researches = re.sub(r'\n','<br>', executor_date_researches)
+            results_researches = re.sub(r'\n','<br>', results_researches)
+            restoration_program = re.sub(r'\n','<br>', restoration_program)
+            treatments_descriptions = re.sub(r'\n','<br>', treatments_descriptions)
+            treatments_chemicals = re.sub(r'\n','<br>', treatments_chemicals)
+            treatments_executor_date = re.sub(r'\n','<br>', treatments_executor_date)
+            treatments_results = re.sub(r'\n','<br>', treatments_results)
+
+
             tm = math.floor(time.time())
             self.__cur.execute(
                 'INSERT INTO posts VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
