@@ -20,42 +20,10 @@
     {% endblock mainmenu -%}
 
 
-
 {% for ctg, msg in get_flashed_messages(True) %}
 <div class="flash {{ctg}}">{{msg}}</div>
 {% endfor %}
-  <style>
-   #iron_lab_researches_description {
-    width: 1250px; /* Ширина поля в пикселах */
-   }
-   #copper_lab_researches_description {
-    width: 1250px; /* Ширина поля в пикселах */
-   }
-   #silver_lab_research_description {
-    width: 1250px; /* Ширина поля в пикселах */
-   }
-   #iron_lab_researches {
-    width: 1250px; /* Ширина поля в пикселах */
-   }
-   #copper_lab_researches {
-    width: 1250px; /* Ширина поля в пикселах */
-   }
-   #silver_lab_researches {
-    width: 1250px; /* Ширина поля в пикселах */
-   }
-   #researches_executor {
-    width: 1250px; /* Ширина поля в пикселах */
-   }
-   #copper_treatments {
-    width: 500px; /* Ширина поля в пикселах */
-   }
-   #iron_treatments {
-    width: 500px; /* Ширина поля в пикселах */
-   }
-   #silver_treatments {
-    width: 500px; /* Ширина поля в пикселах */
-   }
-  </style>
+
 <form enctype="multipart/form-data" action="{{url_for('addPost')}}" method="post">
 <div align="center">
     <p>

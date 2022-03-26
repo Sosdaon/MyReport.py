@@ -102,3 +102,26 @@ TH {
 .show{
   display:block;
 }
+.purposes_researches_table_space{
+width: 120px;
+}
+.methods_researches_table_space{
+width: 190px;
+}
+.executor_date_researches_table_space{
+width: 118px;
+}
+
+.treatment_base_space{
+width: 1080px;
+}
+
+.treatments_descriptions_table_space{
+width: 500px;
+}
+.treatments_chemicals_table_space{
+width: 290px;
+}
+treatments_executor_date_table_space{
+width: 290px;
+}

@@ -19,38 +19,6 @@
 <div class="content">
     <h1>{{web_page_title}}</h1>
 
-  <style>
-   #iron_lab_researches_description {
-    width: 1250px; /* Ширина поля в пикселах */
-   }
-   #copper_lab_researches_description {
-    width: 1250px; /* Ширина поля в пикселах */
-   }
-   #silver_lab_research_description {
-    width: 1250px; /* Ширина поля в пикселах */
-   }
-   #iron_lab_researches {
-    width: 1250px; /* Ширина поля в пикселах */
-   }
-   #copper_lab_researches {
-    width: 1250px; /* Ширина поля в пикселах */
-   }
-   #silver_lab_researches {
-    width: 1250px; /* Ширина поля в пикселах */
-   }
-   #researches_executor {
-    width: 1250px; /* Ширина поля в пикселах */
-   }
-   #copper_treatments {
-    width: 500px; /* Ширина поля в пикселах */
-   }
-   #iron_treatments {
-    width: 500px; /* Ширина поля в пикселах */
-   }
-   #silver_treatments {
-    width: 500px; /* Ширина поля в пикселах */
-   }
-  </style>
 <div align="center">
     <p>
     <table>
@@ -187,7 +155,7 @@
 <th>Мета дослідження</th><th>Методи і результати дослідження</th><th>Виконавець та дата</th>
 </tr>
 <tr>
-<td><div align="justify"><p>{{ purposes_researches | safe }}</p></div></td><td><div align="justify"><p>{{ methods_researches | safe }}</p></div></td><td><div align="justify"><p>{{ executor_date_researches | safe }}</p></div></td>
+<td class="purposes_researches_table_space">{{ purposes_researches | safe }}</td><td class="methods_researches_table_space">{{ methods_researches | safe }}</td><td class="executor_date_researches_table_space">{{ executor_date_researches | safe }}</td>
 </tr>
 </table>
 </p>
@@ -202,19 +170,19 @@
 </tr>
 <tr>
 <td><div align="justify"><p>{{ restoration_program | safe }}</p></div></td>
+</tr>
 
-</TABLE>
 
 
 <p>
 <b>9. Проведення реставраційних заходів:</b>
-<table>
+<table class="treatment_base_space">
 <tr>
 <th>Опис операцій із зазначенням методу, методики, технології, інструментарію</th>
     <th>Матеріали, хімікати (консентрація %)</th><th>Виконавець та дата</th>
 </tr>
 <tr>
-<td><div align="justify"><p>{{ treatments_descriptions | safe }}</p></div></td><td><div align="justify"><p>{{ treatments_chemicals | safe }}</p></div></td><td><div align="justify"><p>{{ treatments_executor_date | safe }}</p></div></td>
+<td class="treatments_descriptions_table_space">{{ treatments_descriptions | safe }}</td><td class="treatments_chemicals_table_space">{{ treatments_chemicals | safe }}</td><td class="treatments_executor_date_table_space">{{ treatments_executor_date | safe }}</td>
 </tr>
 </table>
 </p>
