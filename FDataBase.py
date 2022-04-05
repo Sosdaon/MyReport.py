@@ -19,6 +19,7 @@ class FDataBase:
             print('Помилка читання з бази даних')
         return []
 
+
     def addPost(self, passport_number, title, text, institution_name, department_name, definition, typological,
                 object_owner, author, clarified_author, object_title, clarified_object_title, time_of_creation,
                 clarified_time_of_creation, material, clarified_material, technique, clarified_technique, object_size,

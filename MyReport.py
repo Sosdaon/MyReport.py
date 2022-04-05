@@ -2,6 +2,8 @@
 import sqlite3
 import os
 from flask import Flask, render_template, url_for, request, flash, session, redirect, abort, g
+from flask import send_from_directory
+from werkzeug.utils import secure_filename
 from FDataBase import FDataBase
 from heritageLogic import GeneralHeritageDescription, Materials
 import jyserver.Flask as jsf
@@ -9,8 +11,9 @@ import jyserver.Flask as jsf
 DATABASE = '/tmp/flsite.db'
 DEBUG = True
 SECRET_KEY = 'fdgdfgdfggf786hfg6hfg6h7f'
-MAX_CONTENT_LENGTH = 1024 * 1024
-
+ALLOWED_EXTENSIONS = {'png'}
+UPLOAD_FOLDER = 'C:/Users/ASUS/Desktop/exhibits'
+MAX_CONTENT_PATH = 1024 * 1024
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config.update(dict(DATABASE=os.path.join(app.root_path, 'flsite,db')))
@@ -183,6 +186,7 @@ def addPost():
                                 request.form['results_researches'], request.form['restoration_program'],
                                 request.form['treatments_descriptions'], request.form['treatments_chemicals'],
                                 request.form['treatments_executor_date'], request.form['treatments_results'])
+
             if not res:
                 flash('Виникла, помилка публікування', category='error')
             else:
@@ -191,6 +195,16 @@ def addPost():
             flash("Спочатку введіть, будь ласка, інвентарний номер та дані акта приймання пам'ятки.", category='error')
     return ChangeFormsForMaterial.render(
         render_template('add_post.html', menu=dbase.getMenu(), web_page_title='Публікація', ))
+
+
+@app.route('/save_images', methods=['POST', 'GET'])
+def save_image():
+    if request.method == 'POST':
+        object_appearance = request.files['image_of_object']
+        image = secure_filename(object_appearance.filename)
+        object_appearance.save(os.path.join(app.config['UPLOAD_FOLDER'], image))
+        return redirect(url_for('save_image', name=image))
+    return render_template('upload_images.html')
 
 
 @app.route('/post/<int:id_post>')
@@ -254,3 +268,5 @@ def contact():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    app.config['MAX_CONTENT_PATH'] = MAX_CONTENT_PATH
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER

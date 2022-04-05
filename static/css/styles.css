@@ -30,7 +30,7 @@ ul.mainmenu {
 }
 ul.mainmenu li {
     float: left;
-    margin: 22px 35px 0 22px;
+    margin: 10px 35px 0 22px;
 }
 ul.mainmanu li.last {float: right;}
 
@@ -122,6 +122,6 @@ width: 500px;
 .treatments_chemicals_table_space{
 width: 290px;
 }
-treatments_executor_date_table_space{
-width: 290px;
+.treatments_executor_date_table_space{
+width: 270px;
 }
