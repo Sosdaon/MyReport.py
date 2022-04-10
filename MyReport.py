@@ -185,7 +185,8 @@ def addPost():
                                 request.form['methods_researches'], request.form['executor_date_researches'],
                                 request.form['results_researches'], request.form['restoration_program'],
                                 request.form['treatments_descriptions'], request.form['treatments_chemicals'],
-                                request.form['treatments_executor_date'], request.form['treatments_results'])
+                                request.form['treatments_executor_date'], request.form['treatments_results'],
+                                request.files['image_of_object'], request.form['image_description'])
 
             if not res:
                 flash('Виникла, помилка публікування', category='error')
@@ -195,16 +196,6 @@ def addPost():
             flash("Спочатку введіть, будь ласка, інвентарний номер та дані акта приймання пам'ятки.", category='error')
     return ChangeFormsForMaterial.render(
         render_template('add_post.html', menu=dbase.getMenu(), web_page_title='Публікація', ))
-
-
-@app.route('/save_images', methods=['POST', 'GET'])
-def save_image():
-    if request.method == 'POST':
-        object_appearance = request.files['image_of_object']
-        image = secure_filename(object_appearance.filename)
-        object_appearance.save(os.path.join(app.config['UPLOAD_FOLDER'], image))
-        return redirect(url_for('save_image', name=image))
-    return render_template('upload_images.html')
 
 
 @app.route('/post/<int:id_post>')

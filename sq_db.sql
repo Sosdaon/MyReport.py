@@ -47,5 +47,7 @@ treatments_descriptions text NOT NULL,
 treatments_chemicals text NOT NULL,
 treatments_executor_date text NOT NULL,
 treatments_results text NOT NULL,
+photo_description TEXT NOT NULL,
+photo BLOB NOT NULL,
 time integer NOT NULL
 );

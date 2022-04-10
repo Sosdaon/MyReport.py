@@ -19,6 +19,9 @@ class FDataBase:
             print('Помилка читання з бази даних')
         return []
 
+    def convertToBinary(self, image):
+        self.blobData = image.read()
+        return self.blobData
 
     def addPost(self, passport_number, title, text, institution_name, department_name, definition, typological,
                 object_owner, author, clarified_author, object_title, clarified_object_title, time_of_creation,
@@ -29,28 +32,29 @@ class FDataBase:
                 signs_description,
                 size_description, purposes_researches, methods_researches, executor_date_researches, results_researches,
                 restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date,
-                treatments_results):
+                treatments_results, image_of_object, image_description):
         try:
-            reason = re.sub(r'\n','<br>', reason)
-            origin_description = re.sub(r'\n','<br>', origin_description)
-            appearance_description = re.sub(r'\n','<br>', appearance_description)
-            damages_description = re.sub(r'\n','<br>', damages_description)
-            signs_description = re.sub(r'\n','<br>', signs_description)
-            size_description = re.sub(r'\n','<br>', size_description)
-            purposes_researches = re.sub(r'\n','<br>', purposes_researches)
-            methods_researches = re.sub(r'\n','<br>', methods_researches)
-            executor_date_researches = re.sub(r'\n','<br>', executor_date_researches)
-            results_researches = re.sub(r'\n','<br>', results_researches)
-            restoration_program = re.sub(r'\n','<br>', restoration_program)
-            treatments_descriptions = re.sub(r'\n','<br>', treatments_descriptions)
-            treatments_chemicals = re.sub(r'\n','<br>', treatments_chemicals)
-            treatments_executor_date = re.sub(r'\n','<br>', treatments_executor_date)
-            treatments_results = re.sub(r'\n','<br>', treatments_results)
+            reason = re.sub(r'\n', '<br>', reason)
+            origin_description = re.sub(r'\n', '<br>', origin_description)
+            appearance_description = re.sub(r'\n', '<br>', appearance_description)
+            damages_description = re.sub(r'\n', '<br>', damages_description)
+            signs_description = re.sub(r'\n', '<br>', signs_description)
+            size_description = re.sub(r'\n', '<br>', size_description)
+            purposes_researches = re.sub(r'\n', '<br>', purposes_researches)
+            methods_researches = re.sub(r'\n', '<br>', methods_researches)
+            executor_date_researches = re.sub(r'\n', '<br>', executor_date_researches)
+            results_researches = re.sub(r'\n', '<br>', results_researches)
+            restoration_program = re.sub(r'\n', '<br>', restoration_program)
+            treatments_descriptions = re.sub(r'\n', '<br>', treatments_descriptions)
+            treatments_chemicals = re.sub(r'\n', '<br>', treatments_chemicals)
+            treatments_executor_date = re.sub(r'\n', '<br>', treatments_executor_date)
+            treatments_results = re.sub(r'\n', '<br>', treatments_results)
 
+            binary_image = self.convertToBinary(image_of_object)
 
             tm = math.floor(time.time())
             self.__cur.execute(
-                'INSERT INTO posts VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                'INSERT INTO posts VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 (passport_number,
                  title, text, institution_name, department_name, definition, typological, object_owner, author,
                  clarified_author, object_title,
@@ -60,7 +64,8 @@ class FDataBase:
                  object_output_date, responsible_restorer, origin_description,
                  appearance_description, damages_description, signs_description, size_description, purposes_researches,
                  methods_researches, executor_date_researches, results_researches, restoration_program,
-                 treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results, tm))
+                 treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results,
+                 binary_image, image_description, tm))
             self.__db.commit()
         except sqlite3.Error as e:
             print('Помилка додавання публікації в базу даних' + str(e))
