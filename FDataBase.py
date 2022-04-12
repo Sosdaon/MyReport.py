@@ -1,8 +1,10 @@
 import math
+import os.path
 import sqlite3
 import time
 import re
-
+from flask import send_from_directory
+from werkzeug.utils import secure_filename
 
 class FDataBase:
     def __init__(self, db):
@@ -32,7 +34,7 @@ class FDataBase:
                 signs_description,
                 size_description, purposes_researches, methods_researches, executor_date_researches, results_researches,
                 restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date,
-                treatments_results, image_of_object, image_description):
+                treatments_results, image_description, image_of_object):
         try:
             reason = re.sub(r'\n', '<br>', reason)
             origin_description = re.sub(r'\n', '<br>', origin_description)
@@ -50,7 +52,7 @@ class FDataBase:
             treatments_executor_date = re.sub(r'\n', '<br>', treatments_executor_date)
             treatments_results = re.sub(r'\n', '<br>', treatments_results)
 
-            binary_image = self.convertToBinary(image_of_object)
+            image_of_object = self.convertToBinary(image_of_object)
 
             tm = math.floor(time.time())
             self.__cur.execute(
@@ -65,7 +67,7 @@ class FDataBase:
                  appearance_description, damages_description, signs_description, size_description, purposes_researches,
                  methods_researches, executor_date_researches, results_researches, restoration_program,
                  treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results,
-                 binary_image, image_description, tm))
+                 image_description,image_of_object, tm))
             self.__db.commit()
         except sqlite3.Error as e:
             print('Помилка додавання публікації в базу даних' + str(e))
@@ -84,7 +86,7 @@ class FDataBase:
                                f'size_description, purposes_researches, methods_researches, executor_date_researches,'
                                f' results_researches, restoration_program, treatments_descriptions,'
                                f' treatments_chemicals, treatments_executor_date,'
-                               f' treatments_results FROM posts WHERE id = {postId} LIMIT 1')
+                               f' treatments_results, image_description, image_of_object FROM posts WHERE id = {postId} LIMIT 1')
             res = self.__cur.fetchone()
             if res:
                 return res

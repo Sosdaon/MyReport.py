@@ -191,6 +191,10 @@
 <p><b>6.3 Загальний висновок за результатами досліджень:</b></p>
 <div align="justify"><p>{{ treatments_results | safe }}</p></div>
 
+    <p>{{image_description}}</p>
+    {% set photoPath = 'Intelligible_illustrations/' + image_description %}
+
+    <img src="{{url_for('static', filename=photoPath)}}">
 
 <div align="left">
 <p><label>Використовувати зміст даної сторінки виключно з освітньою метою. 2021 рік. Україна. Київ.</label></p>
