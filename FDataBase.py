@@ -11,12 +11,13 @@ class FDataBase:
         self.__db = db
         self.__cur = db.cursor()
 
-    def getMenu(self):
-        sql = '''SELECT * FROM mainmenu'''
+    def getMainMenu(self):
+        sql = '''SELECT * FROM main_menu'''
         try:
             self.__cur.execute(sql)
             res = self.__cur.fetchall()
-            if res: return res
+            if res:
+                return res
         except:
             print('Помилка читання з бази даних')
         return []
@@ -25,7 +26,7 @@ class FDataBase:
         self.blobData = image.read()
         return self.blobData
 
-    def addPost(self, passport_number, title, text, institution_name, department_name, definition, typological,
+    def store_passport(self, passport_number, inventory_number, acceptance_number, institution_name, department_name, definition, typological,
                 object_owner, author, clarified_author, object_title, clarified_object_title, time_of_creation,
                 clarified_time_of_creation, material, clarified_material, technique, clarified_technique, object_size,
                 clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer,
@@ -34,7 +35,9 @@ class FDataBase:
                 signs_description,
                 size_description, purposes_researches, methods_researches, executor_date_researches, results_researches,
                 restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date,
-                treatments_results, image_description, image_of_object):
+                treatments_results, before_restoration_image_description, before_restoration_image_of_object,
+                process_restoration_image_description, process_restoration_image_of_object,
+                after_restoration_image_description, after_restoration_image_of_object):
         try:
             reason = re.sub(r'\n', '<br>', reason)
             origin_description = re.sub(r'\n', '<br>', origin_description)
@@ -52,13 +55,15 @@ class FDataBase:
             treatments_executor_date = re.sub(r'\n', '<br>', treatments_executor_date)
             treatments_results = re.sub(r'\n', '<br>', treatments_results)
 
-            image_of_object = self.convertToBinary(image_of_object)
+            before_restoration_image_of_object = self.convertToBinary(before_restoration_image_of_object)
+            process_restoration_image_of_object = self.convertToBinary(process_restoration_image_of_object)
+            after_restoration_image_of_object = self.convertToBinary(after_restoration_image_of_object)
 
             tm = math.floor(time.time())
             self.__cur.execute(
-                'INSERT INTO posts VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                'INSERT INTO passports VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 (passport_number,
-                 title, text, institution_name, department_name, definition, typological, object_owner, author,
+                 inventory_number, acceptance_number, institution_name, department_name, definition, typological, object_owner, author,
                  clarified_author, object_title,
                  clarified_object_title, time_of_creation, clarified_time_of_creation, material, clarified_material,
                  technique, clarified_technique, object_size,
@@ -67,7 +72,9 @@ class FDataBase:
                  appearance_description, damages_description, signs_description, size_description, purposes_researches,
                  methods_researches, executor_date_researches, results_researches, restoration_program,
                  treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results,
-                 image_description,image_of_object, tm))
+                 before_restoration_image_description, before_restoration_image_of_object,
+                 process_restoration_image_description, process_restoration_image_of_object,
+                 after_restoration_image_description, after_restoration_image_of_object, tm))
             self.__db.commit()
         except sqlite3.Error as e:
             print('Помилка додавання публікації в базу даних' + str(e))
@@ -75,9 +82,9 @@ class FDataBase:
 
         return True
 
-    def getPost(self, postId):
+    def get_passport(self, postId):
         try:
-            self.__cur.execute(f'SELECT passport_number, title, text, institution_name, department_name, definition, '
+            self.__cur.execute(f'SELECT passport_number, inventory_number, acceptance_number, institution_name, department_name, definition, '
                                f'typological, object_owner, author, clarified_author, object_title, clarified_object_title,'
                                f'time_of_creation, clarified_time_of_creation, material, clarified_material,'
                                f'technique, clarified_technique, object_size, clarified_size, weight, clarified_weight,'
@@ -86,21 +93,26 @@ class FDataBase:
                                f'size_description, purposes_researches, methods_researches, executor_date_researches,'
                                f' results_researches, restoration_program, treatments_descriptions,'
                                f' treatments_chemicals, treatments_executor_date,'
-                               f' treatments_results, image_description, image_of_object FROM posts WHERE id = {postId} LIMIT 1')
-            res = self.__cur.fetchone()
-            if res:
-                return res
+                               f' treatments_results, before_restoration_image_description,'
+                               f' before_restoration_image_of_object,'
+                               f'process_restoration_image_description,'
+                               f'process_restoration_image_of_object,'
+                               f'after_restoration_image_description,'
+                               f'after_restoration_image_of_object FROM passports WHERE id = {postId} LIMIT 1')
+            passport_field_output = self.__cur.fetchone()
+            if passport_field_output:
+                return passport_field_output
         except sqlite3.Error as e:
             print('Помилка отримання публікації з бази даних' + str(e))
 
         return (False, False)
 
-    def getPostsAnonce(self):
+    def get_passports_preview(self):
         try:
-            self.__cur.execute(f'SELECT id, title, text FROM posts ORDER BY time DESC')
-            res = self.__cur.fetchall()
-            if res:
-                return res
+            self.__cur.execute(f'SELECT id, inventory_number, acceptance_number FROM passports ORDER BY time DESC')
+            passports_preview = self.__cur.fetchall()
+            if passports_preview:
+                return passports_preview
         except sqlite3.Error as e:
             print('Помилка отримання публікації з бази даних' + str(e))
 

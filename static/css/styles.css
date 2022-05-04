@@ -18,7 +18,7 @@ a:hover {
 
 .clear {clear: both;}
 
-ul.mainmenu {
+ul.main_menu_appearance {
     list-style: none;
     background: #3F4137;
     height: 70px;
@@ -28,19 +28,9 @@ ul.mainmenu {
     font-size: 20px;
     overflow: hidden;
 }
-ul.mainmenu li {
+ul.main_menu_appearance li {
     float: left;
-    margin: 22px 35px 0 22px;
-}
-ul.mainmanu li.last {float: right;}
-
-ul.mainmanu li a {
-    color: #fdc073;
-    text-decoration: none;
-}
-
-ul.mainmanu li a:hover {
-    color: #FDA83D;
+    margin: 22px 35px 0 20px;
 }
 
 div.content {
@@ -66,22 +56,22 @@ div.content {
     background: #fa8072;
 }
 
-ul.list-posts {
+ul.list_passports_appearance {
     list-style: none;
     margin: 0;
     padding: 0;
     max-width: 600px;
 }
-ul.list-posts li {
+ul.list_passports_appearance li {
     margin: 20px 0 0 0;
     border: 1px solid #eee;
 }
-ul.list-posts .title {
+ul.list_passports_appearance .inventory_number_appearance {
     margin: 0;
     padding: 5px;
     background: #eee;
 }
-ul.list-posts .announce {
+ul.list_passports_appearance .acceptance_number_appearance {
     margin: 0;
     padding: 10px 5px 10px 5px
 }
