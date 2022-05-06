@@ -13,7 +13,7 @@ DEBUG = True
 SECRET_KEY = 'fdgdfgdfggf786hfg6hfg6h7f'
 ALLOWED_EXTENSIONS = {'png'}
 UPLOAD_FOLDER = 'C:/Users/ASUS/Desktop/pyCharm_projects/restoreConrol/static/Intelligible_illustrations'
-MAX_CONTENT_PATH = 1024 * 1024
+MAX_CONTENT_LENGTH = 16 * 1000 * 1000
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config.update(dict(DATABASE=os.path.join(app.root_path, 'flsite,db')))
@@ -179,6 +179,7 @@ def set_name_to_image(image_name, image):
 def add_passport():
     db = get_db()
     dbase = FDataBase(db)
+    print(url_for('add_passport'))
 
     if request.method == 'POST':
         if len(request.form['inventory_number']) > 0 and len(request.form['acceptance_number']) > 0:
@@ -294,6 +295,11 @@ def about_us():
     print(url_for('about_us'))
     return render_template('about.html', main_menu=dbase.getMainMenu(), web_page_title='Про нас')
 
+@app.errorhandler(413)
+def uploaded_image_too_large(error):
+    db = get_db()
+    dbase = FDataBase(db)
+    return render_template('page413.html', main_menu=dbase.getMainMenu(), web_page_title='Змініть зображення'), 413
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -317,5 +323,5 @@ def contact():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    app.config['MAX_CONTENT_PATH'] = MAX_CONTENT_PATH
+    app.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER

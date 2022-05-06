@@ -33,6 +33,10 @@ ul.main_menu_appearance li {
     margin: 22px 35px 0 20px;
 }
 
+h2.too_large_image_appearance {
+    color: #fa8072;
+}
+
 div.content {
     margin: 30px;
 }
