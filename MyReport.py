@@ -1,11 +1,16 @@
 # 10
 import sqlite3
 import os
-from flask import Flask, render_template, url_for, request, flash, session, redirect, abort, g
+from flask import Flask, render_template, url_for, request, flash, session, redirect, abort, g, send_file, make_response
 from flask import send_from_directory
 from werkzeug.utils import secure_filename
 from FDataBase import FDataBase
 from heritageLogic import GeneralHeritageDescription, Materials
+from docx import Document
+from docx.shared import Inches
+from docx.shared import Pt
+from docx.enum.style import WD_STYLE_TYPE
+import re
 import jyserver.Flask as jsf
 
 DATABASE = '/tmp/flsite.db'
@@ -168,11 +173,10 @@ def index():
 
 
 def set_name_to_image(image_name, image):
-        image_name = str(image_name)
-        image.filename = image_name
-        displayable_image = secure_filename(image.filename)
-        image.save(os.path.join(app.config['UPLOAD_FOLDER'], displayable_image))
-
+    image_name = str(image_name)
+    image.filename = image_name
+    displayable_image = secure_filename(image.filename)
+    image.save(os.path.join(app.config['UPLOAD_FOLDER'], displayable_image))
 
 
 @app.route('/add_passport', methods=['POST', 'GET'])
@@ -185,8 +189,10 @@ def add_passport():
         if len(request.form['inventory_number']) > 0 and len(request.form['acceptance_number']) > 0:
 
             names_and_images = {
-                request.form['before_restoration_image_description']: request.files['before_restoration_image_of_object'],
-                request.form['process_restoration_image_description']: request.files['process_restoration_image_of_object'],
+                request.form['before_restoration_image_description']: request.files[
+                    'before_restoration_image_of_object'],
+                request.form['process_restoration_image_description']: request.files[
+                    'process_restoration_image_of_object'],
                 request.form['after_restoration_image_description']: request.files['after_restoration_image_of_object']
             }
             try:
@@ -255,6 +261,7 @@ def show_post(id_post):
     dbase = FDataBase(db)
     passport_number, inventory_number, acceptance_number, institution_name, department_name, definition, typological, object_owner, author, clarified_author, object_title, clarified_object_title, time_of_creation, clarified_time_of_creation, material, clarified_material, technique, clarified_technique, object_size, clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer, object_output_date, responsible_restorer, origin_description, appearance_description, damages_description, signs_description, size_description, purposes_researches, methods_researches, executor_date_researches, results_researches, restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results, before_restoration_image_description, before_restoration_image_of_object, process_restoration_image_description, process_restoration_image_of_object, after_restoration_image_description, after_restoration_image_of_object = dbase.get_passport(
         id_post)
+    build_passport(passport_number, inventory_number, acceptance_number, institution_name, department_name)
     if not inventory_number:
         abort(404)
 
@@ -288,6 +295,132 @@ def show_post(id_post):
                            after_restoration_image_of_object=after_restoration_image_of_object)
 
 
+def build_passport(passport_number, inventory_number, acceptance_number, institution_name, department_name):
+    document = Document()
+
+    passport_identity_table = document.add_table(rows=2, cols=3)
+    passport_identity_table.style = 'TableGrid'
+    passport_identity_table.alignment = 2
+
+    passport_identity_parameter = passport_identity_table.rows[0].cells
+    passport_identity_parameter[0].text = '№ реставраційного паспорта:'
+    passport_identity_parameter[1].text = "інвентарний № пам'ятки"
+    passport_identity_parameter[2].text = 'Акт приймання'
+
+    passport_identity_input = passport_identity_table.rows[1].cells
+    passport_identity_input[0].text = f'{passport_number}'
+    passport_identity_input[1].text = f'{inventory_number}'
+    passport_identity_input[2].text = f'{acceptance_number}'
+
+    ministry_title = document.add_paragraph()
+    passport_type_title = document.add_paragraph()
+    institution_title = document.add_paragraph()
+    institution_parameter = document.add_paragraph()
+    department_title = document.add_paragraph()
+    department_parameter = document.add_paragraph()
+
+    font_styles = document.styles
+    font_charstyle = font_styles.add_style('CommentsStyle', WD_STYLE_TYPE.CHARACTER)
+    font_object = font_charstyle.font
+    font_object.name = 'Times New Roman'
+    font_object.size = Pt(12)
+
+    ministry_title.add_run("\nМіністерство культури та інформаційної політики України", style='CommentsStyle').bold = True
+    ministry_title.alignment = 1
+
+    passport_type_title.add_run("ПАСПОРТ РЕСТАВРАЦІЇ ПАМ'ЯТКИ ІСТОРІЇ ТА КУЛЬТУРИ (РУХОМОЇ)\n", style='CommentsStyle').bold = True
+    passport_type_title.alignment = 1
+
+    institution_title.add_run(f'{institution_name}', style='CommentsStyle').bold = True
+    institution_title.alignment = 1
+
+    institution_parameter.add_run('назва закладу, який здійснює реставрацію')
+    institution_parameter.alignment = 1
+
+    department_title.add_run(f'{department_name}', style='CommentsStyle').bold = True
+    department_title.alignment = 1
+
+    department_parameter.add_run('назва відділу/сектору')
+    department_parameter.alignment = 1
+
+    institution_table = document.add_table(rows=2, cols=6)
+    institution_table.style = 'TableGrid'
+    institution_table.alignment = 1
+
+    institution_title_parameter = institution_table.rows[0].cells
+    institution_title_parameter[0].text = 'НМІУ'
+
+
+
+    # Creating paragraph
+    institution_title = document.add_paragraph()
+    institution_title.alignment = 1
+    # Adding content to paragraph
+    institution_title.add_run('Національна академія образотворчого мистецтва і архітектури\n',
+                              style='CommentsStyle')
+    institution_title.underline = True
+    institution_title.bold = True
+
+    # Creating paragraph
+    para = document.add_paragraph()
+
+    # Adding content to paragraph
+    underline_para = para.add_run(
+        '''GeeksforGeeks is a Computer Science portal for geeks. It contains well written, well thought and well-explained computer science and programming articles, quizzes etc.''')
+
+    # Applying undeline to true
+    underline_para.underline = True
+
+    document.add_heading(f'номер паспорта: {passport_number}', 0)
+
+    p = document.add_paragraph('A plain paragraph having some ')
+    p.add_run('bold').bold = True
+    p.add_run(' and some ')
+    p.add_run('italic.').italic = True
+
+    document.add_heading('Heading, level 1', level=2)
+    document.add_paragraph('Intense quote', style='Intense Quote')
+
+    document.add_paragraph(
+        'first item in unordered list', style='List Bullet'
+    )
+    document.add_paragraph(
+        'first item in ordered list', style='List Number'
+    )
+
+    document.add_picture('lisichka.png', width=Inches(1.25))
+
+    records = (
+        (3, '101', 'Spam'),
+        (7, '422', 'Eggs'),
+        (4, '631', 'Spam, spam, eggs, and spam')
+    )
+
+    table = document.add_table(rows=1, cols=3)
+    hdr_cells = table.rows[0].cells
+    hdr_cells[0].text = 'Qty'
+    hdr_cells[1].text = 'Id'
+    hdr_cells[2].text = 'Desc'
+    for qty, id, desc in records:
+        row_cells = table.add_row().cells
+        row_cells[0].text = str(qty)
+        row_cells[1].text = id
+        row_cells[2].text = desc
+
+    paragraph = document.add_paragraph('Normal text, ')
+    paragraph.add_run('text with emphasis.', 'Emphasis')
+    paragraph.insert_paragraph_before('Lorem ipsum')
+
+    document.add_page_break()
+    document.save('filled_passport.docx')
+
+
+@app.route('/download_passport')
+def download_passport():
+    passport = 'filled_passport.docx'
+    return send_file(passport, as_attachment=True, download_name='YourFilledPassport.docx')
+
+
 @app.route('/about_us')
 def about_us():
     db = get_db()
@@ -295,11 +428,13 @@ def about_us():
     print(url_for('about_us'))
     return render_template('about.html', main_menu=dbase.getMainMenu(), web_page_title='Про нас')
 
+
 @app.errorhandler(413)
 def uploaded_image_too_large(error):
     db = get_db()
     dbase = FDataBase(db)
     return render_template('page413.html', main_menu=dbase.getMainMenu(), web_page_title='Змініть зображення'), 413
+
 
 @app.errorhandler(404)
 def page_not_found(error):
