@@ -261,7 +261,11 @@ def show_post(id_post):
     dbase = FDataBase(db)
     passport_number, inventory_number, acceptance_number, institution_name, department_name, definition, typological, object_owner, author, clarified_author, object_title, clarified_object_title, time_of_creation, clarified_time_of_creation, material, clarified_material, technique, clarified_technique, object_size, clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer, object_output_date, responsible_restorer, origin_description, appearance_description, damages_description, signs_description, size_description, purposes_researches, methods_researches, executor_date_researches, results_researches, restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results, before_restoration_image_description, before_restoration_image_of_object, process_restoration_image_description, process_restoration_image_of_object, after_restoration_image_description, after_restoration_image_of_object = dbase.get_passport(
         id_post)
-    build_passport(passport_number, inventory_number, acceptance_number, institution_name, department_name)
+    build_passport(passport_number, inventory_number, acceptance_number, institution_name, department_name, definition,
+                   typological, object_owner, author, clarified_author, object_title, clarified_object_title,
+                   time_of_creation, clarified_time_of_creation, material, clarified_material, technique,
+                   clarified_technique, object_size, clarified_size, weight, reason, object_input_date, execute_restorer,
+                   object_output_date, responsible_restorer)
     if not inventory_number:
         abort(404)
 
@@ -295,7 +299,11 @@ def show_post(id_post):
                            after_restoration_image_of_object=after_restoration_image_of_object)
 
 
-def build_passport(passport_number, inventory_number, acceptance_number, institution_name, department_name):
+def build_passport(passport_number, inventory_number, acceptance_number, institution_name, department_name, definition,
+                   typological, object_owner, author, clarified_author, object_title, clarified_object_title,
+                   time_of_creation, clarified_time_of_creation, material, clarified_material, technique,
+                   clarified_technique, object_size, clarified_size, weight, reason, object_input_date, execute_restorer,
+                   object_output_date, responsible_restorer):
     document = Document()
 
     passport_identity_table = document.add_table(rows=2, cols=3)
@@ -312,54 +320,146 @@ def build_passport(passport_number, inventory_number, acceptance_number, institu
     passport_identity_input[1].text = f'{inventory_number}'
     passport_identity_input[2].text = f'{acceptance_number}'
 
-    ministry_title = document.add_paragraph()
-    passport_type_title = document.add_paragraph()
-    institution_title = document.add_paragraph()
-    institution_parameter = document.add_paragraph()
-    department_title = document.add_paragraph()
-    department_parameter = document.add_paragraph()
-
     font_styles = document.styles
     font_charstyle = font_styles.add_style('CommentsStyle', WD_STYLE_TYPE.CHARACTER)
     font_object = font_charstyle.font
     font_object.name = 'Times New Roman'
-    font_object.size = Pt(12)
+    font_object.size = Pt(10)
 
+    ministry_title = document.add_paragraph()
     ministry_title.add_run("\nМіністерство культури та інформаційної політики України", style='CommentsStyle').bold = True
     ministry_title.alignment = 1
 
-    passport_type_title.add_run("ПАСПОРТ РЕСТАВРАЦІЇ ПАМ'ЯТКИ ІСТОРІЇ ТА КУЛЬТУРИ (РУХОМОЇ)\n", style='CommentsStyle').bold = True
+    passport_type_title = document.add_paragraph()
+    passport_type_title.add_run("ПАСПОРТ РЕСТАВРАЦІЇ ПАМ'ЯТКИ ІСТОРІЇ ТА КУЛЬТУРИ (РУХОМОЇ)", style='CommentsStyle').bold = True
     passport_type_title.alignment = 1
 
+    institution_title = document.add_paragraph()
     institution_title.add_run(f'{institution_name}', style='CommentsStyle').bold = True
     institution_title.alignment = 1
 
+    institution_parameter = document.add_paragraph()
     institution_parameter.add_run('назва закладу, який здійснює реставрацію')
     institution_parameter.alignment = 1
 
+    department_title = document.add_paragraph()
     department_title.add_run(f'{department_name}', style='CommentsStyle').bold = True
     department_title.alignment = 1
 
+    department_parameter = document.add_paragraph()
     department_parameter.add_run('назва відділу/сектору')
     department_parameter.alignment = 1
 
-    institution_table = document.add_table(rows=2, cols=6)
-    institution_table.style = 'TableGrid'
-    institution_table.alignment = 1
+    typological_title = document.add_paragraph()
+    typological_title.add_run("1. Типологічна приналежність пам'ятки").bold = True
+    typological_title.alignment = 0
 
-    institution_title_parameter = institution_table.rows[0].cells
-    institution_title_parameter[0].text = 'НМІУ'
+    typological_table = document.add_table(rows=2, cols=6)
+    typological_table.style = 'TableGrid'
+    typological_table.alignment = 1
 
+    typological_parameter = typological_table.rows[0].cells
+    typological_parameter[0].text = "Визначення характер пам'ятки:"
+    typological_parameter[1].text = "пам'ятка образотворчого мистецтва:"
+    typological_parameter[2].text = "пам'ятка декоративно-ужиткового мистецтва:"
+    typological_parameter[3].text = "археологічна пам'ятка:"
+    typological_parameter[4].text = "документальна пам'ятка:"
+    typological_parameter[5].text = "інша пам'ятка історії та культури:"
 
+    typological_input = typological_table.rows[1].cells
+    typological_input[0].text = f'{definition}'
+    if typological == '(1)':
+        typological_input[1].text = f'{typological}'
+    elif typological == '(2)':
+        typological_input[2].text = f'{typological}'
+    elif typological == '(3)':
+        typological_input[3].text = f'{typological}'
+    elif typological == '(4)':
+        typological_input[4].text = f'{typological}'
+    elif typological == '(5)':
+        typological_input[5].text = f'{typological}'
+    else:
+        typological_input[5].text = ''
+
+    object_owner_title = document.add_paragraph()
+    object_owner_title.add_run(f"2. Місце постійного зберігання, власник пам'ятки").bold = True
+    object_owner_title.alignment = 1
+
+    object_owner_input = document.add_paragraph()
+    object_owner_input.add_run(f'{object_owner}')
+    object_owner_input.alignment = 1
+
+    attribution_data_table = document.add_table(rows=8, cols=2)
+    attribution_data_table.style = 'TableGrid'
+    attribution_data_table.alignment = 1
+
+    attribution_data_parameter = attribution_data_table.rows[0].cells
+    attribution_data_parameter[0].text = "3. Атрибутивні дані про пам'ятку згідно з актом приймання"
+    attribution_data_parameter[1].text = "Уточнення в процесі реставрації"
+
+    author_parameter = attribution_data_table.rows[1].cells
+    author_parameter[0].text = f"Автор: {author}"
+    author_parameter[1].text = f'{clarified_author}'
+
+    object_title_parameter = attribution_data_table.rows[2].cells
+    object_title_parameter[0].text = f"Назва: {object_title}"
+    object_title_parameter[1].text = f'{clarified_object_title}'
+
+    time_of_creation_parameter = attribution_data_table.rows[3].cells
+    time_of_creation_parameter[0].text = f"Час створення: {time_of_creation}"
+    time_of_creation_parameter[1].text = f'{clarified_time_of_creation}'
+
+    material_parameter = attribution_data_table.rows[4].cells
+    material_parameter[0].text = f"Матеріал, основа: {material}"
+    material_parameter[1].text = f'{clarified_material}'
+
+    technique_parameter = attribution_data_table.rows[5].cells
+    technique_parameter[0].text = f"Техніка виконання: {technique}"
+    technique_parameter[1].text = f'{clarified_technique}'
+
+    object_size_parameter = attribution_data_table.rows[6].cells
+    object_size_parameter[0].text = f"Розміри: {object_size}"
+    object_size_parameter[1].text = f'{clarified_size}'
+
+    weight_parameter = attribution_data_table.rows[7].cells
+    weight_parameter[0].text = f"Вага: {weight}"
+    weight_parameter[1].text = f'{clarified_size}'
+
+    reason_title = document.add_paragraph()
+    reason_title.add_run(f"4. Підстава для проведення реставраційних заходів").bold = True
+    reason_title.alignment = 1
+
+    reason_input = document.add_paragraph()
+    reason = re.sub(r'<br>', '\n', reason)
+    reason_input.add_run(f'{reason}')
+    reason_input.alignment = 0
+
+    dates_and_restorers_table = document.add_table(rows=3, cols=2)
+    dates_and_restorers_table.style = 'TableGrid'
+    dates_and_restorers_table.alignment = 1
+
+    dates_and_restorers_parameter = dates_and_restorers_table.rows[0].cells
+    dates_and_restorers_parameter[0].text = "Дати"
+    dates_and_restorers_parameter[1].text = "Реставратори"
+
+    dates_and_restorers_parameter = dates_and_restorers_table.rows[1].cells
+    dates_and_restorers_parameter[0].text = f"Дата передання: {object_input_date}"
+    dates_and_restorers_parameter[1].text = f"Виконавець: {execute_restorer}"
+
+    dates_and_restorers_parameter = dates_and_restorers_table.rows[2].cells
+    dates_and_restorers_parameter[0].text = f"Дата завершення: {object_output_date}"
+    dates_and_restorers_parameter[1].text = f"Керівник: {responsible_restorer}"
+
+    document.add_page_break()
 
     # Creating paragraph
-    institution_title = document.add_paragraph()
-    institution_title.alignment = 1
+    #institution_title = document.add_paragraph()
+    #institution_title.alignment = 1
     # Adding content to paragraph
-    institution_title.add_run('Національна академія образотворчого мистецтва і архітектури\n',
-                              style='CommentsStyle')
-    institution_title.underline = True
-    institution_title.bold = True
+    #institution_title.add_run('Національна академія образотворчого мистецтва і архітектури\n',
+    #                          style='CommentsStyle')
+    #institution_title.underline = True
+    #institution_title.bold = True
 
     # Creating paragraph
     para = document.add_paragraph()
