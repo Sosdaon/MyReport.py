@@ -265,7 +265,8 @@ def show_post(id_post):
                    typological, object_owner, author, clarified_author, object_title, clarified_object_title,
                    time_of_creation, clarified_time_of_creation, material, clarified_material, technique,
                    clarified_technique, object_size, clarified_size, weight, reason, object_input_date, execute_restorer,
-                   object_output_date, responsible_restorer)
+                   object_output_date, responsible_restorer, origin_description, appearance_description,
+                   damages_description, signs_description, size_description)
     if not inventory_number:
         abort(404)
 
@@ -303,7 +304,8 @@ def build_passport(passport_number, inventory_number, acceptance_number, institu
                    typological, object_owner, author, clarified_author, object_title, clarified_object_title,
                    time_of_creation, clarified_time_of_creation, material, clarified_material, technique,
                    clarified_technique, object_size, clarified_size, weight, reason, object_input_date, execute_restorer,
-                   object_output_date, responsible_restorer):
+                   object_output_date, responsible_restorer, origin_description, appearance_description,
+                   damages_description, signs_description, size_description):
     document = Document()
 
     passport_identity_table = document.add_table(rows=2, cols=3)
@@ -432,6 +434,7 @@ def build_passport(passport_number, inventory_number, acceptance_number, institu
     reason_input = document.add_paragraph()
     reason = re.sub(r'<br>', '\n', reason)
     reason_input.add_run(f'{reason}')
+    reason_input.paragraph_format.first_line_indent = Pt(18)
     reason_input.alignment = 0
 
     dates_and_restorers_table = document.add_table(rows=3, cols=2)
@@ -451,6 +454,64 @@ def build_passport(passport_number, inventory_number, acceptance_number, institu
     dates_and_restorers_parameter[1].text = f"Керівник: {responsible_restorer}"
 
     document.add_page_break()
+
+    origin_description_title = document.add_paragraph()
+    origin_description_title.add_run(f"5. Основні дані з історії пам'ятки (довідка про побутування; відомості про умови зберігання, попередні дослідження,"
+                                     f" консерваційно-реставраційні заходи тощо), джерело надходження інформації").bold = True
+    origin_description_title.alignment = 0
+
+    origin_description_input = document.add_paragraph()
+    origin_description = re.sub(r'<br>', '\n', origin_description)
+    origin_description_input.add_run(f'{origin_description}')
+    origin_description_input.paragraph_format.first_line_indent = Pt(18)
+    origin_description_input.alignment = 0
+
+    appearance_description_title = document.add_paragraph()
+    appearance_description_title.add_run("6. Стан пам'ятки до реставрації").bold = True
+    appearance_description_title.alignment = 0
+    visual_observation_title = document.add_paragraph()
+    visual_observation_title.add_run("6.1 За візуальним спостереженням:", 'Emphasis')
+    visual_observation_title.alignment = 0
+    appearance_description_input = document.add_paragraph()
+    appearance_description = re.sub(r'<br>', '\n', appearance_description)
+    appearance_description_input.add_run(f'{appearance_description}')
+    appearance_description_input.paragraph_format.first_line_indent = Pt(18)
+    appearance_description_input.alignment = 0
+
+    damages_description_title = document.add_paragraph()
+    damages_description_title.add_run("6.1.2 Втрати та пошкодження:", 'Emphasis')
+    damages_description_title.alignment = 0
+
+    damages_description_input = document.add_paragraph()
+    damages_description = re.sub(r'<br>', '\n', damages_description)
+    damages_description_input.add_run(f'{damages_description}')
+    damages_description_input.paragraph_format.first_line_indent = Pt(18)
+    damages_description_input.alignment = 0
+
+    signs_description_title = document.add_paragraph()
+    signs_description_title.add_run("6.1.3 Старі номери та позначення:", 'Emphasis')
+    signs_description_title.alignment = 0
+
+    signs_description_input = document.add_paragraph()
+    signs_description = re.sub(r'<br>', '\n', signs_description)
+    signs_description_input.add_run(f'{signs_description}')
+    signs_description_input.paragraph_format.first_line_indent = Pt(18)
+    signs_description_input.alignment = 0
+
+    size_description_title = document.add_paragraph()
+    size_description_title.add_run("6.1.3 Старі номери та позначення:", 'Emphasis')
+    size_description_title.alignment = 0
+
+    size_description_input = document.add_paragraph()
+    size_description = re.sub(r'<br>', '\n', size_description)
+    size_description_input.add_run(f'{size_description}')
+    size_description_input.paragraph_format.left_indent = Inches(0.25)
+    size_description_input.alignment = 0
+
+    document.add_page_break()
+
+
+
 
     # Creating paragraph
     #institution_title = document.add_paragraph()
