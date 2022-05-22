@@ -266,7 +266,8 @@ def show_post(id_post):
                    time_of_creation, clarified_time_of_creation, material, clarified_material, technique,
                    clarified_technique, object_size, clarified_size, weight, reason, object_input_date, execute_restorer,
                    object_output_date, responsible_restorer, origin_description, appearance_description,
-                   damages_description, signs_description, size_description)
+                   damages_description, signs_description, size_description, purposes_researches, methods_researches,
+                   executor_date_researches, results_researches, restoration_program)
     if not inventory_number:
         abort(404)
 
@@ -305,22 +306,23 @@ def build_passport(passport_number, inventory_number, acceptance_number, institu
                    time_of_creation, clarified_time_of_creation, material, clarified_material, technique,
                    clarified_technique, object_size, clarified_size, weight, reason, object_input_date, execute_restorer,
                    object_output_date, responsible_restorer, origin_description, appearance_description,
-                   damages_description, signs_description, size_description):
+                   damages_description, signs_description, size_description, purposes_researches, methods_researches,
+                   executor_date_researches, results_researches, restoration_program):
     document = Document()
 
-    passport_identity_table = document.add_table(rows=2, cols=3)
+    passport_identity_table = document.add_table(rows=1, cols=3)
+    passport_identity_table.autofit = False
+    passport_identity_table.allow_autofit = False
+    passport_identity_table.columns[0].width = Inches(1.6)
+    passport_identity_table.columns[1].width = Inches(1.4)
+    passport_identity_table.columns[2].width = Inches(1.3)
     passport_identity_table.style = 'TableGrid'
     passport_identity_table.alignment = 2
 
     passport_identity_parameter = passport_identity_table.rows[0].cells
-    passport_identity_parameter[0].text = '№ реставраційного паспорта:'
-    passport_identity_parameter[1].text = "інвентарний № пам'ятки"
-    passport_identity_parameter[2].text = 'Акт приймання'
-
-    passport_identity_input = passport_identity_table.rows[1].cells
-    passport_identity_input[0].text = f'{passport_number}'
-    passport_identity_input[1].text = f'{inventory_number}'
-    passport_identity_input[2].text = f'{acceptance_number}'
+    passport_identity_parameter[0].text = f"№ реставраційного паспорта:\n\n{passport_number}"
+    passport_identity_parameter[1].text = f"інвентарний № пам'ятки\n\n{inventory_number}"
+    passport_identity_parameter[2].text = f"Акт приймання\n{acceptance_number}"
 
     font_styles = document.styles
     font_charstyle = font_styles.add_style('CommentsStyle', WD_STYLE_TYPE.CHARACTER)
@@ -510,7 +512,54 @@ def build_passport(passport_number, inventory_number, acceptance_number, institu
 
     document.add_page_break()
 
+    researches_title = document.add_paragraph()
+    researches_title.add_run("6.2. За даними лабораторних досліджень:").bold = True
+    researches_title.alignment = 0
 
+    researches_table = document.add_table(rows=2, cols=3)
+    researches_table.autofit = False
+    researches_table.allow_autofit = False
+    researches_table.columns[0].width = Inches(2.0)
+    researches_table.columns[1].width = Inches(3.0)
+    researches_table.columns[2].width = Inches(1.0)
+    researches_table.style = 'TableGrid'
+    researches_table.alignment = 1
+
+    researches_parameter = researches_table.rows[0].cells
+    researches_parameter[0].text = "Мета дослідження"
+    researches_parameter[1].text = "Методи і результати дослідження"
+    researches_parameter[2].text = "Виконавець та дата"
+
+    researches_parameter = researches_table.rows[1].cells
+    purposes_researches = re.sub(r'<br>', '\n', purposes_researches)
+    researches_parameter[0].text = f'{purposes_researches}'
+    methods_researches = re.sub(r'<br>', '\n', methods_researches)
+    researches_parameter[1].text = f'{methods_researches}'
+    executor_date_researches = re.sub(r'<br>', '\n', executor_date_researches)
+    researches_parameter[2].text = f'{executor_date_researches}'
+
+    results_researches_title = document.add_paragraph()
+    results_researches_title.add_run("6.3 Загальний висновок за результатами досліджень:").bold = True
+    results_researches_title.alignment = 0
+
+    results_researches_input = document.add_paragraph()
+    results_researches = re.sub(r'<br>', '\n', results_researches)
+    results_researches_input.add_run(f'{results_researches}')
+    results_researches_input.paragraph_format.first_line_indent = Pt(18)
+    results_researches_input.alignment = 0
+
+    document.add_page_break()
+
+    restoration_program_title = document.add_paragraph()
+    restoration_program_title.add_run("7. Програма проведення реставраційних заходів та їх обгрунтування:").bold = True
+    restoration_program_title.alignment = 0
+    treatments_order_program_title = document.add_paragraph()
+    treatments_order_program_title.add_run("Послідовність заходів", 'Emphasis')
+    treatments_order_program_title.alignment = 0
+    restoration_program_input = document.add_paragraph()
+    restoration_program = re.sub(r'<br>', '\n', restoration_program)
+    restoration_program_input.add_run(f'{restoration_program}')
+    restoration_program_input.alignment = 0
 
 
     # Creating paragraph
