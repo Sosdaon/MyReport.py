@@ -264,10 +264,12 @@ def show_post(id_post):
     build_passport(passport_number, inventory_number, acceptance_number, institution_name, department_name, definition,
                    typological, object_owner, author, clarified_author, object_title, clarified_object_title,
                    time_of_creation, clarified_time_of_creation, material, clarified_material, technique,
-                   clarified_technique, object_size, clarified_size, weight, reason, object_input_date, execute_restorer,
+                   clarified_technique, object_size, clarified_size, weight, reason, object_input_date,
+                   execute_restorer,
                    object_output_date, responsible_restorer, origin_description, appearance_description,
                    damages_description, signs_description, size_description, purposes_researches, methods_researches,
-                   executor_date_researches, results_researches, restoration_program)
+                   executor_date_researches, results_researches, restoration_program, treatments_descriptions,
+                   treatments_chemicals, treatments_executor_date, treatments_results)
     if not inventory_number:
         abort(404)
 
@@ -304,10 +306,12 @@ def show_post(id_post):
 def build_passport(passport_number, inventory_number, acceptance_number, institution_name, department_name, definition,
                    typological, object_owner, author, clarified_author, object_title, clarified_object_title,
                    time_of_creation, clarified_time_of_creation, material, clarified_material, technique,
-                   clarified_technique, object_size, clarified_size, weight, reason, object_input_date, execute_restorer,
+                   clarified_technique, object_size, clarified_size, weight, reason, object_input_date,
+                   execute_restorer,
                    object_output_date, responsible_restorer, origin_description, appearance_description,
                    damages_description, signs_description, size_description, purposes_researches, methods_researches,
-                   executor_date_researches, results_researches, restoration_program):
+                   executor_date_researches, results_researches, restoration_program, treatments_descriptions,
+                   treatments_chemicals, treatments_executor_date, treatments_results):
     document = Document()
 
     passport_identity_table = document.add_table(rows=1, cols=3)
@@ -331,11 +335,13 @@ def build_passport(passport_number, inventory_number, acceptance_number, institu
     font_object.size = Pt(10)
 
     ministry_title = document.add_paragraph()
-    ministry_title.add_run("\nМіністерство культури та інформаційної політики України", style='CommentsStyle').bold = True
+    ministry_title.add_run("\nМіністерство культури та інформаційної політики України",
+                           style='CommentsStyle').bold = True
     ministry_title.alignment = 1
 
     passport_type_title = document.add_paragraph()
-    passport_type_title.add_run("ПАСПОРТ РЕСТАВРАЦІЇ ПАМ'ЯТКИ ІСТОРІЇ ТА КУЛЬТУРИ (РУХОМОЇ)", style='CommentsStyle').bold = True
+    passport_type_title.add_run("ПАСПОРТ РЕСТАВРАЦІЇ ПАМ'ЯТКИ ІСТОРІЇ ТА КУЛЬТУРИ (РУХОМОЇ)",
+                                style='CommentsStyle').bold = True
     passport_type_title.alignment = 1
 
     institution_title = document.add_paragraph()
@@ -458,8 +464,9 @@ def build_passport(passport_number, inventory_number, acceptance_number, institu
     document.add_page_break()
 
     origin_description_title = document.add_paragraph()
-    origin_description_title.add_run(f"5. Основні дані з історії пам'ятки (довідка про побутування; відомості про умови зберігання, попередні дослідження,"
-                                     f" консерваційно-реставраційні заходи тощо), джерело надходження інформації").bold = True
+    origin_description_title.add_run(
+        f"5. Основні дані з історії пам'ятки (довідка про побутування; відомості про умови зберігання, попередні дослідження,"
+        f" консерваційно-реставраційні заходи тощо), джерело надходження інформації").bold = True
     origin_description_title.alignment = 0
 
     origin_description_input = document.add_paragraph()
@@ -561,15 +568,96 @@ def build_passport(passport_number, inventory_number, acceptance_number, institu
     restoration_program_input.add_run(f'{restoration_program}')
     restoration_program_input.alignment = 0
 
+    program_approved_meeting_table = document.add_table(rows=2, cols=1)
+    program_approved_meeting_table.style = 'TableGrid'
+    program_approved_meeting_table.alignment = 1
+
+    program_approved_meeting_parameter = program_approved_meeting_table.rows[0].cells
+    program_approved_meeting_parameter[0].text = \
+        '''Програма затверджена на засіданні науково-реставраційної/реставраційної ради\n____________________________________________________________________________________________________\nмісце проведення ради (назва закладу)'''
+
+    program_approved_meeting_parameter = program_approved_meeting_table.rows[1].cells
+    program_approved_meeting_parameter[0].text = "Протокол №____ від '     '_______________ 20___р."
+
+    appointed_responsible_restorer_title = document.add_paragraph()
+    appointed_responsible_restorer_title.add_run("Керівником роботи призначено (ПІБ):___________________________________________________________")
+    appointed_responsible_restorer_title.alignment = 0
+
+
+    meeting_secretary_title = document.add_paragraph()
+    meeting_secretary_title.add_run(
+        "Голова або секретар науково-реставраційної/реставраційної ради (ПІБ):__________________________________________________________________________________________________")
+    meeting_secretary_title.alignment = 0
+
+    reapproved_restoration_program_title = document.add_paragraph()
+    reapproved_restoration_program_title.add_run("7. Зміни в програмі реставраційних заходів та їх обгрунтування:\n").bold = True
+    reapproved_restoration_program_title.alignment = 0
+
+    reapproved_program_meeting_table = document.add_table(rows=2, cols=1)
+    reapproved_program_meeting_table.style = 'TableGrid'
+    reapproved_program_meeting_table.alignment = 1
+
+    reapproved_program_meeting_parameter = reapproved_program_meeting_table.rows[0].cells
+    reapproved_program_meeting_parameter[0].text = \
+        '''Зміни в програмі затверджені на засіданні науково-реставраційної/реставраційної ради\n____________________________________________________________________________________________________\nмісце проведення ради (назва закладу)'''
+
+    reapproved_program_meeting_parameter = reapproved_program_meeting_table.rows[1].cells
+    reapproved_program_meeting_parameter[0].text = "Протокол №____ від '     '_______________ 20___р."
+
+    reapproved_meeting_secretary_title = document.add_paragraph()
+    reapproved_meeting_secretary_title.add_run(
+        "Голова або секретар науково-реставраційної/реставраційної ради (ПІБ):__________________________________________________________________________________________________")
+    reapproved_meeting_secretary_title.alignment = 0
+
+    document.add_page_break()
+
+    treatments_title = document.add_paragraph()
+    treatments_title.add_run("9. Проведення реставраційних заходів:").bold = True
+    treatments_title.alignment = 0
+
+    treatments_table = document.add_table(rows=2, cols=3)
+    treatments_table.autofit = False
+    treatments_table.allow_autofit = False
+    treatments_table.columns[0].width = Inches(3.0)
+    treatments_table.columns[1].width = Inches(1.6)
+    treatments_table.columns[2].width = Inches(1.0)
+    treatments_table.style = 'TableGrid'
+    treatments_table.alignment = 1
+
+    treatments_parameter = treatments_table.rows[0].cells
+    treatments_parameter[0].text = "Опис операцій із зазначенням методу, методики, технології, інструментарію"
+    treatments_parameter[1].text = "Матеріали, хімікати (консентрація %)"
+    treatments_parameter[2].text = "Виконавець та дата"
+
+    treatments_parameter = treatments_table.rows[1].cells
+    treatments_descriptions = re.sub(r'<br>', '\n', treatments_descriptions)
+    treatments_parameter[0].text = f'{treatments_descriptions}'
+    treatments_chemicals = re.sub(r'<br>', '\n', treatments_chemicals)
+    treatments_parameter[1].text = f'{treatments_chemicals}'
+    treatments_executor_date = re.sub(r'<br>', '\n', treatments_executor_date)
+    treatments_parameter[2].text = f'{treatments_executor_date}'
+
+    document.add_page_break()
+
+    treatments_title = document.add_paragraph()
+    treatments_title.add_run("10. Стислий опис реставраційних заходів; опис змін технічного та зовнішнього стану пам'ятки після реставрації, уточнення атрибуції тощо:").bold = True
+    treatments_title.alignment = 0
+
+    treatments_results_input = document.add_paragraph()
+    treatments_results = re.sub(r'<br>', '\n', treatments_results)
+    treatments_results_input.add_run(f'{treatments_results}')
+    treatments_results_input.paragraph_format.first_line_indent = Pt(18)
+    treatments_results_input.alignment = 0
+
 
     # Creating paragraph
-    #institution_title = document.add_paragraph()
-    #institution_title.alignment = 1
+    # institution_title = document.add_paragraph()
+    # institution_title.alignment = 1
     # Adding content to paragraph
-    #institution_title.add_run('Національна академія образотворчого мистецтва і архітектури\n',
+    # institution_title.add_run('Національна академія образотворчого мистецтва і архітектури\n',
     #                          style='CommentsStyle')
-    #institution_title.underline = True
-    #institution_title.bold = True
+    # institution_title.underline = True
+    # institution_title.bold = True
 
     # Creating paragraph
     para = document.add_paragraph()
