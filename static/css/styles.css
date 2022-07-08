@@ -41,15 +41,6 @@ div.content {
     margin: 30px;
 }
 
-.form-contact label {
-    display: inline-block;
-    min-width: 80px;
-}
-.form-contact p {margin: 10px 0 10px 0;}
-.form-contact input[type=submit], textarea {
-    font-size: 16px;
-}
-
 .flash {padding: 10px;}
 .flash.success {
     border: 1px solid #21DB56;
@@ -80,15 +71,15 @@ ul.list_passports_appearance .acceptance_number_appearance {
     padding: 10px 5px 10px 5px
 }
 TABLE {
-    width: 850px; /* Ширина таблицы */
-    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+    width: 850px;
+    border-collapse: collapse;
 }
 TD, TH {
-    padding: 3px; /* Поля вокруг содержимого таблицы */
-    border: 1px solid black; /* Параметры рамки */
+    padding: 3px;
+    border: 1px solid black;
 }
 TH {
-    background: #8FBC8F; /* Цвет фона */
+    background: #8FBC8F;
 }
 .hide{
   display:none;

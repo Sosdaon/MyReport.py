@@ -1,12 +1,10 @@
 import math
-import os.path
 import sqlite3
 import time
 import re
-from flask import send_from_directory
-from werkzeug.utils import secure_filename
 
-class FDataBase:
+
+class DataBase:
     def __init__(self, db):
         self.__db = db
         self.__cur = db.cursor()
@@ -26,19 +24,21 @@ class FDataBase:
         self.blobData = image.read()
         return self.blobData
 
-    def store_passport(self, passport_number, inventory_number, acceptance_number, institution_name, department_name, definition, typological,
-                object_owner, author, clarified_author, object_title, clarified_object_title, time_of_creation,
-                clarified_time_of_creation, material, clarified_material, technique, clarified_technique, object_size,
-                clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer,
-                object_output_date,
-                responsible_restorer, origin_description, appearance_description, damages_description,
-                signs_description,
-                size_description, purposes_researches, methods_researches, executor_date_researches, results_researches,
-                restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date,
-                treatments_results, before_restoration_image_description, before_restoration_image_of_object,
-                process_restoration_image_description, process_restoration_image_of_object,
-                after_restoration_image_description, after_restoration_image_of_object):
+    def store_passport(self, passport_number, inventory_number, acceptance_number, institution_name, department_name,
+                       definition, typological, object_owner, author, clarified_author, object_name,
+                       clarified_object_name, time_of_creation, clarified_time_of_creation, material,
+                       clarified_material, technique, clarified_technique, object_size, clarified_size, weight,
+                       clarified_weight, reason, object_input_date, execute_restorer, object_output_date,
+                       responsible_restorer, origin_description, appearance_description, damages_description,
+                       signs_description, size_description, purposes_researches, methods_researches,
+                       executor_date_researches,
+                       results_researches,
+                       restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date,
+                       treatments_results, before_restoration_image_description, before_restoration_image_of_object,
+                       process_restoration_image_description, process_restoration_image_of_object,
+                       after_restoration_image_description, after_restoration_image_of_object):
         try:
+            # Carriage return
             reason = re.sub(r'\n', '<br>', reason)
             origin_description = re.sub(r'\n', '<br>', origin_description)
             appearance_description = re.sub(r'\n', '<br>', appearance_description)
@@ -63,9 +63,10 @@ class FDataBase:
             self.__cur.execute(
                 'INSERT INTO passports VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 (passport_number,
-                 inventory_number, acceptance_number, institution_name, department_name, definition, typological, object_owner, author,
-                 clarified_author, object_title,
-                 clarified_object_title, time_of_creation, clarified_time_of_creation, material, clarified_material,
+                 inventory_number, acceptance_number, institution_name, department_name, definition, typological,
+                 object_owner, author,
+                 clarified_author, object_name,
+                 clarified_object_name, time_of_creation, clarified_time_of_creation, material, clarified_material,
                  technique, clarified_technique, object_size,
                  clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer,
                  object_output_date, responsible_restorer, origin_description,
@@ -84,21 +85,22 @@ class FDataBase:
 
     def get_passport(self, postId):
         try:
-            self.__cur.execute(f'SELECT passport_number, inventory_number, acceptance_number, institution_name, department_name, definition, '
-                               f'typological, object_owner, author, clarified_author, object_title, clarified_object_title,'
-                               f'time_of_creation, clarified_time_of_creation, material, clarified_material,'
-                               f'technique, clarified_technique, object_size, clarified_size, weight, clarified_weight,'
-                               f'reason, object_input_date, execute_restorer, object_output_date, responsible_restorer,'
-                               f'origin_description, appearance_description, damages_description, signs_description,'
-                               f'size_description, purposes_researches, methods_researches, executor_date_researches,'
-                               f' results_researches, restoration_program, treatments_descriptions,'
-                               f' treatments_chemicals, treatments_executor_date,'
-                               f' treatments_results, before_restoration_image_description,'
-                               f' before_restoration_image_of_object,'
-                               f'process_restoration_image_description,'
-                               f'process_restoration_image_of_object,'
-                               f'after_restoration_image_description,'
-                               f'after_restoration_image_of_object FROM passports WHERE id = {postId} LIMIT 1')
+            self.__cur.execute(
+                f'SELECT passport_number, inventory_number, acceptance_number, institution_name, department_name, definition, '
+                f'typological, object_owner, author, clarified_author, object_name, clarified_object_name,'
+                f'time_of_creation, clarified_time_of_creation, material, clarified_material,'
+                f'technique, clarified_technique, object_size, clarified_size, weight, clarified_weight,'
+                f'reason, object_input_date, execute_restorer, object_output_date, responsible_restorer,'
+                f'origin_description, appearance_description, damages_description, signs_description,'
+                f'size_description, purposes_researches, methods_researches, executor_date_researches,'
+                f' results_researches, restoration_program, treatments_descriptions,'
+                f' treatments_chemicals, treatments_executor_date,'
+                f' treatments_results, before_restoration_image_description,'
+                f' before_restoration_image_of_object,'
+                f'process_restoration_image_description,'
+                f'process_restoration_image_of_object,'
+                f'after_restoration_image_description,'
+                f'after_restoration_image_of_object FROM passports WHERE id = {postId} LIMIT 1')
             passport_field_output = self.__cur.fetchone()
             if passport_field_output:
                 return passport_field_output
