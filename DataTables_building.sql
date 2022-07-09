@@ -1,11 +1,11 @@
 CREATE TABLE IF NOT EXISTS main_menu (
-id integer PRIMARY KEY AUTOINCREMENT,
+id INTEGER PRIMARY KEY AUTOINCREMENT,
 menu_element TEXT NOT NULL,
 url TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS passports (
-id integer PRIMARY KEY AUTOINCREMENT,
+id INTEGER PRIMARY KEY AUTOINCREMENT,
 passport_number TEXT NOT NULL,
 inventory_number TEXT NOT NULL,
 acceptance_number TEXT NOT NULL,
@@ -47,11 +47,5 @@ treatments_descriptions TEXT NOT NULL,
 treatments_chemicals TEXT NOT NULL,
 treatments_executor_date TEXT NOT NULL,
 treatments_results TEXT NOT NULL,
-before_restoration_image_description TEXT NOT NULL,
-before_restoration_image_of_object BLOB NOT NULL,
-process_restoration_image_description TEXT NOT NULL,
-process_restoration_image_of_object BLOB NOT NULL,
-after_restoration_image_description TEXT NOT NULL,
-after_restoration_image_of_object BLOB NOT NULL,
-time integer NOT NULL
+TIME INTEGER NOT NULL
 );

@@ -17,12 +17,8 @@ class DataBase:
             if res:
                 return res
         except:
-            print('Помилка читання з бази даних')
+            FileNotFoundError('Помилка читання з бази даних')
         return []
-
-    def convertToBinary(self, image):
-        self.blobData = image.read()
-        return self.blobData
 
     def store_passport(self, passport_number, inventory_number, acceptance_number, institution_name, department_name,
                        definition, typological, object_owner, author, clarified_author, object_name,
@@ -34,9 +30,7 @@ class DataBase:
                        executor_date_researches,
                        results_researches,
                        restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date,
-                       treatments_results, before_restoration_image_description, before_restoration_image_of_object,
-                       process_restoration_image_description, process_restoration_image_of_object,
-                       after_restoration_image_description, after_restoration_image_of_object):
+                       treatments_results):
         try:
             # Carriage return
             reason = re.sub(r'\n', '<br>', reason)
@@ -55,13 +49,9 @@ class DataBase:
             treatments_executor_date = re.sub(r'\n', '<br>', treatments_executor_date)
             treatments_results = re.sub(r'\n', '<br>', treatments_results)
 
-            before_restoration_image_of_object = self.convertToBinary(before_restoration_image_of_object)
-            process_restoration_image_of_object = self.convertToBinary(process_restoration_image_of_object)
-            after_restoration_image_of_object = self.convertToBinary(after_restoration_image_of_object)
-
             tm = math.floor(time.time())
             self.__cur.execute(
-                'INSERT INTO passports VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                'INSERT INTO passports VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 (passport_number,
                  inventory_number, acceptance_number, institution_name, department_name, definition, typological,
                  object_owner, author,
@@ -72,13 +62,10 @@ class DataBase:
                  object_output_date, responsible_restorer, origin_description,
                  appearance_description, damages_description, signs_description, size_description, purposes_researches,
                  methods_researches, executor_date_researches, results_researches, restoration_program,
-                 treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results,
-                 before_restoration_image_description, before_restoration_image_of_object,
-                 process_restoration_image_description, process_restoration_image_of_object,
-                 after_restoration_image_description, after_restoration_image_of_object, tm))
+                 treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results, tm))
             self.__db.commit()
         except sqlite3.Error as e:
-            print('Помилка додавання публікації в базу даних' + str(e))
+            FileNotFoundError('Помилка додавання публікації в базу даних' + str(e))
             return False
 
         return True
@@ -95,17 +82,12 @@ class DataBase:
                 f'size_description, purposes_researches, methods_researches, executor_date_researches,'
                 f' results_researches, restoration_program, treatments_descriptions,'
                 f' treatments_chemicals, treatments_executor_date,'
-                f' treatments_results, before_restoration_image_description,'
-                f' before_restoration_image_of_object,'
-                f'process_restoration_image_description,'
-                f'process_restoration_image_of_object,'
-                f'after_restoration_image_description,'
-                f'after_restoration_image_of_object FROM passports WHERE id = {postId} LIMIT 1')
+                f' treatments_results FROM passports WHERE id = {postId} LIMIT 1')
             passport_field_output = self.__cur.fetchone()
             if passport_field_output:
                 return passport_field_output
         except sqlite3.Error as e:
-            print('Помилка отримання публікації з бази даних' + str(e))
+            FileNotFoundError('Помилка отримання публікації з бази даних' + str(e))
 
         return (False, False)
 
@@ -116,6 +98,6 @@ class DataBase:
             if passports_preview:
                 return passports_preview
         except sqlite3.Error as e:
-            print('Помилка отримання публікації з бази даних' + str(e))
+            FileNotFoundError('Помилка отримання публікації з бази даних' + str(e))
 
         return []

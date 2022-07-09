@@ -2,9 +2,9 @@ import sqlite3
 import os
 from flask import Flask, render_template, url_for, request, flash, redirect, abort, g, send_file
 from werkzeug.utils import secure_filename
-from heritageLogic import GeneralHeritageDescription, Materials
+from heritageDescription import GeneralPassportDescription, Materials
 from printable.PrintPassportPaper import Paperwork
-import jyserver.Flask as jsf
+import jyserver.Flask as js_Flask
 from DataBase import DataBase
 
 DATABASE = '/tmp/flsite.db'
@@ -15,20 +15,18 @@ UPLOAD_FOLDER = 'C:/Users/ASUS/Desktop/pyCharm_projects/restoreConrol/static/Int
 MAX_CONTENT_LENGTH = 16 * 1000 * 1000
 app = Flask(__name__)
 app.config.from_object(__name__)
-app.config.update(dict(DATABASE=os.path.join(app.root_path, 'flsite,db')))
+app.config.update(dict(DATABASE=os.path.join(app.root_path, 'MyReport_DataTable,db')))
 
 
-@jsf.use(app)
+@js_Flask.use(app)
 class ChangeFormsForMaterial:
-    def __init__(self, initial_changed_value='', fillInExamples=GeneralHeritageDescription.AppearanceDescription(),
+    def __init__(self, initial_changed_value='', fillInExamples=GeneralPassportDescription.AppearanceDescription(),
                  fillInCeramics=Materials.Ceramics(), fillInIron=Materials.Iron(), fillInCuprum=Materials.Cuprum(),
                  fillInSilver=Materials.Silver(), fillInWood=Materials.Wood(), fillInMetal=Materials.Metal()):
         # General texts for any heritage object
         self.changed_appearance_description = fillInExamples.general_appearance_description
         self.changed_damages_description = fillInExamples.general_damages_description
-        self.changed_research_title, self.changed_research_description, self.changed_restoration_program, \
-        self.changed_treatments_descriptions, self.changed_treatments_chemicals = initial_changed_value, \
-                                                                                  initial_changed_value, initial_changed_value, initial_changed_value, initial_changed_value
+        self.changed_research_title, self.changed_research_description, self.changed_restoration_program, self.changed_treatments_descriptions, self.changed_treatments_chemicals = initial_changed_value, initial_changed_value, initial_changed_value, initial_changed_value, initial_changed_value
         # Ceramics (wide material field)
         self.ceramics_appearance_description = fillInCeramics.ceramics_appearance_description
         self.ceramics_damage_description = fillInCeramics.ceramics_damage_description
@@ -59,90 +57,81 @@ class ChangeFormsForMaterial:
 
     def addCeramics(self):
         self.changed_appearance_description += self.ceramics_appearance_description
-        self.js.document.getElementById(
-            "changed_appearance_description").innerHTML = self.changed_appearance_description
+        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
         self.changed_damages_description += self.ceramics_damage_description
         self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
 
     def addWood(self):
         self.changed_appearance_description += self.wood_appearance_description
-        self.js.document.getElementById(
-            "changed_appearance_description").innerHTML = self.changed_appearance_description
+        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
         self.changed_damages_description += self.wood_damage_description
         self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
 
     def addMetal(self):
         self.changed_appearance_description += self.metal_appearance_description
-        self.js.document.getElementById(
-            "changed_appearance_description").innerHTML = self.changed_appearance_description
+        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
         self.changed_damages_description += self.metal_damage_description
         self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
 
     def hideMetalResearches(self):
-        self.js.document.getElementById("choose_iron_cunduct").style.visibility = 'hidden'
-        self.js.document.getElementById("choose_cuprum_cunduct").style.visibility = 'hidden'
-        self.js.document.getElementById("choose_silver_cunduct").style.visibility = 'hidden'
+        self.js.document.getElementById("choose_iron_research").style.visibility = 'hidden'
+        self.js.document.getElementById("choose_cuprum_research").style.visibility = 'hidden'
+        self.js.document.getElementById("choose_silver_research").style.visibility = 'hidden'
 
     def showMetalResearches(self):
-        self.js.document.getElementById("choose_iron_cunduct").style.visibility = 'visible'
-        self.js.document.getElementById("choose_cuprum_cunduct").style.visibility = 'visible'
-        self.js.document.getElementById("choose_silver_cunduct").style.visibility = 'visible'
+        self.js.document.getElementById("choose_iron_research").style.visibility = 'visible'
+        self.js.document.getElementById("choose_cuprum_research").style.visibility = 'visible'
+        self.js.document.getElementById("choose_silver_research").style.visibility = 'visible'
 
     def fillInIronForm(self):
         self.changed_research_title += self.iron_research_title
-        self.js.document.getElementById("purposes_of_conduction").innerHTML = self.changed_research_title
+        self.js.document.getElementById("dynamic_purposes_researches_by_material").innerHTML = self.changed_research_title
         self.changed_research_description += self.iron_research_description
-        self.js.document.getElementById("methods_conduction").innerHTML = self.changed_research_description
+        self.js.document.getElementById("dynamic_methods_researches_by_material").innerHTML = self.changed_research_description
         self.changed_restoration_program += self.restoration_program_iron
-        self.js.document.getElementById("restoration_program_by_material").innerHTML = self.changed_restoration_program
+        self.js.document.getElementById("dynamic_restoration_program_by_material").innerHTML = self.changed_restoration_program
         self.changed_treatments_descriptions += self.iron_treatments_descriptions
-        self.js.document.getElementById(
-            "treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
+        self.js.document.getElementById("dynamic_treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
         self.changed_treatments_chemicals += self.iron_treatments_chemicals
-        self.js.document.getElementById(
-            "treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
+        self.js.document.getElementById("dynamic_treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
 
     def fillInCuprumForm(self):
         self.changed_research_title += self.cuprum_research_title
-        self.js.document.getElementById("purposes_of_conduction").innerHTML = self.changed_research_title
+        self.js.document.getElementById("dynamic_purposes_researches_by_material").innerHTML = self.changed_research_title
         self.changed_research_description += self.cuprum_research_description
-        self.js.document.getElementById("methods_conduction").innerHTML = self.changed_research_description
+        self.js.document.getElementById("dynamic_methods_researches_by_material").innerHTML = self.changed_research_description
         self.changed_restoration_program += self.restoration_program_cuprum
-        self.js.document.getElementById("restoration_program_by_material").innerHTML = self.changed_restoration_program
+        self.js.document.getElementById("dynamic_restoration_program_by_material").innerHTML = self.changed_restoration_program
         self.changed_treatments_descriptions += self.cuprum_treatments_descriptions
-        self.js.document.getElementById(
-            "treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
+        self.js.document.getElementById("dynamic_treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
         self.changed_treatments_chemicals += self.cuprum_treatments_chemicals
-        self.js.document.getElementById(
-            "treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
+        self.js.document.getElementById("dynamic_treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
 
     def fillInSilverForm(self):
         self.changed_research_title += self.silver_research_title
-        self.js.document.getElementById("purposes_of_conduction").innerHTML = self.changed_research_title
+        self.js.document.getElementById("dynamic_purposes_researches_by_material").innerHTML = self.changed_research_title
         self.changed_research_description += self.silverConductDescription
-        self.js.document.getElementById("methods_conduction").innerHTML = self.changed_research_description
+        self.js.document.getElementById("dynamic_methods_researches_by_material").innerHTML = self.changed_research_description
         self.changed_restoration_program += self.restoration_program_silver
-        self.js.document.getElementById("restoration_program_by_material").innerHTML = self.changed_restoration_program
+        self.js.document.getElementById("dynamic_restoration_program_by_material").innerHTML = self.changed_restoration_program
         self.changed_treatments_descriptions += self.silver_treatments_descriptions
-        self.js.document.getElementById(
-            "treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
+        self.js.document.getElementById("dynamic_treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
         self.changed_treatments_chemicals += self.silver_treatments_chemicals
-        self.js.document.getElementById(
-            "treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
+        self.js.document.getElementById("dynamic_treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
+
+
+def create_db():
+    db = connect_db()
+    with app.open_resource('DataTables_building.sql', mode='r') as f:
+        db.cursor().executescript(f.read())
+    db.commit()
+    db.close()
 
 
 def connect_db():
     connection = sqlite3.connect(app.config['DATABASE'])
     connection.row_factory = sqlite3.Row
     return connection
-
-
-def create_db():
-    db = connect_db()
-    with app.open_resource('sq_db.sql', mode='r') as f:
-        db.cursor().executescript(f.read())
-    db.commit()
-    db.close()
 
 
 def get_db():
@@ -182,20 +171,6 @@ def add_passport():
     if request.method == 'POST':
         if len(request.form['inventory_number']) > 0 and len(request.form['acceptance_number']) > 0:
 
-            names_and_images = {
-                request.form['before_restoration_image_description']: request.files[
-                    'before_restoration_image_of_object'],
-                request.form['process_restoration_image_description']: request.files[
-                    'process_restoration_image_of_object'],
-                request.form['after_restoration_image_description']: request.files['after_restoration_image_of_object']
-            }
-            try:
-                for image_name, image in names_and_images.copy().items():
-                    set_name_to_image(image_name, image)
-            except FileNotFoundError:
-                flash('Назвіть фото латиницею без використання спец. символів та злитно', category='error')
-                return redirect('/add_passport')
-
             passport_fields_input = dbase.store_passport(request.form['passport_number'],
                                                          request.form['inventory_number'],
                                                          request.form['acceptance_number'],
@@ -231,13 +206,7 @@ def add_passport():
                                                          request.form['treatments_descriptions'],
                                                          request.form['treatments_chemicals'],
                                                          request.form['treatments_executor_date'],
-                                                         request.form['treatments_results'],
-                                                         request.form['before_restoration_image_description'],
-                                                         request.files['before_restoration_image_of_object'],
-                                                         request.form['process_restoration_image_description'],
-                                                         request.files['process_restoration_image_of_object'],
-                                                         request.form['after_restoration_image_description'],
-                                                         request.files['after_restoration_image_of_object'])
+                                                         request.form['treatments_results'])
 
             if not passport_fields_input:
                 flash('Виникла, помилка публікування', category='error')
@@ -255,7 +224,7 @@ def show_post(id_post):
     dbase = DataBase(db)
     passport = Paperwork()
 
-    passport_number, inventory_number, acceptance_number, institution_name, department_name, definition, typological, object_owner, author, clarified_author, object_name, clarified_object_name, time_of_creation, clarified_time_of_creation, material, clarified_material, technique, clarified_technique, object_size, clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer, object_output_date, responsible_restorer, origin_description, appearance_description, damages_description, signs_description, size_description, purposes_researches, methods_researches, executor_date_researches, results_researches, restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results, before_restoration_image_description, before_restoration_image_of_object, process_restoration_image_description, process_restoration_image_of_object, after_restoration_image_description, after_restoration_image_of_object = dbase.get_passport(
+    passport_number, inventory_number, acceptance_number, institution_name, department_name, definition, typological, object_owner, author, clarified_author, object_name, clarified_object_name, time_of_creation, clarified_time_of_creation, material, clarified_material, technique, clarified_technique, object_size, clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer, object_output_date, responsible_restorer, origin_description, appearance_description, damages_description, signs_description, size_description, purposes_researches, methods_researches, executor_date_researches, results_researches, restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results = dbase.get_passport(
         id_post)
 
     passport.build_passport(passport_number, inventory_number, acceptance_number, institution_name, department_name,
@@ -266,9 +235,7 @@ def show_post(id_post):
                             responsible_restorer, origin_description, appearance_description, damages_description,
                             signs_description, size_description, purposes_researches, methods_researches,
                             executor_date_researches, results_researches, restoration_program, treatments_descriptions,
-                            treatments_chemicals, treatments_executor_date, treatments_results,
-                            before_restoration_image_description, process_restoration_image_description,
-                            after_restoration_image_description)
+                            treatments_chemicals, treatments_executor_date, treatments_results)
 
     if not inventory_number:
         abort(404)
@@ -294,13 +261,7 @@ def show_post(id_post):
                            methods_researches=methods_researches, executor_date_researches=executor_date_researches,
                            results_researches=results_researches, restoration_program=restoration_program,
                            treatments_descriptions=treatments_descriptions, treatments_chemicals=treatments_chemicals,
-                           treatments_executor_date=treatments_executor_date, treatments_results=treatments_results,
-                           before_restoration_image_description=before_restoration_image_description,
-                           before_restoration_image_of_object=before_restoration_image_of_object,
-                           process_restoration_image_description=process_restoration_image_description,
-                           process_restoration_image_of_object=process_restoration_image_of_object,
-                           after_restoration_image_description=after_restoration_image_description,
-                           after_restoration_image_of_object=after_restoration_image_of_object)
+                           treatments_executor_date=treatments_executor_date, treatments_results=treatments_results)
 
 
 @app.route('/download_passport')

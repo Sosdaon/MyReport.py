@@ -3,11 +3,11 @@ from docx.shared import Inches
 from docx.shared import Pt
 from docx.enum.style import WD_STYLE_TYPE
 import re
-from heritageLogic.PassportPaperBlank import PassportPaperTitles
+from heritageDescription.PassportPaperBlank import PassportPaperTitles
 
 
 class Paperwork:
-    def __init__(self, titles=PassportPaperTitles(), photos_amount='3', map_schemes_amount='',
+    def __init__(self, titles=PassportPaperTitles(), photos_amount='', map_schemes_amount='',
                  additional_researches_amount='', other_related_materials_amount=''):
         self.passport_number_title = titles.passport_number
         self.inventory_number_title = titles.inventory_number
@@ -114,8 +114,7 @@ class Paperwork:
                        origin_description, appearance_description, damages_description, signs_description,
                        size_description, purposes_researches, methods_researches, executor_date_researches,
                        results_researches, restoration_program, treatments_descriptions, treatments_chemicals,
-                       treatments_executor_date, treatments_results, before_restoration_image_description,
-                       process_restoration_image_description, after_restoration_image_description):
+                       treatments_executor_date, treatments_results):
 
         document = Document()
 
@@ -496,27 +495,6 @@ class Paperwork:
         illustrative_material_paragraph = document.add_paragraph()
         illustrative_material_paragraph.add_run(f'{self.illustrative_material_title}').bold = True
         illustrative_material_paragraph.alignment = 0
-
-        beforeRestorationPhotoPath = 'static/Intelligible_illustrations/' + before_restoration_image_description
-        document.add_picture(beforeRestorationPhotoPath, width=Inches(1.25))
-
-        before_restoration_image_description_paragraph = document.add_paragraph()
-        before_restoration_image_description_paragraph.add_run(f'{self.before_restoration_image_description_title}{before_restoration_image_description}')
-        before_restoration_image_description_paragraph.alignment = 0
-
-        processRestorationPhotoPath = 'static/Intelligible_illustrations/' + process_restoration_image_description
-        document.add_picture(processRestorationPhotoPath, width=Inches(1.25))
-
-        process_restoration_image_description_paragraph = document.add_paragraph()
-        process_restoration_image_description_paragraph.add_run(f'{self.process_restoration_image_description_title}{process_restoration_image_description}')
-        process_restoration_image_description_paragraph.alignment = 0
-
-        afterRestorationPhotoPath = 'static/Intelligible_illustrations/' + after_restoration_image_description
-        document.add_picture(afterRestorationPhotoPath, width=Inches(1.25))
-
-        after_restoration_image_description_paragraph = document.add_paragraph()
-        after_restoration_image_description_paragraph.add_run(f'{self.after_restoration_image_description_title}{after_restoration_image_description}')
-        after_restoration_image_description_paragraph.alignment = 0
 
         document.add_page_break()
 
