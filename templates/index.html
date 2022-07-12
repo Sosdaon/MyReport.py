@@ -20,9 +20,11 @@
 <hr>
 <ul class="list_passports_appearance">
 {% for passport in passports %}
-<li>
-    <p class="inventory_number_appearance"><a href="{{ url_for('show_post', id_post=passport.id)}}">{{passport.inventory_number}}</a></p>
-    <p class="acceptance_number_appearance">{{ passport.acceptance_number[:50]}}</p>
+<li class="suggestions_links">
+    <p class="object_name_inventory_number_appearance">{{passport.object_name}} {{passport.inventory_number}}</p>
+    <p><a href="{{ url_for('show_post', id_post=passport.id)}}" class="show_post_suggestion"><b>Переглянути</b></a></p><br>
+    <p><a href="{{url_for('update_post', id_post=passport.id)}}" class="update_post_suggestion"><b>Створити подібний</b></a></p><br>
+    <p><a href="" class="delete_post_suggestion"><b>Видалити</b></a></p>
 </li>
 {% endfor %}
 </ul>

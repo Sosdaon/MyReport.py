@@ -63,25 +63,23 @@ class ChangeFormsForMaterial:
 
     def addWood(self):
         self.changed_appearance_description += self.wood_appearance_description
-        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
+        self.js.document.getElementById(
+            "changed_appearance_description").innerHTML = self.changed_appearance_description
         self.changed_damages_description += self.wood_damage_description
         self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
 
     def addMetal(self):
         self.changed_appearance_description += self.metal_appearance_description
-        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
+        self.js.document.getElementById(
+            "changed_appearance_description").innerHTML = self.changed_appearance_description
         self.changed_damages_description += self.metal_damage_description
         self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
 
     def hideMetalResearches(self):
-        self.js.document.getElementById("choose_iron_research").style.visibility = 'hidden'
-        self.js.document.getElementById("choose_cuprum_research").style.visibility = 'hidden'
-        self.js.document.getElementById("choose_silver_research").style.visibility = 'hidden'
+        self.js.document.getElementById("choose_metal_researches").style.visibility = 'hidden'
 
     def showMetalResearches(self):
-        self.js.document.getElementById("choose_iron_research").style.visibility = 'visible'
-        self.js.document.getElementById("choose_cuprum_research").style.visibility = 'visible'
-        self.js.document.getElementById("choose_silver_research").style.visibility = 'visible'
+        self.js.document.getElementById("choose_metal_researches").style.visibility = 'visible'
 
     def fillInIronForm(self):
         self.changed_research_title += self.iron_research_title
@@ -176,19 +174,24 @@ def add_passport():
                                                          request.form['acceptance_number'],
                                                          request.form['institution_name'],
                                                          request.form['department_name'],
-                                                         request.form['definition'], request.form['typological'],
+                                                         request.form['definition'],
+                                                         request.form['typological'],
                                                          request.form['object_owner'],
-                                                         request.form['author'], request.form['clarified_author'],
+                                                         request.form['author'],
+                                                         request.form['clarified_author'],
                                                          request.form['object_name'],
                                                          request.form['clarified_object_name'],
                                                          request.form['time_of_creation'],
                                                          request.form['clarified_time_of_creation'],
-                                                         request.form['material'], request.form['clarified_material'],
+                                                         request.form['material'],
+                                                         request.form['clarified_material'],
                                                          request.form['technique'],
                                                          request.form['clarified_technique'],
-                                                         request.form['object_size'], request.form['clarified_size'],
+                                                         request.form['object_size'],
+                                                         request.form['clarified_size'],
                                                          request.form['weight'],
-                                                         request.form['clarified_weight'], request.form['reason'],
+                                                         request.form['clarified_weight'],
+                                                         request.form['reason'],
                                                          request.form['object_input_date'],
                                                          request.form['execute_restorer'],
                                                          request.form['object_output_date'],
@@ -209,13 +212,12 @@ def add_passport():
                                                          request.form['treatments_results'])
 
             if not passport_fields_input:
-                flash('Виникла, помилка публікування', category='error')
+                flash('Виникла помилка публікування', category='error')
             else:
                 flash('Успішно опубліковано!', category='success')
         else:
             flash("Спочатку введіть, будь ласка, інвентарний номер та дані акта приймання пам'ятки.", category='error')
-    return ChangeFormsForMaterial.render(
-        render_template('passport_form.html', main_menu=dbase.getMainMenu(), web_page_title='Публікація', ))
+    return ChangeFormsForMaterial.render(render_template('add_passport.html', main_menu=dbase.getMainMenu(), web_page_title='Публікація'))
 
 
 @app.route('/post/<int:id_post>')
@@ -264,6 +266,91 @@ def show_post(id_post):
                            treatments_executor_date=treatments_executor_date, treatments_results=treatments_results)
 
 
+@app.route('/update_post/<string:id_post>', methods=['POST', 'GET'])
+def update_post(id_post):
+    db = get_db()
+    dbase = DataBase(db)
+
+    passport_number, inventory_number, acceptance_number, institution_name, department_name, definition, typological, object_owner, author, clarified_author, object_name, clarified_object_name, time_of_creation, clarified_time_of_creation, material, clarified_material, technique, clarified_technique, object_size, clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer, object_output_date, responsible_restorer, origin_description, appearance_description, damages_description, signs_description, size_description, purposes_researches, methods_researches, executor_date_researches, results_researches, restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results = dbase.get_passport_to_update(
+        id_post)
+
+    if request.method == 'POST':
+        if len(request.form['inventory_number']) > 0 and len(request.form['acceptance_number']) > 0:
+
+            passport_fields_input = dbase.store_passport(request.form['passport_number'],
+                                                         request.form['inventory_number'],
+                                                         request.form['acceptance_number'],
+                                                         request.form['institution_name'],
+                                                         request.form['department_name'],
+                                                         request.form['definition'],
+                                                         request.form['typological'],
+                                                         request.form['object_owner'],
+                                                         request.form['author'],
+                                                         request.form['clarified_author'],
+                                                         request.form['object_name'],
+                                                         request.form['clarified_object_name'],
+                                                         request.form['time_of_creation'],
+                                                         request.form['clarified_time_of_creation'],
+                                                         request.form['material'],
+                                                         request.form['clarified_material'],
+                                                         request.form['technique'],
+                                                         request.form['clarified_technique'],
+                                                         request.form['object_size'],
+                                                         request.form['clarified_size'],
+                                                         request.form['weight'],
+                                                         request.form['clarified_weight'],
+                                                         request.form['reason'],
+                                                         request.form['object_input_date'],
+                                                         request.form['execute_restorer'],
+                                                         request.form['object_output_date'],
+                                                         request.form['responsible_restorer'],
+                                                         request.form['origin_description'],
+                                                         request.form['appearance_description'],
+                                                         request.form['damages_description'],
+                                                         request.form['signs_description'],
+                                                         request.form['size_description'],
+                                                         request.form['purposes_researches'],
+                                                         request.form['methods_researches'],
+                                                         request.form['executor_date_researches'],
+                                                         request.form['results_researches'],
+                                                         request.form['restoration_program'],
+                                                         request.form['treatments_descriptions'],
+                                                         request.form['treatments_chemicals'],
+                                                         request.form['treatments_executor_date'],
+                                                         request.form['treatments_results'])
+
+            if not passport_fields_input:
+                flash('Виникла помилка публікування', category='error')
+            else:
+                flash('Успішно опубліковано!', category='success')
+                return redirect(url_for('index'))
+        else:
+            flash("Спочатку введіть, будь ласка, інвентарний номер та дані акта приймання пам'ятки.", category='error')
+
+    return render_template('update_passport_form.html', main_menu=dbase.getMainMenu(), web_page_title='Публікація',
+                           passports=dbase.get_current_passport(id_post), passport_number=passport_number,
+                           inventory_number=inventory_number, acceptance_number=acceptance_number,
+                           institution_name=institution_name,
+                           department_name=department_name, definition=definition, typological=typological,
+                           object_owner=object_owner, author=author, clarified_author=clarified_author,
+                           object_name=object_name,
+                           clarified_object_name=clarified_object_name, time_of_creation=time_of_creation,
+                           clarified_time_of_creation=clarified_time_of_creation, material=material,
+                           clarified_material=clarified_material,
+                           technique=technique, clarified_technique=clarified_technique, object_size=object_size,
+                           clarified_size=clarified_size,
+                           weight=weight, clarified_weight=clarified_weight, reason=reason,
+                           object_input_date=object_input_date, execute_restorer=execute_restorer,
+                           object_output_date=object_output_date, responsible_restorer=responsible_restorer,
+                           origin_description=origin_description, appearance_description=appearance_description,
+                           damages_description=damages_description, signs_description=signs_description,
+                           size_description=size_description, purposes_researches=purposes_researches,
+                           methods_researches=methods_researches, executor_date_researches=executor_date_researches,
+                           results_researches=results_researches, restoration_program=restoration_program,
+                           treatments_descriptions=treatments_descriptions, treatments_chemicals=treatments_chemicals,
+                           treatments_executor_date=treatments_executor_date, treatments_results=treatments_results)
+
+
 @app.route('/download_passport')
 def download_passport():
     printable_passport = 'filled_passport.docx'
@@ -276,13 +363,6 @@ def about_us():
     dbase = DataBase(db)
     print(url_for('about_us'))
     return render_template('about.html', main_menu=dbase.getMainMenu(), web_page_title='Про нас')
-
-
-@app.errorhandler(413)
-def uploaded_image_too_large(error):
-    db = get_db()
-    dbase = DataBase(db)
-    return render_template('page413.html', main_menu=dbase.getMainMenu(), web_page_title='Змініть зображення'), 413
 
 
 @app.errorhandler(404)

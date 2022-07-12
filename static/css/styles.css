@@ -6,6 +6,10 @@ html, body {
     width: 100%;
 }
 
+.serif {
+    font-family: Times New Roman
+}
+
 a {
     color: #F8F8FF;
     background: #3F4137;
@@ -14,6 +18,112 @@ a {
 a:hover {
     color: #8FBC8F;
     text-decoration: underline;
+}
+
+a.show_post_suggestion {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #3F4137;
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+a.show_post_suggestion:hover {
+    background-color: #00FFFF
+}
+
+a.update_post_suggestion {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #006400;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+a.update_post_suggestion:hover {
+    background-color: #00FF00
+}
+
+a.delete_post_suggestion {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #800000;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+a.delete_post_suggestion:hover {
+    background-color: #FF0000
+}
+
+a.download_passport {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #2E8B57;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+a.download_passport:hover {
+    background-color: #00FF7F
+}
+
+
+li.suggestions_links {
+    background: #A9A9A9;
+}
+
+button.upload_passport {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #2E8B57;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+button.upload_passport:hover {
+    background-color: #00FF7F
+}
+
+button.upload:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
 }
 
 .clear {clear: both;}
@@ -31,10 +141,6 @@ ul.main_menu_appearance {
 ul.main_menu_appearance li {
     float: left;
     margin: 22px 35px 0 20px;
-}
-
-h2.too_large_image_appearance {
-    color: #fa8072;
 }
 
 div.content {
@@ -57,14 +163,18 @@ ul.list_passports_appearance {
     padding: 0;
     max-width: 600px;
 }
+
 ul.list_passports_appearance li {
     margin: 20px 0 0 0;
-    border: 1px solid #eee;
+    color: #FFFFFF;
+    font-size: 20px;
+    border-radius: 7px;
+    border: 10px solid #3F4137;
 }
-ul.list_passports_appearance .inventory_number_appearance {
+ul.list_passports_appearance .object_name_inventory_number_appearance {
     margin: 0;
     padding: 5px;
-    background: #eee;
+    background: #3F4137;
 }
 ul.list_passports_appearance .acceptance_number_appearance {
     margin: 0;

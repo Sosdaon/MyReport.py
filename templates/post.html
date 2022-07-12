@@ -1,5 +1,224 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
+    <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <title>Рест.Інфо - {{web_page_title}}</title>
+</head>
+<body>
+{% block content -%}
+{%- block main_menu -%}
+<ul class="main_menu_appearance">
+    {% for main_choice in main_menu -%}
+    <li><a href="{{main_choice.url}}">{{main_choice.menu_element}}</a></li>
+    {% endfor -%}
+</ul>
+{% endblock main_menu -%}
+<div class="clear"></div>
+<div class="content">
+    <h1>{{web_page_title}}</h1>
 
-{% block content %}
-{{ super() }}
-{% endblock %}
+    <div align="center">
+        <p>
+        <table>
+            <tr>
+                <th>№ реставраційного паспорта:</th>
+                <th>інвентарний № пам'ятки</th>
+                <th>Акт приймання</th>
+            </tr>
+            <tr>
+                <td>{{passport_number}}</td>
+                <td>{{inventory_number}}</td>
+                <td>{{acceptance_number}}</td>
+            </tr>
+        </table>
+
+        <p></p>
+        <h3>Міністерство культури та інформаційної політики України</h3>
+        <p></p>
+        <h3>ПАСПОРТ РЕСТАВРАЦІЇ ПАМ'ЯТКИ ІСТОРІЇ ТА КУЛЬТУРИ (РУХОМОЇ)</h3>
+
+        <p>
+        <h3>{{institution_name}}</h3>
+        <p>Назва закладу, який здійснює реставрацію</p>
+        <p>
+        <h3>{{department_name}}</h3>
+        <p>Назва відділу/сектору</p>
+
+        <p>
+            <b>1. Типологічна приналежність пам'ятки</b>
+        <table>
+            <tr>
+                <th>Визначення, характер пам'ятки:</th>
+                <th>пам'ятка образотворчого мистецтва</th>
+                <th>пам'ятка декоративно-ужиткового мистецтва</th>
+                <th>археологічна пам'ятка</th>
+                <th>документальна пам'ятка</th>
+                <th>інша пам'ятка історії та культури</th>
+            </tr>
+            <tr>
+                <td>{{definition}}</td>
+                {% if typological == '(1)'%}
+                <td>{{typological}}</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                {% if typological == '(2)'%}
+                <td>{{typological}}</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                {% if typological == '(3)'%}
+                <td>{{typological}}</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                {% if typological == '(4)'%}
+                <td>{{typological}}</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                {% if typological == '(5)'%}
+                <td>{{typological}}</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+            </tr>
+        </table>
+
+        <p><b>2. Місце постійного зберігання, власник пам'ятки</b></p>
+        <p>{{object_owner}}</p>
+
+        <p>
+        <table>
+            <tr>
+                <th>3. Атрибутивні дані про пам'ятку згідно з актом приймання</th>
+                <th>Уточнення в процесі реставрації</th>
+            </tr>
+            <tr>
+                <td>Автор: {{author}}</td>
+                <td>{{clarified_author}}</td>
+            </tr>
+            <tr>
+                <td>Назва: {{object_name}}</td>
+                <td>{{clarified_object_name}}</td>
+            </tr>
+            <tr>
+                <td>Час створення: {{time_of_creation}}</td>
+                <td>{{clarified_time_of_creation}}</td>
+            </tr>
+            <tr>
+                <td>Матеріал, основа: {{material}}</td>
+                <td>{{clarified_material}}</td>
+            </tr>
+            <tr>
+                <td>Техніка виконання: {{technique}}</td>
+                <td>{{clarified_technique}}</td>
+            </tr>
+            <tr>
+                <td>Розміри: {{object_size}}</td>
+                <td>{{clarified_size}}</td>
+            </tr>
+            <tr>
+                <td>Вага: {{weight}}</td>
+                <td>{{clarified_weight}}</td>
+            </tr>
+        </table>
+
+        <p><b>4. Підстава для проведення реставраційних заходів</b></p>
+        <div align="justify"><p>{{ reason | safe }}</p></div>
+
+
+        <p>
+        <table>
+            <tr>
+                <th>Дати</th>
+                <th>Реставратори</th>
+            </tr>
+            <tr>
+                <td>Дата передання пам'ятки на реставрацію: {{object_input_date}}</td>
+                <td>Виконавець: {{execute_restorer}}</td>
+            </tr>
+            <tr>
+                <td>Дата завершення реставраційних заходів: {{object_output_date}}</td>
+                <td>Керівник: {{responsible_restorer}}</td>
+            </tr>
+        </table>
+
+
+        <p><b>5. Основні дані з історії пам'ятки (довідка про побутування; відомості про умови зберігання,</b></p>
+        <p><b>попередні дослідження, консерваційно-реставраційні заходи тощо), джерело надходження інформації</b></p>
+        <div align="justify"><p>{{ origin_description | safe }}</p></div>
+
+        <p><b>6. Стан пам'ятки до реставрації</b></p>
+        <p><b><i>6.1 За візуальним спостереженням:</i></b></p>
+        <div align="justify"><p>{{ appearance_description | safe }}</p></div>
+        <p><b><i>6.1.2 Втрати та пошкодження:</i></b></p>
+        <div align="justify"><p>{{ damages_description | safe }}</p></div>
+        <p><b><i>6.1.3 Старі номери та позначення:</i></b></p>
+        <div align="justify"><p>{{ signs_description | safe }}</p></div>
+        <p><b><i>6.1.4 Розміри:</i></b></p>
+        <div align="justify"><p> {{ size_description | safe }}</p></div>
+
+
+        <b>6.2. За даними лабораторних досліджень:</b>
+
+
+        <p>
+        <table>
+            <tr>
+                <th>Мета дослідження</th>
+                <th>Методи і результати дослідження</th>
+                <th>Виконавець та дата</th>
+            </tr>
+            <tr>
+                <td class="purposes_researches_table_space">{{ purposes_researches | safe }}</td>
+                <td class="methods_researches_table_space">{{ methods_researches | safe }}</td>
+                <td class="executor_date_researches_table_space">{{ executor_date_researches | safe }}</td>
+            </tr>
+        </table>
+
+
+        <p><b>6.3 Загальний висновок за результатами досліджень:</b></p>
+        <div align="justify"><p>{{ results_researches | safe }}</p></div>
+
+        <p><b>7. Програма проведення реставраційних заходів та їх обгрунтування:</b></p>
+
+
+        <div align="justify"><p>{{ restoration_program | safe }}</p></div>
+
+
+        <p>
+            <b>8. Проведення реставраційних заходів:</b>
+        <table class="treatment_base_space">
+            <tr>
+                <th>Опис операцій із зазначенням методу, методики, технології, інструментарію</th>
+                <th>Матеріали, хімікати (консентрація %)</th>
+                <th>Виконавець та дата</th>
+            </tr>
+            <tr>
+                <td class="treatments_descriptions_table_space">{{ treatments_descriptions | safe }}</td>
+                <td class="treatments_chemicals_table_space">{{ treatments_chemicals | safe }}</td>
+                <td class="treatments_executor_date_table_space">{{ treatments_executor_date | safe }}</td>
+            </tr>
+        </table>
+
+
+        <p><b>9. Стислий опис реставраційних заходів; опис змін технічного та зовнішнього стану пам'ятки після
+            реставрації, уточнення атрибуції тощо:</b></p>
+        <div align="justify"><p>{{ treatments_results | safe }}</p></div>
+
+        <p>
+            <a href="{{url_for('download_passport')}}" class="download_passport">Завантажити</a>
+        </p>
+
+        <div align="left">
+            <p><label>Використовувати зміст даної сторінки виключно з освітньою метою. 2021 рік. Україна. Київ.</label>
+            </p>
+        </div>
+        {% endblock -%}
+    </div>
+</div>
+</body>
+</html>

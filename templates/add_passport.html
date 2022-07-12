@@ -76,7 +76,7 @@
         </table>
 
         <p><b>2. Місце постійного зберігання, власник пам'ятки</b></p>
-        <p><textarea type="text" name="object_owner" rows="3" cols="92"
+        <p><textarea name="object_owner" rows="3" cols="92"
                      placeholder="Назва установи/ім'я та прізвище хранителя/приватна колекція" required></textarea>
         </p>
 
@@ -221,7 +221,7 @@ VІ. Біологічні пошкодження і руйнування:
 Товщина: см/мм.</textarea></p>
 
 
-        <TABLE>
+        <TABLE id="choose_metal_researches">
             <tr>
                 <th>Оберіть матеріал для заповнення орієнтовних зразків описів проведення лабораторних досліджень,
                     реставраційної програми та реставраційних заходів:
@@ -327,9 +327,7 @@ VІ. Біологічні пошкодження і руйнування:
 
 
         <p>
-            <button><img src="{{url_for('static', filename='Intelligible_illustrations/restInfoLogo.ico')}}"
-                         alt="Завантажити паспорт на інтернет-платформу" style="vertical-align: middle;"><b>Додати</b>
-            </button>
+            <button class="upload_passport">Додати</button>
         </p>
     </div>
 
