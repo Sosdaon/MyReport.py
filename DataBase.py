@@ -108,6 +108,16 @@ class DataBase:
 
         return []
 
+    def delete_passport(self, id_post):
+        try:
+            self.__cur.execute(f'DELETE FROM passports WHERE id == {id_post}')
+            self.__db.commit()
+        except sqlite3.Error as error:
+            print('Помилка отримання публікації з бази даних при редагуванні' + str(error))
+            return True
+
+        return False
+
     def get_passport_to_update(self, id_post):
         try:
             self.__cur.execute(

@@ -101,9 +101,9 @@
             </tr>
             <tr>
                 <td>Матеріал, основа:
-                    <button type="button" onclick="server.addCeramics(); server.hideMetalResearches();"> Глина</button>
-                    <button type="button" onclick="server.addWood(); server.hideMetalResearches();"> Деревина</button>
-                    <button type="button" onclick="server.addMetal(); server.showMetalResearches()"> Метал</button>
+                    <button type="button" onclick="server.addCeramics(); server.hideMetalResearches();" class="material"> Глина</button>
+                    <button type="button" onclick="server.addWood(); server.hideMetalResearches();" class="material"> Деревина</button>
+                    <button type="button" onclick="server.addMetal(); server.showMetalResearches()" class="material"> Метал</button>
                     <input type="text" name="material" placeholder="Перелік назв матеріалів" required></td>
                 <td><input type="text" name="clarified_material" placeholder="Перелік назв матеріалів"></td>
             </tr>
@@ -230,9 +230,9 @@ VІ. Біологічні пошкодження і руйнування:
 
             <tr>
                 <td>
-                    <button type="button" id="choose_iron_research" onclick="server.fillInIronForm();">Залізо</button>
-                    <button type="button" id="choose_cuprum_research" onclick="server.fillInCuprumForm();">Мідь</button>
-                    <button type="button" id="choose_silver_research" onclick="server.fillInSilverForm();">Срібло
+                    <button type="button" id="choose_iron_research" onclick="server.fillInIronForm();" class="material">Залізо</button>
+                    <button type="button" id="choose_cuprum_research" onclick="server.fillInCuprumForm();" class="material">Мідь</button>
+                    <button type="button" id="choose_silver_research" onclick="server.fillInSilverForm();" class="material">Срібло
                     </button>
                 </td>
             </tr>

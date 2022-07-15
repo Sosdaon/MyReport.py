@@ -41,7 +41,7 @@ a.show_post_suggestion:hover {
 
 a.update_post_suggestion {
     display: inline-block;
-    padding: 15px 25px;
+    padding: 21px 20px;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
@@ -96,7 +96,6 @@ a.download_passport:hover {
     background-color: #00FF7F
 }
 
-
 li.suggestions_links {
     background: #A9A9A9;
 }
@@ -120,10 +119,35 @@ button.upload_passport:hover {
     background-color: #00FF7F
 }
 
-button.upload:active {
+button.upload_passport:active {
     background-color: #3e8e41;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
+}
+
+button.material {
+    display: inline-block;
+    padding: 7px 9px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #2E8B57;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 3px #999;
+}
+
+button.material:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+button.material:focus {
+    background-color:#00FF7F;
 }
 
 .clear {clear: both;}
@@ -161,19 +185,27 @@ ul.list_passports_appearance {
     list-style: none;
     margin: 0;
     padding: 0;
-    max-width: 600px;
+    max-width: 400px;
+
 }
 
 ul.list_passports_appearance li {
-    margin: 20px 0 0 0;
+    margin: 55px 0 0 0;
     color: #FFFFFF;
     font-size: 20px;
     border-radius: 7px;
     border: 10px solid #3F4137;
+    opacity: 1;
 }
+
+ul.off-list_passports_appearance li {
+    opacity: 0.5;
+}
+
 ul.list_passports_appearance .object_name_inventory_number_appearance {
-    margin: 0;
-    padding: 5px;
+    font-size: 25px;
+    margin: 0px 0px 0 0px;
+    padding: 20px;
     background: #3F4137;
 }
 ul.list_passports_appearance .acceptance_number_appearance {
@@ -219,4 +251,108 @@ width: 290px;
 }
 .treatments_executor_date_table_space{
 width: 270px;
+}
+
+
+.kill_suggestion {
+    padding: 10px 60px;
+    background: #FFFFFF;
+    border: 0;
+    outline: 0;
+    font-size: 22;
+    font-weight: 500;
+    border-radius: 30px;
+}
+
+a.cancel_deletion {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #2E8B57;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+a.cancel_deletion:hover {
+    background-color: #00FF7F
+}
+
+a.delete_passport_appearance {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #CD5C5C;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #696969;
+}
+
+a.delete_passport_appearance:hover {
+    background-color: #FF0000
+}
+
+a.delete_passport_appearance:active {
+    background-color: #FF0000;
+    box-shadow: 0 5px #FF4500;
+    transform: translateY(4px);
+}
+
+.popup_appearance {
+    font-family: sans-serif;
+    width: 400px;
+    background: #800000;
+    border-radius: 6px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #FFFFFF;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+
+.open-popup_appearance {
+    visibility: visible;
+    top: 70%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popup img{
+    width: 100px;
+    margin-top: -50px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.popup h2{
+    font-size: 38px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+}
+
+.popup button{
+    width: 100%;
+    margin-top: 50px;
+    padding: 10px 0;
+    background: #6fd649;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor:pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
 }

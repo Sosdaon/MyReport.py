@@ -11,8 +11,6 @@ DATABASE = '/tmp/flsite.db'
 DEBUG = True
 SECRET_KEY = 'fdgdfgdfggf786hfg6hfg6h7f'
 ALLOWED_EXTENSIONS = {'png'}
-UPLOAD_FOLDER = 'C:/Users/ASUS/Desktop/pyCharm_projects/restoreConrol/static/Intelligible_illustrations'
-MAX_CONTENT_LENGTH = 16 * 1000 * 1000
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config.update(dict(DATABASE=os.path.join(app.root_path, 'MyReport_DataTable,db')))
@@ -243,7 +241,7 @@ def show_post(id_post):
         abort(404)
 
     return render_template('post.html', main_menu=dbase.getMainMenu(), web_page_title=inventory_number,
-                           passport_number=passport_number,
+                           passports=dbase.get_current_passport(id_post), passport_number=passport_number,
                            inventory_number=inventory_number, acceptance_number=acceptance_number,
                            institution_name=institution_name,
                            department_name=department_name, definition=definition, typological=typological,
@@ -323,7 +321,6 @@ def update_post(id_post):
                 flash('Виникла помилка публікування', category='error')
             else:
                 flash('Успішно опубліковано!', category='success')
-                return redirect(url_for('index'))
         else:
             flash("Спочатку введіть, будь ласка, інвентарний номер та дані акта приймання пам'ятки.", category='error')
 
@@ -351,10 +348,32 @@ def update_post(id_post):
                            treatments_executor_date=treatments_executor_date, treatments_results=treatments_results)
 
 
+@app.route('/delete_passport/<string:id_post>')
+def delete_passport(id_post):
+    db = get_db()
+    dbase = DataBase(db)
+    deleted_passport = dbase.delete_passport(id_post)
+    if not deleted_passport:
+        return redirect(url_for('deleted_post_report'))
+    else:
+        flash('Виникла помилка видалення', category='error')
+
+    return render_template('delete_passport.html', main_menu=dbase.getMainMenu(), web_page_title='Видалення',
+                           passports=dbase.get_current_passport(id_post))
+
+
 @app.route('/download_passport')
 def download_passport():
     printable_passport = 'filled_passport.docx'
     return send_file(printable_passport, as_attachment=True, download_name='YourFilledPassport.docx')
+
+
+@app.route('/deleted_post_report')
+def deleted_post_report():
+    db = get_db()
+    dbase = DataBase(db)
+    print(url_for('deleted_post_report'))
+    return render_template('deleted_post_report.html', main_menu=dbase.getMainMenu(), web_page_title='Публікацію видалено')
 
 
 @app.route('/about_us')
@@ -374,5 +393,3 @@ def page_not_found(error):
 
 if __name__ == '__main__':
     app.run(debug=True)
-    app.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
