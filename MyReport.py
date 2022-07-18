@@ -241,7 +241,7 @@ def show_post(id_post):
         abort(404)
 
     return render_template('post.html', main_menu=dbase.getMainMenu(), web_page_title=inventory_number,
-                           passports=dbase.get_current_passport(id_post), passport_number=passport_number,
+                           passport=dbase.get_current_passport(id_post), passport_number=passport_number,
                            inventory_number=inventory_number, acceptance_number=acceptance_number,
                            institution_name=institution_name,
                            department_name=department_name, definition=definition, typological=typological,
@@ -325,7 +325,7 @@ def update_post(id_post):
             flash("Спочатку введіть, будь ласка, інвентарний номер та дані акта приймання пам'ятки.", category='error')
 
     return render_template('update_passport_form.html', main_menu=dbase.getMainMenu(), web_page_title='Публікація',
-                           passports=dbase.get_current_passport(id_post), passport_number=passport_number,
+                           passport=dbase.get_current_passport(id_post), passport_number=passport_number,
                            inventory_number=inventory_number, acceptance_number=acceptance_number,
                            institution_name=institution_name,
                            department_name=department_name, definition=definition, typological=typological,
@@ -352,14 +352,32 @@ def update_post(id_post):
 def delete_passport(id_post):
     db = get_db()
     dbase = DataBase(db)
-    deleted_passport = dbase.delete_passport(id_post)
-    if not deleted_passport:
-        return redirect(url_for('deleted_post_report'))
-    else:
-        flash('Виникла помилка видалення', category='error')
+
+    passport_number, inventory_number, acceptance_number, institution_name, department_name, definition, typological, object_owner, author, clarified_author, object_name, clarified_object_name, time_of_creation, clarified_time_of_creation, material, clarified_material, technique, clarified_technique, object_size, clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer, object_output_date, responsible_restorer, origin_description, appearance_description, damages_description, signs_description, size_description, purposes_researches, methods_researches, executor_date_researches, results_researches, restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results = dbase.get_passport(
+        id_post)
 
     return render_template('delete_passport.html', main_menu=dbase.getMainMenu(), web_page_title='Видалення',
-                           passports=dbase.get_current_passport(id_post))
+                           passport=dbase.get_current_passport(id_post), passport_number=passport_number,
+                           inventory_number=inventory_number, acceptance_number=acceptance_number,
+                           institution_name=institution_name,
+                           department_name=department_name, definition=definition, typological=typological,
+                           object_owner=object_owner, author=author, clarified_author=clarified_author,
+                           object_name=object_name,
+                           clarified_object_name=clarified_object_name, time_of_creation=time_of_creation,
+                           clarified_time_of_creation=clarified_time_of_creation, material=material,
+                           clarified_material=clarified_material,
+                           technique=technique, clarified_technique=clarified_technique, object_size=object_size,
+                           clarified_size=clarified_size,
+                           weight=weight, clarified_weight=clarified_weight, reason=reason,
+                           object_input_date=object_input_date, execute_restorer=execute_restorer,
+                           object_output_date=object_output_date, responsible_restorer=responsible_restorer,
+                           origin_description=origin_description, appearance_description=appearance_description,
+                           damages_description=damages_description, signs_description=signs_description,
+                           size_description=size_description, purposes_researches=purposes_researches,
+                           methods_researches=methods_researches, executor_date_researches=executor_date_researches,
+                           results_researches=results_researches, restoration_program=restoration_program,
+                           treatments_descriptions=treatments_descriptions, treatments_chemicals=treatments_chemicals,
+                           treatments_executor_date=treatments_executor_date, treatments_results=treatments_results)
 
 
 @app.route('/download_passport')
@@ -368,11 +386,11 @@ def download_passport():
     return send_file(printable_passport, as_attachment=True, download_name='YourFilledPassport.docx')
 
 
-@app.route('/deleted_post_report')
-def deleted_post_report():
+@app.route('/deleted_post_report/<string:id_post>')
+def deleted_post_report(id_post):
     db = get_db()
     dbase = DataBase(db)
-    print(url_for('deleted_post_report'))
+    dbase.delete_passport(id_post)
     return render_template('deleted_post_report.html', main_menu=dbase.getMainMenu(), web_page_title='Публікацію видалено')
 
 

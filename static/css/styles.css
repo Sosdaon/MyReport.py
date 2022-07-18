@@ -150,7 +150,9 @@ button.material:focus {
     background-color:#00FF7F;
 }
 
-.clear {clear: both;}
+div.content {
+    margin: 30px;
+}
 
 ul.main_menu_appearance {
     list-style: none;
@@ -165,10 +167,6 @@ ul.main_menu_appearance {
 ul.main_menu_appearance li {
     float: left;
     margin: 22px 35px 0 20px;
-}
-
-div.content {
-    margin: 30px;
 }
 
 .flash {padding: 10px;}
@@ -195,11 +193,6 @@ ul.list_passports_appearance li {
     font-size: 20px;
     border-radius: 7px;
     border: 10px solid #3F4137;
-    opacity: 1;
-}
-
-ul.off-list_passports_appearance li {
-    opacity: 0.5;
 }
 
 ul.list_passports_appearance .object_name_inventory_number_appearance {
@@ -212,10 +205,12 @@ ul.list_passports_appearance .acceptance_number_appearance {
     margin: 0;
     padding: 10px 5px 10px 5px
 }
+
 TABLE {
     width: 850px;
     border-collapse: collapse;
 }
+
 TD, TH {
     padding: 3px;
     border: 1px solid black;
@@ -253,15 +248,23 @@ width: 290px;
 width: 270px;
 }
 
+.pale_TABLE {
+    width: 850px;
+    border-collapse: collapse;
+    opacity: 0.5;
+}
 
-.kill_suggestion {
-    padding: 10px 60px;
-    background: #FFFFFF;
-    border: 0;
-    outline: 0;
-    font-size: 22;
-    font-weight: 500;
-    border-radius: 30px;
+.pale_treatment_TABLE {
+    width: 1080px;
+    opacity: 0.5;
+}
+
+.pale_text {
+    opacity: 0.5;
+}
+
+.light_text {
+    color: #A9A9A9;
 }
 
 a.cancel_deletion {
@@ -281,6 +284,12 @@ a.cancel_deletion {
 
 a.cancel_deletion:hover {
     background-color: #00FF7F
+}
+
+a.cancel_deletion:active {
+    background-color: #00FF7F;
+    box-shadow: 0 5px #00FFFF;
+    transform: translateY(4px);
 }
 
 a.delete_passport_appearance {
@@ -341,18 +350,4 @@ a.delete_passport_appearance:active {
     font-size: 38px;
     font-weight: 500;
     margin: 30px 0 10px;
-}
-
-.popup button{
-    width: 100%;
-    margin-top: 50px;
-    padding: 10px 0;
-    background: #6fd649;
-    color: #fff;
-    border: 0;
-    outline: none;
-    font-size: 18px;
-    border-radius: 4px;
-    cursor:pointer;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
 }

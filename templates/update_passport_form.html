@@ -26,8 +26,8 @@
 <div class="flash {{ctg}}">{{msg}}</div>
 {% endfor %}
 
-{% for passport in passports %}
-<form enctype="multipart/form-data" action="{{url_for('update_post', id_post=passport)}}" method="post">
+
+<form enctype="multipart/form-data" action="{{url_for('update_post', id_post=passport.id)}}" method="post">
     <div align="center">
         <p>
         <table>
@@ -234,8 +234,7 @@
 
 
         <p>
-            <button class="upload_passport"><b>Додати</b>
-            </button>
+            <button class="upload_passport"><b>Додати</b></button>
         </p>
     </div>
 
@@ -244,5 +243,4 @@
 <div align="left">
     <p><label>Використовувати зміст даної сторінки виключно з освітньою метою. 2021 рік. Україна. Київ.</label></p>
 </div>
-{% endfor %}
 {% endblock %}

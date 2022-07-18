@@ -99,7 +99,7 @@ class DataBase:
 
     def get_current_passport(self, id_post):
         try:
-            self.__cur.execute(f'SELECT id FROM passports WHERE id == {id_post}')
+            self.__cur.execute(f'SELECT id, inventory_number, object_name FROM passports WHERE id == {id_post}')
             passport_id = self.__cur.fetchone()
             if passport_id:
                 return passport_id

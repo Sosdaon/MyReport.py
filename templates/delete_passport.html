@@ -16,21 +16,225 @@
 </ul>
 {% endblock main_menu -%}
 
-{% for passport in passports %}
-<div class="clear"></div>
 <div class="content">
-    <h1>{{passport.object_name}} {{passport.inventory_number}}</h1>
         <p>
-            <a href="{{url_for('delete_passport', id_post=passport.id)}}" class="delete_passport_suggestion">Видалити</a>
+            <a onclick="openPopup(); window.scrollTo(0, 0);" class="delete_post_suggestion">Видалити</a>
         </p>
+    <div class="popup_appearance" id="popup">
+            <h1>Дійсно видалити?</h1>
+            <p><h3>Паспорт пам'ятки "{{passport.object_name}} {{passport.inventory_number}}" буде видалено назавжди.</h3></p>
+            <a type="button" href="{{url_for('deleted_post_report', id_post=passport.id)}}" onclick="closePopup();" class="delete_passport_appearance"><b>Знищити</b></a>
+            <a type="button" onclick="closePopup();" class="cancel_deletion"><b>Скасувати</b></a>
+</div>
 
-        <div align="left">
-            <p><label>Використовувати зміст даної сторінки виключно з освітньою метою. 2021 рік. Україна. Київ.</label>
-            </p>
-        </div>
-{% endfor %}
+    <h1>{{object_name}} {{inventory_number}}</h1>
+
+<div align="center">
+    <div>
+        <p>
+        <table class="pale_TABLE" >
+            <tr>
+                <th>№ реставраційного паспорта:</th>
+                <th>інвентарний № пам'ятки</th>
+                <th>Акт приймання</th>
+            </tr>
+            <tr>
+                <td>{{passport_number}}</td>
+                <td>{{inventory_number}}</td>
+                <td>{{acceptance_number}}</td>
+            </tr>
+        </table>
+
+        <p></p>
+        <h3 class="light_text" >Міністерство культури та інформаційної політики України</h3>
+        <p></p>
+        <h3 class="light_text" >ПАСПОРТ РЕСТАВРАЦІЇ ПАМ'ЯТКИ ІСТОРІЇ ТА КУЛЬТУРИ (РУХОМОЇ)</h3>
+
+        <p>
+        <h3 class="light_text" >{{institution_name}}</h3>
+        <p class="light_text" >Назва закладу, який здійснює реставрацію</p>
+        <p>
+        <h3 class="light_text" >{{department_name}}</h3>
+        <p class="light_text" >Назва відділу/сектору</p>
+
+        <p>
+            <b class="light_text" >1. Типологічна приналежність пам'ятки</b>
+        <table class="pale_TABLE">
+            <tr>
+                <th>Визначення, характер пам'ятки:</th>
+                <th>пам'ятка образотворчого мистецтва</th>
+                <th>пам'ятка декоративно-ужиткового мистецтва</th>
+                <th>археологічна пам'ятка</th>
+                <th>документальна пам'ятка</th>
+                <th>інша пам'ятка історії та культури</th>
+            </tr>
+            <tr>
+                <td>{{definition}}</td>
+                {% if typological == '(1)'%}
+                <td>{{typological}}</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                {% if typological == '(2)'%}
+                <td>{{typological}}</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                {% if typological == '(3)'%}
+                <td>{{typological}}</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                {% if typological == '(4)'%}
+                <td>{{typological}}</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                {% if typological == '(5)'%}
+                <td>{{typological}}</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+            </tr>
+        </table>
+
+        <p class="pale_text" ><b>2. Місце постійного зберігання, власник пам'ятки</b></p>
+        <p class="pale_text" >{{object_owner}}</p>
+
+        <p>
+        <table class="pale_TABLE">
+            <tr>
+                <th>3. Атрибутивні дані про пам'ятку згідно з актом приймання</th>
+                <th>Уточнення в процесі реставрації</th>
+            </tr>
+            <tr>
+                <td>Автор: {{author}}</td>
+                <td>{{clarified_author}}</td>
+            </tr>
+            <tr>
+                <td>Назва: {{object_name}}</td>
+                <td>{{clarified_object_name}}</td>
+            </tr>
+            <tr>
+                <td>Час створення: {{time_of_creation}}</td>
+                <td>{{clarified_time_of_creation}}</td>
+            </tr>
+            <tr>
+                <td>Матеріал, основа: {{material}}</td>
+                <td>{{clarified_material}}</td>
+            </tr>
+            <tr>
+                <td>Техніка виконання: {{technique}}</td>
+                <td>{{clarified_technique}}</td>
+            </tr>
+            <tr>
+                <td>Розміри: {{object_size}}</td>
+                <td>{{clarified_size}}</td>
+            </tr>
+            <tr>
+                <td>Вага: {{weight}}</td>
+                <td>{{clarified_weight}}</td>
+            </tr>
+        </table>
+
+        <p class="pale_text" ><b>4. Підстава для проведення реставраційних заходів</b></p>
+        <div align="justify" class="pale_text" ><p>{{ reason | safe }}</p></div>
+
+
+        <p>
+        <table class="pale_TABLE">
+            <tr>
+                <th>Дати</th>
+                <th>Реставратори</th>
+            </tr>
+            <tr>
+                <td>Дата передання пам'ятки на реставрацію: {{object_input_date}}</td>
+                <td>Виконавець: {{execute_restorer}}</td>
+            </tr>
+            <tr>
+                <td>Дата завершення реставраційних заходів: {{object_output_date}}</td>
+                <td>Керівник: {{responsible_restorer}}</td>
+            </tr>
+        </table>
+
+
+        <p class="pale_text" ><b>5. Основні дані з історії пам'ятки (довідка про побутування; відомості про умови зберігання,</b></p>
+        <p class="pale_text" ><b>попередні дослідження, консерваційно-реставраційні заходи тощо), джерело надходження інформації</b></p>
+        <div align="justify" class="pale_text" ><p>{{ origin_description | safe }}</p></div>
+
+        <p class="pale_text" ><b>6. Стан пам'ятки до реставрації</b></p>
+        <p class="pale_text" ><b><i>6.1 За візуальним спостереженням:</i></b></p>
+        <div align="justify" class="pale_text" ><p>{{ appearance_description | safe }}</p></div>
+        <p class="pale_text" ><b><i>6.1.2 Втрати та пошкодження:</i></b></p>
+        <div align="justify" class="pale_text" ><p>{{ damages_description | safe }}</p></div>
+        <p class="pale_text" ><b><i>6.1.3 Старі номери та позначення:</i></b></p>
+        <div align="justify" class="pale_text" ><p>{{ signs_description | safe }}</p></div>
+        <p class="pale_text" ><b><i>6.1.4 Розміри:</i></b></p>
+        <div align="justify" class="pale_text" ><p> {{ size_description | safe }}</p></div>
+
+
+        <b class="pale_text" >6.2. За даними лабораторних досліджень:</b>
+
+
+        <p>
+        <table class="pale_TABLE">
+            <tr>
+                <th>Мета дослідження</th>
+                <th>Методи і результати дослідження</th>
+                <th>Виконавець та дата</th>
+            </tr>
+            <tr>
+                <td class="purposes_researches_table_space">{{ purposes_researches | safe }}</td>
+                <td class="methods_researches_table_space">{{ methods_researches | safe }}</td>
+                <td class="executor_date_researches_table_space">{{ executor_date_researches | safe }}</td>
+            </tr>
+        </table>
+
+
+        <p class="pale_text" ><b>6.3 Загальний висновок за результатами досліджень:</b></p>
+        <div align="justify" class="pale_text" ><p>{{ results_researches | safe }}</p></div>
+
+        <p class="pale_text" ><b>7. Програма проведення реставраційних заходів та їх обгрунтування:</b></p>
+
+
+        <div align="justify" class="pale_text" ><p>{{ restoration_program | safe }}</p></div>
+
+
+        <p class="pale_text" >
+            <b>8. Проведення реставраційних заходів:</b>
+        <table class="pale_treatment_TABLE">
+            <tr>
+                <th>Опис операцій із зазначенням методу, методики, технології, інструментарію</th>
+                <th>Матеріали, хімікати (консентрація %)</th>
+                <th>Виконавець та дата</th>
+            </tr>
+            <tr>
+                <td class="treatments_descriptions_table_space">{{ treatments_descriptions | safe }}</td>
+                <td class="treatments_chemicals_table_space">{{ treatments_chemicals | safe }}</td>
+                <td class="treatments_executor_date_table_space">{{ treatments_executor_date | safe }}</td>
+            </tr>
+        </table>
+
+
+        <p class="pale_text" ><b>9. Стислий опис реставраційних заходів; опис змін технічного та зовнішнього стану пам'ятки після
+            реставрації, уточнення атрибуції тощо:</b></p>
+        <div align="justify" class="pale_text" ><p>{{ treatments_results | safe }}</p></div>
+
+</div>
 {% endblock -%}
-    </div>
+
+<script>
+let popup = document.getElementById("popup");
+
+function openPopup() {
+    popup.classList.add("open-popup_appearance");
+}
+
+function closePopup() {
+    popup.classList.remove("open-popup_appearance");
+}
+</script>
+</div>
 </div>
 </body>
 </html>
