@@ -10,9 +10,13 @@
 {% block content -%}
     {%- block main_menu -%}
 <ul class="main_menu_appearance">
+
+
     {% for main_choice in main_menu -%}
     <li><a href="{{main_choice.url}}">{{main_choice.menu_element}}</a></li>
     {% endfor -%}
+
+
 </ul>
     {% endblock main_menu -%}
 <p>Сторінку не знайдено. Повернутися на <a href="{{url_for('index')}}">головну сторінку</a></p>

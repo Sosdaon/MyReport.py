@@ -10,14 +10,24 @@
 {% block content -%}
     {%- block main_menu -%}
 <ul class="main_menu_appearance">
+
+
     {% for main_choice in main_menu -%}
     <li><a href="{{main_choice.url}}">{{main_choice.menu_element}}</a></li>
     {% endfor -%}
+
+
 </ul>
     {% endblock main_menu -%}
+
+
+{% for ctg, msg in get_flashed_messages(True) %}
+<div class="flash {{ctg}}">{{msg}}</div>
+{% endfor %}
+
+
+
 <div class="content">
-    <p>
-    <h4>Публікацію успішно видалено. Повернутися на <a href="{{url_for('index')}}">головну сторінку</a></h4>
-    </p>
+    <p><h4>Публікацію успішно видалено. Повернутися на <a href="{{url_for('index')}}">головну сторінку</a></h4>
 </div>
 {% endblock %}

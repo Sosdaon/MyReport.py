@@ -49,3 +49,11 @@ treatments_executor_date TEXT NOT NULL,
 treatments_results TEXT NOT NULL,
 TIME INTEGER NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS restorers (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+restorer_name TEXT NOT NULL,
+restorer_email TEXT NOT NULL,
+hashed_restorer_password TEXT NOT NULL,
+TIME INTEGER NOT NULL
+);

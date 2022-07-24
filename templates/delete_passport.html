@@ -10,20 +10,31 @@
 {% block content -%}
 {%- block main_menu -%}
 <ul class="main_menu_appearance">
+
+
     {% for main_choice in main_menu -%}
     <li><a href="{{main_choice.url}}">{{main_choice.menu_element}}</a></li>
     {% endfor -%}
+
+
 </ul>
 {% endblock main_menu -%}
 
+
+{% for ctg, msg in get_flashed_messages(True) %}
+<div class="flash {{ctg}}">{{msg}}</div>
+{% endfor %}
+
+
+
 <div class="content">
         <p>
-            <a onclick="openPopup(); window.scrollTo(0, 0);" class="delete_post_suggestion">Видалити</a>
+            <a onclick="openPopup(); window.scrollTo(0, 0);" class="delete_passport_suggestion">Видалити</a>
         </p>
     <div class="popup_appearance" id="popup">
             <h1>Дійсно видалити?</h1>
             <p><h3>Паспорт пам'ятки "{{passport.object_name}} {{passport.inventory_number}}" буде видалено назавжди.</h3></p>
-            <a type="button" href="{{url_for('deleted_post_report', id_post=passport.id)}}" onclick="closePopup();" class="delete_passport_appearance"><b>Знищити</b></a>
+            <a type="button" href="{{url_for('deleted_passport_report', id_post=passport.id)}}" onclick="closePopup();" class="delete_passport_appearance"><b>Знищити</b></a>
             <a type="button" onclick="closePopup();" class="cancel_deletion"><b>Скасувати</b></a>
 </div>
 

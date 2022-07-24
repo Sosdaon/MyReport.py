@@ -1,7 +1,9 @@
 import math
-import sqlite3
 import time
 import re
+
+from flask import flash
+import sqlite3
 
 
 class DataBase:
@@ -9,7 +11,7 @@ class DataBase:
         self.__db = db
         self.__cur = db.cursor()
 
-    def getMainMenu(self):
+    def get_main_menu(self):
         sql = '''SELECT * FROM main_menu'''
         try:
             self.__cur.execute(sql)
@@ -17,7 +19,8 @@ class DataBase:
             if res:
                 return res
         except:
-            FileNotFoundError('Помилка читання з бази даних')
+            print('Нажаль виникла помилка читання елементів меню з бази даних')
+            flash('Нажаль виникла помилка і елементи меню не відображаються', category='error')
         return []
 
     def store_passport(self, passport_number, inventory_number, acceptance_number, institution_name, department_name,
@@ -60,7 +63,8 @@ class DataBase:
                  treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results, tm))
             self.__db.commit()
         except sqlite3.Error as e:
-            FileNotFoundError('Помилка додавання публікації в базу даних' + str(e))
+            print('Нажаль виникла помилка додавання паспорта в базу даних' + str(e))
+            flash('Нажаль виникла помилка збереження паспорта', category='error')
             return False
 
         return True
@@ -82,7 +86,8 @@ class DataBase:
             if passport_field_output:
                 return passport_field_output
         except sqlite3.Error as e:
-            print('Помилка отримання публікації з бази даних' + str(e))
+            print('Нажаль виникла помилка отримання паспорта з бази даних' + str(e))
+            flash('Нажаль виникла помилка отримання паспорта з бази даних', category='error')
 
         return (False, False)
 
@@ -93,7 +98,8 @@ class DataBase:
             if passports_preview:
                 return passports_preview
         except sqlite3.Error as e:
-            FileNotFoundError('Помилка отримання публікації з бази даних' + str(e))
+            print('Нажаль виникла помилка отримання паспортів з бази даних для портфоліо' + str(e))
+            flash('Нажаль виникла помилка відображення портфоліо', category='error')
 
         return []
 
@@ -104,7 +110,8 @@ class DataBase:
             if passport_id:
                 return passport_id
         except sqlite3.Error as e:
-            FileNotFoundError('Помилка отримання публікації з бази даних при редагуванні' + str(e))
+            print('Нажаль виникла помилка отримання поточного паспорта з бази даних при редагуванні' + str(e))
+            flash('Нажаль виникла помилка отримання поточного паспорта з бази даних при редагуванні', category='error')
 
         return []
 
@@ -113,7 +120,8 @@ class DataBase:
             self.__cur.execute(f'DELETE FROM passports WHERE id == {id_post}')
             self.__db.commit()
         except sqlite3.Error as error:
-            print('Помилка отримання публікації з бази даних при редагуванні' + str(error))
+            print('Нажаль виникла помилка видалення паспорта з бази даних' + str(error))
+            flash('Нажаль виникла помилка видалення паспорта', category='error')
             return True
 
         return False
@@ -150,4 +158,60 @@ class DataBase:
             treatments_results = re.sub(r'<br>', '', treatments_results)
             return passport_number, inventory_number, acceptance_number, institution_name, department_name, definition, typological, object_owner, author, clarified_author, object_name, clarified_object_name, time_of_creation, clarified_time_of_creation, material, clarified_material, technique, clarified_technique, object_size, clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer, object_output_date, responsible_restorer, origin_description, appearance_description, damages_description, signs_description, size_description, purposes_researches, methods_researches, executor_date_researches, results_researches, restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results
         except sqlite3.Error as e:
-            print('Помилка отримання публікації з бази даних при редагуванні' + str(e))
+            print('Нажаль виникла помилка отримання публікації з бази даних при редагуванні' + str(e))
+            flash('Нажаль виникла помилка отримання публікації з бази даних при редагуванні', category='error')
+
+    def add_restorer(self, restorer_name, restorer_email, hashed_restorer_password):
+        try:
+            self.__cur.execute(f"SELECT COUNT() as 'count' FROM restorers WHERE restorer_name LIKE '{restorer_name}'")
+            existed_restorer_name = self.__cur.fetchone()
+            if existed_restorer_name['count'] > 0:
+                flash("Користувач з таким ім'ям вже має кабінет", category='error')
+                return False
+            self.__cur.execute(f"SELECT COUNT() as 'count' FROM restorers WHERE restorer_email LIKE '{restorer_email}'")
+            existed_restorer_email = self.__cur.fetchone()
+            if existed_restorer_email['count'] > 0:
+                flash("Користувач з такою електронною адресою вже має кабінет", category='error')
+                return False
+            else:
+                tm = math.floor(time.time())
+                self.__cur.execute('INSERT INTO restorers VALUES(NULL, ?, ?, ?, ?)', (restorer_name, restorer_email, hashed_restorer_password, tm))
+                self.__db.commit()
+        except sqlite3.Error as e:
+            print('Нажаль виникла помилка додавання користувача в базу даних' + str(e))
+            flash('Нажаль виникла помилка додавання користувача в базу даних', category='error')
+            return False
+
+        return True
+
+    def get_restorer(self, restorer_id):
+        try:
+            self.__cur.execute(f"SELECT * FROM restorers WHERE id = {restorer_id} LIMIT 1")
+            result = self.__cur.fetchone()
+            if not result:
+                print('Нажаль користувача за таким ай ді не знайдено')
+                flash('Нажаль користувача не знайдено', category='error')
+                return False
+
+            return result
+        except sqlite3.Error as e:
+            print('Нажаль виникла помилка отримання даних про реставратора з бази даних за таким ай ді' + str(e))
+            flash('Нажаль виникла помилка отримання даних про реставратора з бази даних', category='error')
+
+        return False
+
+    def get_restorer_by_email(self, restorer_email):
+        try:
+            self.__cur.execute(f"SELECT * FROM restorers WHERE restorer_email = '{restorer_email}' LIMIT 1")
+            result = self.__cur.fetchone()
+            if not result:
+                print('Нажаль користувача за такою електронною адресою не знайдено')
+                flash('Нажаль користувача за такою електронною адресою не знайдено', category='error')
+                return False
+
+            return result
+        except sqlite3.Error as e:
+            print('Нажаль виникла помилка отримання електронної адреси з бази даних' + str(e))
+            flash('Нажаль виникла помилка отримання електронної адреси реставратора з бази даних', category='error')
+
+        return False

@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html lang="ua">
 <head>
-
     <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
     <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet"/>
-    <script type="text/javascript" src="{{url_for('static', filename='javascripts/formsForDifferentMaterials.mjs')}}">
-    import {wooden} from 'javascripts/formsForDifferentMaterials.mjs')'
-
-    </script>
     <meta charset="UTF-8">
     <title>Рест.Інфо - {{web_page_title}}</title>
 </head>
@@ -15,9 +10,13 @@
 {% block content -%}
 {%- block main_menu -%}
 <ul class="main_menu_appearance">
+
+
     {% for main_choice in main_menu -%}
     <li><a href="{{main_choice.url}}">{{main_choice.menu_element}}</a></li>
     {% endfor -%}
+
+
 </ul>
 {% endblock main_menu -%}
 
@@ -25,6 +24,7 @@
 {% for ctg, msg in get_flashed_messages(True) %}
 <div class="flash {{ctg}}">{{msg}}</div>
 {% endfor %}
+
 
 <form enctype="multipart/form-data" action="{{url_for('add_passport')}}" method="post">
     <div align="center">

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
+    <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <title>Рест.Інфо - {{web_page_title}}</title>
+</head>
+<body>
+{% block content -%}
+{%- block main_menu -%}
+<ul class="main_menu_appearance">
+
+
+    {% for main_choice in main_menu -%}
+    <li><a href="{{main_choice.url}}">{{main_choice.menu_element}}</a></li>
+    {% endfor -%}
+
+
+</ul>
+{% endblock main_menu -%}
+
+
+{% for ctg, msg in get_flashed_messages(True) %}
+<div class="flash {{ctg}}">{{msg}}</div>
+{% endfor %}
+
+
+<div class="content">
+    <p><h2>Кабінет</h2>
+    <p>Ім'я та прізвище реставратора: {{current_restorer_name}}
+    <p>Інформація про реставратора: {{current_restorer_id}}
+    <p>Опції:
+    <p><a href="{{url_for('add_passport')}}"> Створити паспорт</a>
+    <p><a href="{{url_for('portfolio')}}"> Портфоліо</a>
+    <p><a href=""> Додати досвід</a>
+    <p><a href="{{url_for('logout')}}"> Вийти з кабінету</a>
+</div>
+{% endblock %}

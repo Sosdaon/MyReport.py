@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
+    <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <title>Рест.Інфо - {{web_page_title}}</title>
+</head>
+<body>
+{% block content -%}
+{%- block main_menu -%}
+<ul class="main_menu_appearance">
+
+
+    {% for main_choice in main_menu -%}
+    <li><a href="{{main_choice.url}}">{{main_choice.menu_element}}</a></li>
+    {% endfor -%}
+
+
+</ul>
+{% endblock main_menu -%}
+
+
+{% for ctg, msg in get_flashed_messages(True) %}
+<div class="flash {{ctg}}">{{msg}}</div>
+{% endfor %}
+
+
+<div class="content">
+    <p>
+    <h4>Увійти в особистий кабінет:</h4>
+    <form action="/login" method="post" class="login-cabinet">
+        <p><label>Ваша електронна адреса: </label> <input type="text" name="restorer_email" required />
+        <p><label>Пароль від вашого кабінету: </label> <input type="password" name="restorer_password" required />
+        <p><input type="checkbox" name="remember_restorer" /> Запам'ятати мене і надалі впускати без авторизації.
+        <p><input type="submit" value="Увійти" />
+        <hr align="left" width="300px">
+        <p>Якщо ви ще не створили кабінет натисніть <a href="{{url_for('register')}}">Створити кабінет</a></p>
+    </form>
+</div>
+{% endblock %}

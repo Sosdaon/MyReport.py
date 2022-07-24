@@ -10,11 +10,16 @@
 {% block content -%}
     {%- block main_menu -%}
 <ul class="main_menu_appearance">
+
+
     {% for main_choice in main_menu -%}
     <li><a href="{{main_choice.url}}">{{main_choice.menu_element}}</a></li>
     {% endfor -%}
+
+
 </ul>
     {% endblock main_menu -%}
+
 <div class="content">
     <p><h4>"Рест.Інфо" - це некомерційна освітня інтернет-платформа.</h4></p>
 </div>
