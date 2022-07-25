@@ -26,16 +26,22 @@
 {% endfor %}
 
 
-<div class="content">
-    <p>
-    <h4>Увійти в особистий кабінет:</h4>
+<div align="center">
+<p><h2>Увійти в особистий кабінет</h2>
+<hr width="1000px">
+</div>
+
+
+<div class="register_content">
     <form action="/login" method="post" class="login-cabinet">
-        <p><label>Ваша електронна адреса: </label> <input type="text" name="restorer_email" required />
-        <p><label>Пароль від вашого кабінету: </label> <input type="password" name="restorer_password" required />
-        <p><input type="checkbox" name="remember_restorer" /> Запам'ятати мене і надалі впускати без авторизації.
-        <p><input type="submit" value="Увійти" />
+        <p><h3><b>Ваша електронна адреса:</b></h3>
+        <p><input type="text" name="restorer_email" class="name_email_register" required></p>
+        <p><h3><b>Пароль від вашого кабінету:</b></h3>
+        <p><input type="password" name="restorer_password" placeholder="****" class="password_register" required></p>
+        <p><input type="checkbox" name="remember_restorer" class="remember_checkbox">Запам'ятати мене і надалі впускати без авторизації.</p>
+        <p><input type="submit" value="Увійти" class="register"></p>
         <hr align="left" width="300px">
-        <p>Якщо ви ще не створили кабінет натисніть <a href="{{url_for('register')}}">Створити кабінет</a></p>
+        <p>Якщо ви ще не створили кабінет натисніть <a href="{{url_for('register')}}" style="font-size: 15px; padding: 5px; border-radius: 2px;">Створити кабінет</a></p>
     </form>
 </div>
 {% endblock %}

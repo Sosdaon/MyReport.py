@@ -31,7 +31,7 @@ class DataBase:
                        responsible_restorer, origin_description, appearance_description, damages_description,
                        signs_description, size_description, purposes_researches, methods_researches,
                        executor_date_researches, results_researches, restoration_program, treatments_descriptions,
-                       treatments_chemicals, treatments_executor_date, treatments_results):
+                       treatments_chemicals, treatments_executor_date, treatments_results, current_restorer_id):
         try:
             # Carriage return
             reason = re.sub(r'\n', '<br>', reason)
@@ -52,7 +52,7 @@ class DataBase:
 
             tm = math.floor(time.time())
             self.__cur.execute(
-                'INSERT INTO passports VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                'INSERT INTO passports VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 (passport_number, inventory_number, acceptance_number, institution_name, department_name, definition,
                  typological, object_owner, author, clarified_author, object_name, clarified_object_name,
                  time_of_creation, clarified_time_of_creation, material, clarified_material, technique,
@@ -60,7 +60,8 @@ class DataBase:
                  execute_restorer, object_output_date, responsible_restorer, origin_description,
                  appearance_description, damages_description, signs_description, size_description, purposes_researches,
                  methods_researches, executor_date_researches, results_researches, restoration_program,
-                 treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results, tm))
+                 treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results,
+                 current_restorer_id, tm))
             self.__db.commit()
         except sqlite3.Error as e:
             print('Нажаль виникла помилка додавання паспорта в базу даних' + str(e))
@@ -91,9 +92,9 @@ class DataBase:
 
         return (False, False)
 
-    def get_passports_preview(self):
+    def get_passports_preview(self, author_of_passport_id):
         try:
-            self.__cur.execute(f'SELECT id, inventory_number, object_name FROM passports ORDER BY time DESC')
+            self.__cur.execute(f'SELECT id, inventory_number, object_name FROM passports WHERE author_of_passport_id == {author_of_passport_id} ORDER BY time DESC')
             passports_preview = self.__cur.fetchall()
             if passports_preview:
                 return passports_preview
@@ -114,17 +115,6 @@ class DataBase:
             flash('Нажаль виникла помилка отримання поточного паспорта з бази даних при редагуванні', category='error')
 
         return []
-
-    def delete_passport(self, id_post):
-        try:
-            self.__cur.execute(f'DELETE FROM passports WHERE id == {id_post}')
-            self.__db.commit()
-        except sqlite3.Error as error:
-            print('Нажаль виникла помилка видалення паспорта з бази даних' + str(error))
-            flash('Нажаль виникла помилка видалення паспорта', category='error')
-            return True
-
-        return False
 
     def get_passport_to_update(self, id_post):
         try:
@@ -160,6 +150,17 @@ class DataBase:
         except sqlite3.Error as e:
             print('Нажаль виникла помилка отримання публікації з бази даних при редагуванні' + str(e))
             flash('Нажаль виникла помилка отримання публікації з бази даних при редагуванні', category='error')
+
+    def delete_passport(self, id_post):
+        try:
+            self.__cur.execute(f'DELETE FROM passports WHERE id == {id_post}')
+            self.__db.commit()
+        except sqlite3.Error as error:
+            print('Нажаль виникла помилка видалення паспорта з бази даних' + str(error))
+            flash('Нажаль виникла помилка видалення паспорта', category='error')
+            return True
+
+        return False
 
     def add_restorer(self, restorer_name, restorer_email, hashed_restorer_password):
         try:

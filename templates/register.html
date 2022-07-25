@@ -25,16 +25,24 @@
 <div class="flash {{ctg}}">{{msg}}</div>
 {% endfor %}
 
+<div align="center">
+<p><h2>Створити кабінет</h2>
+<hr width="1000px">
+</div>
 
-<div class="content">
-    <p>
-    <h4>Створити кабінет:</h4>
-    <form action="/register" method="post" class="restorer-profile">
-        <p><label>Ім'я та прізвище: </label> <input type="text" name="restorer_name" required> (Ви можете вказати справжнє ім'я та прізвище або вигадати псевдонім)
-        <p><label>Ваша електронна адреса: </label> <input type="text" name="restorer_email" required> (Вказана вами електронна адреса не буде використовуватись застосунком окрім як для створення кабунету)
-        <p><label>Вигадайте ваш пароль для кабінету: </label> <input type="password" name="restorer_password" placeholder="****" required> (Чотири цифри)
-        <p><label>Введіть вигаданий пароль повторно: </label> <input type="password" name="repeated_restorer_password" placeholder="****" required> (Повторіть пароль)
-        <p><input type="submit" value="Створити кабінет"/>
+<div class="register_content">
+    <form action="/register" method="post">
+        <p><h3><b>Ім'я та прізвище:</b></h3>
+        <p><input type="text" name="restorer_name" class="name_email_register" required></p>
+        <p><h3><b>Ваша електронна адреса:</b></h3>
+        <p><input type="text" name="restorer_email" class="name_email_register" required></p>
+        <p><h3><b>Вигадайте пароль з чотирьох цифр:</b></h3>
+        <p><input type="password" name="restorer_password" placeholder="****" class="password_register" required></p>
+        <p><h3><b>Введіть вигаданий пароль повторно:</b></h3>
+        <p><input type="password" name="repeated_restorer_password" placeholder="****" class="password_register" required>
+        <p><input type="submit" class="register" value="Створити кабінет"></p>
+        <br>
+        <p><h6>Використовувати застосунок виключно з освітньою метою.</h6>
     </form>
 </div>
 {% endblock %}

@@ -11,20 +11,19 @@ from heritageDescription import GeneralPassportDescription, Materials
 from printable.PrintPassportPaper import Paperwork
 from Login import RestorerLogin
 
+
 DATABASE = '/tmp/flsite.db'
 DEBUG = True
-SECRET_KEY = 'fdgdfgdfggf786hfg6hfg6h7f'
 
 
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config.update(dict(DATABASE=os.path.join(app.root_path, 'MyReport_DataTable,db')))
-
 app.config['SECRET_KEY'] = '467dfc20ddc0d0de73c86d5fe37ef2ee132d3be0'
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
-login_manager.login_message = 'Вітаємо! Увійдіть в свій кабінет для створення публікацій та їх перегляду'
+login_manager.login_message = 'Вітаємо! Увійдіть в особистий кабінет для створення публікацій та їх перегляду'
 login_manager.login_message_category = 'success'
 
 
@@ -183,8 +182,7 @@ def index():
     db = get_db()
     dbase = DataBase(db)
     print(url_for('index'))
-    return render_template('index.html', main_menu=dbase.get_main_menu(), web_page_title='Головна',
-                           passports=dbase.get_passports_preview())
+    return render_template('index.html', main_menu=dbase.get_main_menu(), web_page_title='Головна')
 
 
 @app.route('/portfolio')
@@ -192,9 +190,10 @@ def index():
 def portfolio():
     db = get_db()
     dbase = DataBase(db)
+    current_restorer_id = current_user.get_id()
     print(url_for('portfolio'))
     return render_template('portfolio.html', main_menu=dbase.get_main_menu(), web_page_title='Портфоліо',
-                           passports=dbase.get_passports_preview())
+                           passports=dbase.get_passports_preview(current_restorer_id))
 
 
 @app.route('/add_passport', methods=['POST', 'GET'])
@@ -202,6 +201,7 @@ def portfolio():
 def add_passport():
     db = get_db()
     dbase = DataBase(db)
+    current_restorer_id = current_user.get_id()
     print(url_for('add_passport'))
 
     if request.method == 'POST':
@@ -247,7 +247,8 @@ def add_passport():
                                                          request.form['treatments_descriptions'],
                                                          request.form['treatments_chemicals'],
                                                          request.form['treatments_executor_date'],
-                                                         request.form['treatments_results'])
+                                                         request.form['treatments_results'],
+                                                         current_restorer_id)
 
             if not passport_fields_input:
                 flash('Виникла помилка публікування', category='error')
@@ -312,6 +313,7 @@ def show_passport(id_post):
 def update_passport(id_post):
     db = get_db()
     dbase = DataBase(db)
+    current_restorer_id = current_user.get_id()
 
     passport_number, inventory_number, acceptance_number, institution_name, department_name, definition, typological, object_owner, author, clarified_author, object_name, clarified_object_name, time_of_creation, clarified_time_of_creation, material, clarified_material, technique, clarified_technique, object_size, clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer, object_output_date, responsible_restorer, origin_description, appearance_description, damages_description, signs_description, size_description, purposes_researches, methods_researches, executor_date_researches, results_researches, restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results = dbase.get_passport_to_update(
         id_post)
@@ -359,7 +361,8 @@ def update_passport(id_post):
                                                          request.form['treatments_descriptions'],
                                                          request.form['treatments_chemicals'],
                                                          request.form['treatments_executor_date'],
-                                                         request.form['treatments_results'])
+                                                         request.form['treatments_results'],
+                                                         current_restorer_id)
 
             if not passport_fields_input:
                 flash('Виникла помилка публікування', category='error')

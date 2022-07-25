@@ -26,14 +26,30 @@
 {% endfor %}
 
 
-<div class="content">
-    <p><h2>Кабінет</h2>
-    <p>Ім'я та прізвище реставратора: {{current_restorer_name}}
-    <p>Інформація про реставратора: {{current_restorer_id}}
-    <p>Опції:
-    <p><a href="{{url_for('add_passport')}}"> Створити паспорт</a>
-    <p><a href="{{url_for('portfolio')}}"> Портфоліо</a>
-    <p><a href=""> Додати досвід</a>
-    <p><a href="{{url_for('logout')}}"> Вийти з кабінету</a>
+<div align="center">
+    <p><h2 style="font-size: 25px;">{{current_restorer_name}}</h2><hr width="1000px">
+    <p><a href="{{url_for('add_passport')}}" class="cabinet_workflow_suggestions_links"><b>Заповнити паспорт</b></a>
+    <p><a href="{{url_for('portfolio')}}" class="cabinet_workflow_suggestions_links"><b>Портфоліо</b></a>
+    <p><a class="cabinet_workflow_suggestions_links"><b>Додати досвід</b></a>
+    <p><br><br><a style="font-size: 20px; padding: 15px; border-radius: 5px;" onclick="openPopup(); window.scrollTo(0, 0);">Вийти</a>
 </div>
+
+<div class="popup_appearance" id="popup">
+            <h1>Дійсно вийти?</h1>
+            <p><h3>Для повернення в цей кабінет необхідно буде внести електронну адресу та пароль.</h3></p>
+            <a type="button" href="{{url_for('logout')}}" onclick="closePopup();" class="danger"><b>Вийти</b></a>
+            <a type="button" onclick="closePopup();" class="cancel"><b>Скасувати</b></a>
+<script>
+let popup = document.getElementById("popup");
+
+function openPopup() {
+    popup.classList.add("open-popup_appearance");
+}
+
+function closePopup() {
+    popup.classList.remove("open-popup_appearance");
+}
+</script>
+</div>
+
 {% endblock %}

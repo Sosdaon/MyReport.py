@@ -47,6 +47,7 @@ treatments_descriptions TEXT NOT NULL,
 treatments_chemicals TEXT NOT NULL,
 treatments_executor_date TEXT NOT NULL,
 treatments_results TEXT NOT NULL,
+author_of_passport_id TEXT NOT NULL,
 TIME INTEGER NOT NULL
 );
 

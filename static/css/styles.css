@@ -10,6 +10,14 @@ html, body {
     font-family: Times New Roman
 }
 
+div.content {
+    margin: 30px;
+}
+
+div.register_content {
+    margin: 0px 0px 0 500px;
+}
+
 a {
     color: #F8F8FF;
     background: #3F4137;
@@ -96,8 +104,51 @@ a.download_passport:hover {
     background-color: #00FF7F
 }
 
-li.suggestions_links {
+a.link_to_main {
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 2px;
+}
+
+li.portfolio_suggestions_links {
     background: #A9A9A9;
+}
+
+input.register {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #2E8B57;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+input.register:hover {
+    background-color: #00FF7F
+}
+
+input.register:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+input.name_email_register {
+    border: 5px solid #3F4137;
+    border-radius: 3px;
+    font-size: 30px; width: 300px;
+}
+
+input.password_register {
+    border: 5px solid #3F4137;
+    border-radius: 3px;
+    font-size: 30px; width: 50px;
 }
 
 button.upload_passport {
@@ -148,10 +199,6 @@ button.material:active {
 
 button.material:focus {
     background-color:#00FF7F;
-}
-
-div.content {
-    margin: 30px;
 }
 
 ul.main_menu_appearance {
@@ -267,32 +314,7 @@ width: 270px;
     color: #A9A9A9;
 }
 
-a.cancel_deletion {
-    display: inline-block;
-    padding: 15px 25px;
-    font-size: 24px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: #fff;
-    background-color: #2E8B57;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 9px #999;
-}
-
-a.cancel_deletion:hover {
-    background-color: #00FF7F
-}
-
-a.cancel_deletion:active {
-    background-color: #00FF7F;
-    box-shadow: 0 5px #00FFFF;
-    transform: translateY(4px);
-}
-
-a.delete_passport_appearance {
+a.danger {
     display: inline-block;
     padding: 15px 25px;
     font-size: 24px;
@@ -307,13 +329,38 @@ a.delete_passport_appearance {
     box-shadow: 0 9px #696969;
 }
 
-a.delete_passport_appearance:hover {
+a.danger:hover {
     background-color: #FF0000
 }
 
-a.delete_passport_appearance:active {
+a.danger:active {
     background-color: #FF0000;
     box-shadow: 0 5px #FF4500;
+    transform: translateY(4px);
+}
+
+a.cancel {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #2E8B57;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+a.cancel:hover {
+    background-color: #00FF7F
+}
+
+a.cancel:active {
+    background-color: #00FF7F;
+    box-shadow: 0 5px #00FFFF;
     transform: translateY(4px);
 }
 
@@ -339,15 +386,26 @@ a.delete_passport_appearance:active {
     transform: translate(-50%, -50%) scale(1);
 }
 
-.popup img{
-    width: 100px;
-    margin-top: -50px;
-    border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
 .popup h2{
     font-size: 38px;
     font-weight: 500;
     margin: 30px 0 10px;
 }
+
+.cabinet_workflow_suggestions_links {
+    background-color: white;
+    color: black;
+    border-radius: 7px;
+    border: 10px solid #3F4137;
+    font-size: 20px;
+    padding: 20px;
+    width: 220px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.cabinet_workflow_suggestions_links:hover {
+  background-color: #D3D3D3;
+  text-decoration: none;
+  color: black;

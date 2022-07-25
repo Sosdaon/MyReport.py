@@ -34,8 +34,8 @@
     <div class="popup_appearance" id="popup">
             <h1>Дійсно видалити?</h1>
             <p><h3>Паспорт пам'ятки "{{passport.object_name}} {{passport.inventory_number}}" буде видалено назавжди.</h3></p>
-            <a type="button" href="{{url_for('deleted_passport_report', id_post=passport.id)}}" onclick="closePopup();" class="delete_passport_appearance"><b>Знищити</b></a>
-            <a type="button" onclick="closePopup();" class="cancel_deletion"><b>Скасувати</b></a>
+            <a type="button" href="{{url_for('deleted_passport_report', id_post=passport.id)}}" onclick="closePopup();" class="danger"><b>Знищити</b></a>
+            <a type="button" onclick="closePopup();" class="cancel"><b>Скасувати</b></a>
 </div>
 
     <h1>{{object_name}} {{inventory_number}}</h1>
