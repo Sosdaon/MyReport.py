@@ -151,6 +151,12 @@ input.password_register {
     font-size: 30px; width: 50px;
 }
 
+input.experienced_material {
+    border: 12px solid #2E8B57;
+    border-radius: 30px;
+    font-size: 30px; width: 500px;
+}
+
 button.upload_passport {
     display: inline-block;
     padding: 15px 25px;
@@ -314,6 +320,34 @@ width: 270px;
     color: #A9A9A9;
 }
 
+.popup_appearance {
+    font-family: sans-serif;
+    width: 400px;
+    background: #800000;
+    border-radius: 6px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #FFFFFF;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+
+.open-popup_appearance {
+    visibility: visible;
+    top: 70%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popup h2{
+    font-size: 38px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+}
+
 a.danger {
     display: inline-block;
     padding: 15px 25px;
@@ -364,32 +398,10 @@ a.cancel:active {
     transform: translateY(4px);
 }
 
-.popup_appearance {
-    font-family: sans-serif;
-    width: 400px;
-    background: #800000;
-    border-radius: 6px;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.1);
-    text-align: center;
-    padding: 0 30px 30px;
-    color: #FFFFFF;
-    visibility: hidden;
-    transition: transform 0.4s, top 0.4s;
-}
-
-.open-popup_appearance {
-    visibility: visible;
-    top: 70%;
-    transform: translate(-50%, -50%) scale(1);
-}
-
-.popup h2{
-    font-size: 38px;
-    font-weight: 500;
-    margin: 30px 0 10px;
+a.exit {
+    font-size: 20px;
+    padding: 15px;
+    border-radius: 5px;
 }
 
 .cabinet_workflow_suggestions_links {

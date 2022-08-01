@@ -38,117 +38,106 @@ def load_restorer(restorer_id):
 @js_Flask.use(app)
 class ChangeFormsForMaterial:
     def __init__(self, initial_changed_value='', fillInExamples=GeneralPassportDescription.AppearanceDescription(),
-                 fillInCeramics=Materials.Ceramics(), fillInIron=Materials.Iron(), fillInCuprum=Materials.Cuprum(),
-                 fillInSilver=Materials.Silver(), fillInWood=Materials.Wood(), fillInMetal=Materials.Metal()):
+                 fillInIron=Materials.Iron(), fillInCuprum=Materials.Cuprum(), fillInSilver=Materials.Silver()):
         # General texts for any heritage object
         self.changed_appearance_description = fillInExamples.general_appearance_description
         self.changed_damages_description = fillInExamples.general_damages_description
         self.changed_research_title, self.changed_research_description, self.changed_restoration_program, self.changed_treatments_descriptions, self.changed_treatments_chemicals = initial_changed_value, initial_changed_value, initial_changed_value, initial_changed_value, initial_changed_value
-        # Ceramics (wide material field)
-        self.ceramics_appearance_description = fillInCeramics.ceramics_appearance_description
-        self.ceramics_damage_description = fillInCeramics.ceramics_damage_description
-        # Wood (wide material field)
-        self.wood_appearance_description = fillInWood.wood_appearance_description
-        self.wood_damage_description = fillInWood.wood_damage_description
-        # Metal (wide material field)
-        self.metal_appearance_description = fillInMetal.metal_appearance_description
-        self.metal_damage_description = fillInMetal.metal_damage_description
+
         # Iron
+        self.iron_appearance_description = fillInIron.iron_appearance_description
+        self.iron_damage_description = fillInIron.iron_damage_description
         self.iron_research_title = fillInIron.iron_research_titles
         self.iron_research_description = fillInIron.iron_research_descriptions
         self.restoration_program_iron = fillInIron.iron_restoration_program
         self.iron_treatments_descriptions = fillInIron.iron_treatments_descriptions
         self.iron_treatments_chemicals = fillInIron.iron_treatments_chemicals
         # Cuprum
+        self.cuprum_appearance_description = fillInCuprum.cuprum_appearance_description
+        self.cuprum_damage_description = fillInCuprum.cuprum_damage_description
         self.cuprum_research_title = fillInCuprum.cuprum_research_titles
         self.cuprum_research_description = fillInCuprum.cuprum_research_descriptions
         self.restoration_program_cuprum = fillInCuprum.cuprum_restoration_program
         self.cuprum_treatments_descriptions = fillInCuprum.cuprum_treatments_descriptions
         self.cuprum_treatments_chemicals = fillInCuprum.cuprum_treatments_chemicals
         # Silver
+        self.silver_appearance_description = fillInSilver.silver_appearance_description
+        self.silver_damage_description = fillInSilver.silver_damage_description
         self.silver_research_title = fillInSilver.silver_research_titles
-        self.silverConductDescription = fillInSilver.silver_research_descriptions
+        self.silver_research_description = fillInSilver.silver_research_descriptions
         self.restoration_program_silver = fillInSilver.silver_restoration_program
         self.silver_treatments_descriptions = fillInSilver.silver_treatments_descriptions
         self.silver_treatments_chemicals = fillInSilver.silver_treatments_chemicals
 
-    def addCeramics(self):
-        self.changed_appearance_description += self.ceramics_appearance_description
-        self.js.document.getElementById(
-            "changed_appearance_description").innerHTML = self.changed_appearance_description
-        self.changed_damages_description += self.ceramics_damage_description
-        self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
-
-    def addWood(self):
-        self.changed_appearance_description += self.wood_appearance_description
-        self.js.document.getElementById(
-            "changed_appearance_description").innerHTML = self.changed_appearance_description
-        self.changed_damages_description += self.wood_damage_description
-        self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
-
-    def addMetal(self):
-        self.changed_appearance_description += self.metal_appearance_description
-        self.js.document.getElementById(
-            "changed_appearance_description").innerHTML = self.changed_appearance_description
-        self.changed_damages_description += self.metal_damage_description
-        self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
-
-    def hideMetalResearches(self):
-        self.js.document.getElementById("choose_metal_researches").style.visibility = 'hidden'
-
-    def showMetalResearches(self):
-        self.js.document.getElementById("choose_metal_researches").style.visibility = 'visible'
-
     def fillInIronForm(self):
+        self.changed_appearance_description += self.iron_appearance_description
+        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
+        self.changed_damages_description += self.iron_damage_description
+        self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
         self.changed_research_title += self.iron_research_title
-        self.js.document.getElementById(
-            "dynamic_purposes_researches_by_material").innerHTML = self.changed_research_title
+        self.js.document.getElementById("dynamic_purposes_researches_by_material").innerHTML = self.changed_research_title
         self.changed_research_description += self.iron_research_description
-        self.js.document.getElementById(
-            "dynamic_methods_researches_by_material").innerHTML = self.changed_research_description
+        self.js.document.getElementById("dynamic_methods_researches_by_material").innerHTML = self.changed_research_description
         self.changed_restoration_program += self.restoration_program_iron
-        self.js.document.getElementById(
-            "dynamic_restoration_program_by_material").innerHTML = self.changed_restoration_program
+        self.js.document.getElementById("dynamic_restoration_program_by_material").innerHTML = self.changed_restoration_program
         self.changed_treatments_descriptions += self.iron_treatments_descriptions
-        self.js.document.getElementById(
-            "dynamic_treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
+        self.js.document.getElementById("dynamic_treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
         self.changed_treatments_chemicals += self.iron_treatments_chemicals
-        self.js.document.getElementById(
-            "dynamic_treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
+        self.js.document.getElementById("dynamic_treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
 
     def fillInCuprumForm(self):
+        self.changed_appearance_description += self.cuprum_appearance_description
+        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
+        self.changed_damages_description += self.cuprum_damage_description
+        self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
         self.changed_research_title += self.cuprum_research_title
-        self.js.document.getElementById(
-            "dynamic_purposes_researches_by_material").innerHTML = self.changed_research_title
+        self.js.document.getElementById("dynamic_purposes_researches_by_material").innerHTML = self.changed_research_title
         self.changed_research_description += self.cuprum_research_description
-        self.js.document.getElementById(
-            "dynamic_methods_researches_by_material").innerHTML = self.changed_research_description
+        self.js.document.getElementById("dynamic_methods_researches_by_material").innerHTML = self.changed_research_description
         self.changed_restoration_program += self.restoration_program_cuprum
-        self.js.document.getElementById(
-            "dynamic_restoration_program_by_material").innerHTML = self.changed_restoration_program
+        self.js.document.getElementById("dynamic_restoration_program_by_material").innerHTML = self.changed_restoration_program
         self.changed_treatments_descriptions += self.cuprum_treatments_descriptions
-        self.js.document.getElementById(
-            "dynamic_treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
+        self.js.document.getElementById("dynamic_treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
         self.changed_treatments_chemicals += self.cuprum_treatments_chemicals
-        self.js.document.getElementById(
-            "dynamic_treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
+        self.js.document.getElementById("dynamic_treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
 
     def fillInSilverForm(self):
+        self.changed_appearance_description += self.silver_appearance_description
+        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
+        self.changed_damages_description += self.silver_damage_description
+        self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
         self.changed_research_title += self.silver_research_title
-        self.js.document.getElementById(
-            "dynamic_purposes_researches_by_material").innerHTML = self.changed_research_title
-        self.changed_research_description += self.silverConductDescription
-        self.js.document.getElementById(
-            "dynamic_methods_researches_by_material").innerHTML = self.changed_research_description
+        self.js.document.getElementById("dynamic_purposes_researches_by_material").innerHTML = self.changed_research_title
+        self.changed_research_description += self.silver_research_description
+        self.js.document.getElementById("dynamic_methods_researches_by_material").innerHTML = self.changed_research_description
         self.changed_restoration_program += self.restoration_program_silver
-        self.js.document.getElementById(
-            "dynamic_restoration_program_by_material").innerHTML = self.changed_restoration_program
+        self.js.document.getElementById("dynamic_restoration_program_by_material").innerHTML = self.changed_restoration_program
         self.changed_treatments_descriptions += self.silver_treatments_descriptions
-        self.js.document.getElementById(
-            "dynamic_treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
+        self.js.document.getElementById("dynamic_treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
         self.changed_treatments_chemicals += self.silver_treatments_chemicals
-        self.js.document.getElementById(
-            "dynamic_treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
+        self.js.document.getElementById("dynamic_treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
+
+    def fillInExperiencedMaterialForm(self):
+        db = get_db()
+        dbase = DataBase(db)
+        current_restorer_id = current_user.get_id()
+
+        id, experienced_material, experienced_description, experienced_damages_description, experienced_research_title, experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, experienced_treatments_chemicals = dbase.get_experience(current_restorer_id)
+
+        self.changed_appearance_description += experienced_description
+        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
+        self.changed_damages_description += experienced_damages_description
+        self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
+        self.changed_research_title += experienced_research_title
+        self.js.document.getElementById("dynamic_purposes_researches_by_material").innerHTML = self.changed_research_title
+        self.changed_research_description += experienced_research_description
+        self.js.document.getElementById("dynamic_methods_researches_by_material").innerHTML = self.changed_research_description
+        self.changed_restoration_program += experienced_restoration_program
+        self.js.document.getElementById("dynamic_restoration_program_by_material").innerHTML = self.changed_restoration_program
+        self.changed_treatments_descriptions += experienced_treatments_descriptions
+        self.js.document.getElementById("dynamic_treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
+        self.changed_treatments_chemicals += experienced_treatments_chemicals
+        self.js.document.getElementById("dynamic_treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
 
 
 def create_db():
@@ -204,6 +193,8 @@ def add_passport():
     current_restorer_id = current_user.get_id()
     print(url_for('add_passport'))
 
+    id, experienced_material, experienced_description, experienced_damages_description, experienced_research_title, experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, experienced_treatments_chemicals = dbase.get_experience(current_restorer_id)
+
     if request.method == 'POST':
         if len(request.form['inventory_number']) > 0 and len(request.form['acceptance_number']) > 0:
 
@@ -258,7 +249,8 @@ def add_passport():
         else:
             flash("Спочатку введіть, будь ласка, інвентарний номер та дані акта приймання пам'ятки.", category='error')
     return ChangeFormsForMaterial.render(
-        render_template('add_passport.html', main_menu=dbase.get_main_menu(), web_page_title='Публікація'))
+        render_template('add_passport.html', main_menu=dbase.get_main_menu(), web_page_title='Публікація',
+                        experienced_material=experienced_material))
 
 
 @app.route('/show_passport/<int:id_post>')
@@ -516,6 +508,34 @@ def about_us():
     dbase = DataBase(db)
     print(url_for('about_us'))
     return render_template('about.html', main_menu=dbase.get_main_menu(), web_page_title='Про нас')
+
+
+@app.route('/add_experience', methods=['POST', 'GET'])
+def add_experience():
+    db = get_db()
+    dbase = DataBase(db)
+    author_of_experience_id = current_user.get_id()
+
+    print(url_for('add_experience'))
+
+    if request.method == 'POST':
+        experienced_fields_input = dbase.store_experience(request.form['experienced_material'],
+                                                          request.form['experienced_description'],
+                                                          request.form['experienced_damages_description'],
+                                                          request.form['experienced_research_title'],
+                                                          request.form['experienced_research_description'],
+                                                          request.form['experienced_restoration_program'],
+                                                          request.form['experienced_treatments_descriptions'],
+                                                          request.form['experienced_treatments_chemicals'],
+                                                          author_of_experience_id)
+
+        if not experienced_fields_input:
+            flash('Виникла помилка публікування досвіду', category='error')
+        else:
+            flash('Успішно опубліковано!', category='success')
+            return redirect(url_for('cabinet'), code=301)
+
+    return render_template('add_experience.html', main_menu=dbase.get_main_menu(), web_page_title='Додати досвід')
 
 
 @app.errorhandler(404)

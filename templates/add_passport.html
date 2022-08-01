@@ -4,7 +4,7 @@
     <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
     <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet"/>
     <meta charset="UTF-8">
-    <title>Рест.Інфо - {{web_page_title}}</title>
+    <title>Назва сайту - {{web_page_title}}</title>
 </head>
 <body>
 {% block content -%}
@@ -105,9 +105,12 @@
             </tr>
             <tr>
                 <td>Матеріал, основа:
-                    <button type="button" onclick="server.addCeramics(); server.hideMetalResearches();" class="material"> Глина</button>
-                    <button type="button" onclick="server.addWood(); server.hideMetalResearches();" class="material"> Деревина</button>
-                    <button type="button" onclick="server.addMetal(); server.showMetalResearches()" class="material"> Метал</button>
+                    <button type="button" onclick="server.fillInIronForm();" class="material"> Залізо</button>
+                    <button type="button" onclick="server.fillInCuprumForm();" class="material"> Мідь</button>
+                    <button type="button" onclick="server.fillInSilverForm();" class="material"> Срібло</button>
+                    {% if experienced_material%}
+                    <button type="button" onclick="server.fillInExperiencedMaterialForm();" class="material">{{experienced_material}}</button>
+                    {% endif %}
                     <input type="text" name="material" placeholder="Перелік назв матеріалів" required></td>
                 <td><input type="text" name="clarified_material" placeholder="Перелік назв матеріалів"></td>
             </tr>
@@ -224,24 +227,6 @@ VІ. Біологічні пошкодження і руйнування:
 Ширина: см/мм;
 Товщина: см/мм.</textarea></p>
 
-
-        <TABLE id="choose_metal_researches">
-            <tr>
-                <th>Оберіть матеріал для заповнення орієнтовних зразків описів проведення лабораторних досліджень,
-                    реставраційної програми та реставраційних заходів:
-                </th>
-            </tr>
-
-            <tr>
-                <td>
-                    <button type="button" id="choose_iron_research" onclick="server.fillInIronForm();" class="material">Залізо</button>
-                    <button type="button" id="choose_cuprum_research" onclick="server.fillInCuprumForm();" class="material">Мідь</button>
-                    <button type="button" id="choose_silver_research" onclick="server.fillInSilverForm();" class="material">Срібло
-                    </button>
-                </td>
-            </tr>
-        </TABLE>
-
         <p><b>6.2. За даними лабораторних досліджень:</b></p>
 
         <p>
@@ -300,7 +285,7 @@ VІ. Біологічні пошкодження і руйнування:
         <table>
             <tr>
                 <th>Опис операцій із зазначенням методу, методики, технології, інструментарію</th>
-                <th>Матеріали, хімікати (консентрація %)</th>
+                <th>Матеріали, хімікати (концентрація %)</th>
                 <th>Виконавець та дата</th>
             </tr>
             <tr>
@@ -334,10 +319,6 @@ VІ. Біологічні пошкодження і руйнування:
             <button class="upload_passport">Додати</button>
         </p>
     </div>
-
 </form>
-
-<div align="left">
-    <p><label>Використовувати зміст даної сторінки виключно з освітньою метою. 2021 рік. Україна. Київ.</label></p>
-</div>
+<div align="center"><p><h6>Використовувати застосунок виключно з освітньою метою.</h6></div>
 {% endblock %}

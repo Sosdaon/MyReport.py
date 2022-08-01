@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
+    <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <title>Назва сайту - {{web_page_title}}</title>
+</head>
+<body>
+{% block content -%}
+    {%- block main_menu -%}
+<ul class="main_menu_appearance">
+
+
+    {% for main_choice in main_menu -%}
+    <li><a href="{{main_choice.url}}">{{main_choice.menu_element}}</a></li>
+    {% endfor -%}
+
+
+</ul>
+    {% endblock main_menu -%}
+
+<div class="content" align="center">
+    <form enctype="multipart/form-data" action="{{url_for('add_experience')}}" method="post">
+
+        <table>
+        <tr><th>Матеріал: <input class="experienced_material" name="experienced_material" ></th></tr>
+            <tr><th>Послідовність опису матеріалу:</th></tr>
+            <tr><td><textarea rows="30" cols="140" name="experienced_description"></textarea></td></tr>
+            <tr><th>Характерні втрати та пошкодження:</th></tr>
+            <tr><td><textarea rows="30" cols="140" name="experienced_damages_description"></textarea></td></tr>
+        </table>
+
+        <br><table>
+            <tr><th>Назви лабораторних дослідженнь:</th><th>Опис проведення лабораторних дослідженнь:</th></tr>
+            <tr><td><textarea rows="30" cols="22" name="experienced_research_title"></textarea></td>
+                <td><textarea rows="30" cols="35" name="experienced_research_description"></textarea></td></tr>
+        </table>
+
+        <br><table>
+            <tr><th>Реставраційна програма:</th></tr>
+            <tr><td><textarea rows="20" cols="91" name="experienced_restoration_program"></textarea></td></tr>
+        </table>
+
+        <br><table>
+            <tr><th>Опис проведення реставраційних заходів:</th><th>Матеріали та хімікати використані під час проведення реставраційних заходів:</th></tr>
+            <tr><td><textarea rows="29" cols="60" name="experienced_treatments_descriptions"></textarea></td>
+                <td><textarea rows="29" cols="35" name="experienced_treatments_chemicals"></textarea></td></tr>
+        </table>
+
+        <p><button class="upload_passport">Додати</button></p>
+    </form>
+</div>
+<div align="center"><p><h6>Використовувати застосунок виключно з освітньою метою.</h6></div>
+{% endblock %}

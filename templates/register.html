@@ -4,7 +4,7 @@
     <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
     <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet"/>
     <meta charset="UTF-8">
-    <title>Рест.Інфо - {{web_page_title}}</title>
+    <title>Назва сайту - {{web_page_title}}</title>
 </head>
 <body>
 {% block content -%}
@@ -42,7 +42,7 @@
         <p><input type="password" name="repeated_restorer_password" placeholder="****" class="password_register" required>
         <p><input type="submit" class="register" value="Створити кабінет"></p>
         <br>
-        <p><h6>Використовувати застосунок виключно з освітньою метою.</h6>
     </form>
 </div>
+<div align="center"><p><h6>Використовувати застосунок виключно з освітньою метою.</h6></div>
 {% endblock %}

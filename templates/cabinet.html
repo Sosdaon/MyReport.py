@@ -4,7 +4,7 @@
     <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
     <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet"/>
     <meta charset="UTF-8">
-    <title>Рест.Інфо - {{web_page_title}}</title>
+    <title>Назва сайту - {{web_page_title}}</title>
 </head>
 <body>
 {% block content -%}
@@ -30,8 +30,8 @@
     <p><h2 style="font-size: 25px;">{{current_restorer_name}}</h2><hr width="1000px">
     <p><a href="{{url_for('add_passport')}}" class="cabinet_workflow_suggestions_links"><b>Заповнити паспорт</b></a>
     <p><a href="{{url_for('portfolio')}}" class="cabinet_workflow_suggestions_links"><b>Портфоліо</b></a>
-    <p><a class="cabinet_workflow_suggestions_links"><b>Додати досвід</b></a>
-    <p><br><br><a style="font-size: 20px; padding: 15px; border-radius: 5px;" onclick="openPopup(); window.scrollTo(0, 0);">Вийти</a>
+    <p><a href="{{url_for('add_experience')}}" class="cabinet_workflow_suggestions_links"><b>Додати досвід</b></a>
+    <p><br><br><a class="exit" onclick="openPopup(); window.scrollTo(0, 0);">Вийти</a>
 </div>
 
 <div class="popup_appearance" id="popup">
@@ -51,5 +51,4 @@ function closePopup() {
 }
 </script>
 </div>
-
 {% endblock %}

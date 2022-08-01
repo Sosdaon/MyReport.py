@@ -58,3 +58,17 @@ restorer_email TEXT NOT NULL,
 hashed_restorer_password TEXT NOT NULL,
 TIME INTEGER NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS experience (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+experienced_material TEXT NOT NULL,
+experienced_description TEXT NOT NULL,
+experienced_damages_description TEXT NOT NULL,
+experienced_research_title TEXT NOT NULL,
+experienced_research_description TEXT NOT NULL,
+experienced_restoration_program TEXT NOT NULL,
+experienced_treatments_descriptions TEXT NOT NULL,
+experienced_treatments_chemicals TEXT NOT NULL,
+author_of_experience_id TEXT NOT NULL,
+TIME INTEGER NOT NULL
+);

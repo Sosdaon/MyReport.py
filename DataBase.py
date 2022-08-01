@@ -216,3 +216,30 @@ class DataBase:
             flash('Нажаль виникла помилка отримання електронної адреси реставратора з бази даних', category='error')
 
         return False
+
+    def store_experience(self, experienced_material, experienced_description, experienced_damages_description, experienced_research_title, experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, experienced_treatments_chemicals,
+                         author_of_experience_id):
+        try:
+            tm = math.floor(time.time())
+            self.__cur.execute('INSERT INTO experience VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', (experienced_material, experienced_description, experienced_damages_description, experienced_research_title, experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, experienced_treatments_chemicals, author_of_experience_id, tm))
+            self.__db.commit()
+        except sqlite3.Error as e:
+            print('Нажаль виникла помилка додавання досвіду в базу даних' + str(e))
+            flash('Нажаль виникла помилка додавання досвіду', category='error')
+            return False
+
+        return True
+
+    def get_experience(self, author_of_experience_id):
+        try:
+            self.__cur.execute(
+                f'SELECT id, experienced_material, experienced_description, experienced_damages_description, experienced_research_title, experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, experienced_treatments_chemicals FROM experience WHERE author_of_experience_id = {author_of_experience_id} LIMIT 1')
+            experience_fields_output = self.__cur.fetchone()
+            if experience_fields_output:
+                return experience_fields_output
+            if not experience_fields_output:
+                empty_experience_fields_output = '', '', '', '', '', '', '', '', ''
+                return empty_experience_fields_output
+        except sqlite3.Error as e:
+            print('Нажаль виникла помилка отримання досвіду з бази даних' + str(e))
+            flash('Нажаль виникла помилка отримання досвіду з бази даних', category='error')
