@@ -30,7 +30,7 @@
     <p><h2 style="font-size: 25px;">{{current_restorer_name}}</h2><hr width="1000px">
     <p><a href="{{url_for('add_passport')}}" class="cabinet_workflow_suggestions_links"><b>Заповнити паспорт</b></a>
     <p><a href="{{url_for('portfolio')}}" class="cabinet_workflow_suggestions_links"><b>Портфоліо</b></a>
-    <p><a href="{{url_for('add_experience')}}" class="cabinet_workflow_suggestions_links"><b>Додати досвід</b></a>
+    <p><a href="{{url_for('experiences')}}" class="cabinet_workflow_suggestions_links"><b>Досвід</b></a>
     <p><br><br><a class="exit" onclick="openPopup(); window.scrollTo(0, 0);">Вийти</a>
 </div>
 
@@ -51,4 +51,5 @@ function closePopup() {
 }
 </script>
 </div>
+<div align="center"><p><h6>Використовувати застосунок виключно з освітньою метою.</h6></div>
 {% endblock %}

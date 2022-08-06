@@ -510,6 +510,18 @@ def about_us():
     return render_template('about.html', main_menu=dbase.get_main_menu(), web_page_title='Про нас')
 
 
+@app.route('/experiences')
+@login_required
+def experiences():
+    db = get_db()
+    dbase = DataBase(db)
+    current_restorer_id = current_user.get_id()
+
+    print(url_for('experiences'))
+    return render_template('experiences.html', main_menu=dbase.get_main_menu(), web_page_title='Досвід',
+                           experiences=dbase.get_experiences_preview(current_restorer_id))
+
+
 @app.route('/add_experience', methods=['POST', 'GET'])
 def add_experience():
     db = get_db()
@@ -536,6 +548,25 @@ def add_experience():
             return redirect(url_for('cabinet'), code=301)
 
     return render_template('add_experience.html', main_menu=dbase.get_main_menu(), web_page_title='Додати досвід')
+
+
+@app.route('/show_experience/<int:id_post>')
+@login_required
+def show_experience(id_post):
+    db = get_db()
+    dbase = DataBase(db)
+
+    experienced_material, experienced_description, experienced_damages_description, experienced_research_title, experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, experienced_treatments_chemicals = dbase.get_experience_to_show(id_post)
+
+    return render_template('show_experience.html', main_menu=dbase.get_main_menu(), web_page_title=experienced_material,
+                           experienced_material=experienced_material,
+                           experienced_description=experienced_description,
+                           experienced_damages_description=experienced_damages_description,
+                           experienced_research_title=experienced_research_title,
+                           experienced_research_description=experienced_research_description,
+                           experienced_restoration_program=experienced_restoration_program,
+                           experienced_treatments_descriptions=experienced_treatments_descriptions,
+                           experienced_treatments_chemicals=experienced_treatments_chemicals)
 
 
 @app.errorhandler(404)

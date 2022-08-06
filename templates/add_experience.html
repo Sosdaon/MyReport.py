@@ -20,6 +20,17 @@
 </ul>
     {% endblock main_menu -%}
 
+
+{% for ctg, msg in get_flashed_messages(True) %}
+<div class="flash {{ctg}}">{{msg}}</div>
+{% endfor %}
+
+
+<div align="center">
+<h2>Додати досвід</h2>
+<hr width="1000px">
+</div>
+
 <div class="content" align="center">
     <form enctype="multipart/form-data" action="{{url_for('add_experience')}}" method="post">
 

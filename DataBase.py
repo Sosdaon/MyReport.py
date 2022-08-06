@@ -230,6 +230,18 @@ class DataBase:
 
         return True
 
+    def get_experiences_preview(self, author_of_experience_id):
+        try:
+            self.__cur.execute(f'SELECT id, experienced_material FROM experience WHERE author_of_experience_id == {author_of_experience_id} ORDER BY time DESC')
+            experiences_preview = self.__cur.fetchall()
+            if experiences_preview:
+                return experiences_preview
+            if not experiences_preview:
+                return print('Нажаль у вас ще немає досвіду')
+        except sqlite3.Error as e:
+            print('Нажаль виникла помилка отримання вашого реставраційного досвіду з бази даних' + str(e))
+            flash('Нажаль виникла помилка отримання вашого реставраційного досвіду з бази даних', category='error')
+
     def get_experience(self, author_of_experience_id):
         try:
             self.__cur.execute(
@@ -239,6 +251,20 @@ class DataBase:
                 return experience_fields_output
             if not experience_fields_output:
                 empty_experience_fields_output = '', '', '', '', '', '', '', '', ''
+                return empty_experience_fields_output
+        except sqlite3.Error as e:
+            print('Нажаль виникла помилка отримання досвіду з бази даних' + str(e))
+            flash('Нажаль виникла помилка отримання досвіду з бази даних', category='error')
+
+    def get_experience_to_show(self, id_post):
+        try:
+            self.__cur.execute(
+                f'SELECT experienced_material, experienced_description, experienced_damages_description, experienced_research_title, experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, experienced_treatments_chemicals FROM experience WHERE id = {id_post} LIMIT 1')
+            experience_fields_output = self.__cur.fetchone()
+            if experience_fields_output:
+                return experience_fields_output
+            if not experience_fields_output:
+                empty_experience_fields_output = '', '', '', '', '', '', '', ''
                 return empty_experience_fields_output
         except sqlite3.Error as e:
             print('Нажаль виникла помилка отримання досвіду з бази даних' + str(e))
