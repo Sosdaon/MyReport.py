@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
+    <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <title>Назва сайту - {{web_page_title}}</title>
+</head>
+<body>
+{% block content -%}
+    {%- block main_menu -%}
+<ul class="main_menu_appearance">
+
+
+    {% for main_choice in main_menu -%}
+    <li><a href="{{main_choice.url}}">{{main_choice.menu_element}}</a></li>
+    {% endfor -%}
+
+
+</ul>
+    {% endblock main_menu -%}
+
+
+{% for ctg, msg in get_flashed_messages(True) %}
+<div class="flash {{ctg}}">{{msg}}</div>
+{% endfor %}
+
+
+
+<div class="content">
+    <p>Досвід успішно видалено. Повернутися на <a href="{{url_for('index')}}" class="link_to_main" >головну сторінку</a>
+</div>
+{% endblock %}

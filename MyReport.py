@@ -11,10 +11,8 @@ from heritageDescription import GeneralPassportDescription, Materials
 from printable.PrintPassportPaper import Paperwork
 from Login import RestorerLogin
 
-
 DATABASE = '/tmp/flsite.db'
 DEBUG = True
-
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -42,7 +40,12 @@ class ChangeFormsForMaterial:
         # General texts for any heritage object
         self.changed_appearance_description = fillInExamples.general_appearance_description
         self.changed_damages_description = fillInExamples.general_damages_description
-        self.changed_research_title, self.changed_research_description, self.changed_restoration_program, self.changed_treatments_descriptions, self.changed_treatments_chemicals = initial_changed_value, initial_changed_value, initial_changed_value, initial_changed_value, initial_changed_value
+        self.changed_research_title, self.changed_research_description, self.changed_restoration_program, \
+        self.changed_treatments_descriptions, self.changed_treatments_chemicals = initial_changed_value, \
+                                                                                  initial_changed_value, \
+                                                                                  initial_changed_value, \
+                                                                                  initial_changed_value, \
+                                                                                  initial_changed_value
 
         # Iron
         self.iron_appearance_description = fillInIron.iron_appearance_description
@@ -122,7 +125,9 @@ class ChangeFormsForMaterial:
         dbase = DataBase(db)
         current_restorer_id = current_user.get_id()
 
-        id, experienced_material, experienced_description, experienced_damages_description, experienced_research_title, experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, experienced_treatments_chemicals = dbase.get_experience(current_restorer_id)
+        experienced_material, experienced_description, experienced_damages_description, experienced_research_title,\
+        experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, \
+        experienced_treatments_chemicals = dbase.get_experience_by_pushing_button(current_restorer_id)
 
         self.changed_appearance_description += experienced_description
         self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
@@ -193,7 +198,9 @@ def add_passport():
     current_restorer_id = current_user.get_id()
     print(url_for('add_passport'))
 
-    id, experienced_material, experienced_description, experienced_damages_description, experienced_research_title, experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, experienced_treatments_chemicals = dbase.get_experience(current_restorer_id)
+    experienced_material, experienced_description, experienced_damages_description, experienced_research_title, \
+    experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, \
+    experienced_treatments_chemicals = dbase.get_experience_by_pushing_button(current_restorer_id)
 
     if request.method == 'POST':
         if len(request.form['inventory_number']) > 0 and len(request.form['acceptance_number']) > 0:
@@ -253,15 +260,21 @@ def add_passport():
                         experienced_material=experienced_material))
 
 
-@app.route('/show_passport/<int:id_post>')
+@app.route('/show_passport/<string:id_post>')
 @login_required
 def show_passport(id_post):
     db = get_db()
     dbase = DataBase(db)
     passport = Paperwork()
 
-    passport_number, inventory_number, acceptance_number, institution_name, department_name, definition, typological, object_owner, author, clarified_author, object_name, clarified_object_name, time_of_creation, clarified_time_of_creation, material, clarified_material, technique, clarified_technique, object_size, clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer, object_output_date, responsible_restorer, origin_description, appearance_description, damages_description, signs_description, size_description, purposes_researches, methods_researches, executor_date_researches, results_researches, restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results = dbase.get_passport(
-        id_post)
+    passport_number, inventory_number, acceptance_number, institution_name, department_name, definition, typological, \
+    object_owner, author, clarified_author, object_name, clarified_object_name, time_of_creation, \
+    clarified_time_of_creation, material, clarified_material, technique, clarified_technique, \
+    object_size, clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer, \
+    object_output_date, responsible_restorer, origin_description, appearance_description, damages_description, \
+    signs_description, size_description, purposes_researches, methods_researches, executor_date_researches, \
+    results_researches, restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date, \
+    treatments_results = dbase.get_passport(id_post)
 
     passport.build_passport(passport_number, inventory_number, acceptance_number, institution_name, department_name,
                             definition, typological, object_owner, author, clarified_author, object_name,
@@ -276,28 +289,32 @@ def show_passport(id_post):
     if not inventory_number:
         abort(404)
 
-    return render_template('show_passport.html', main_menu=dbase.get_main_menu(), web_page_title=inventory_number,
-                           passport=dbase.get_current_passport(id_post), passport_number=passport_number,
-                           inventory_number=inventory_number, acceptance_number=acceptance_number,
+    return render_template('show_passport.html', main_menu=dbase.get_main_menu(),
+                           web_page_title=inventory_number, passport_number=passport_number,
+                           inventory_number=inventory_number,
+                           acceptance_number=acceptance_number,
                            institution_name=institution_name,
-                           department_name=department_name, definition=definition, typological=typological,
-                           object_owner=object_owner, author=author, clarified_author=clarified_author,
+                           department_name=department_name, definition=definition,
+                           typological=typological, object_owner=object_owner,
+                           author=author, clarified_author=clarified_author,
                            object_name=object_name,
-                           clarified_object_name=clarified_object_name, time_of_creation=time_of_creation,
-                           clarified_time_of_creation=clarified_time_of_creation, material=material,
-                           clarified_material=clarified_material,
-                           technique=technique, clarified_technique=clarified_technique, object_size=object_size,
-                           clarified_size=clarified_size,
-                           weight=weight, clarified_weight=clarified_weight, reason=reason,
-                           object_input_date=object_input_date, execute_restorer=execute_restorer,
-                           object_output_date=object_output_date, responsible_restorer=responsible_restorer,
-                           origin_description=origin_description, appearance_description=appearance_description,
-                           damages_description=damages_description, signs_description=signs_description,
-                           size_description=size_description, purposes_researches=purposes_researches,
-                           methods_researches=methods_researches, executor_date_researches=executor_date_researches,
-                           results_researches=results_researches, restoration_program=restoration_program,
-                           treatments_descriptions=treatments_descriptions, treatments_chemicals=treatments_chemicals,
-                           treatments_executor_date=treatments_executor_date, treatments_results=treatments_results)
+                           clarified_object_name=clarified_object_name,
+                           time_of_creation=time_of_creation,
+                           clarified_time_of_creation=clarified_time_of_creation,
+                           material=material, clarified_material=clarified_material,
+                           technique=technique, clarified_technique=clarified_technique,
+                           object_size=object_size, clarified_size=clarified_size,
+                           weight=weight, clarified_weight=clarified_weight,
+                           reason=reason, object_input_date=object_input_date,
+                           execute_restorer=execute_restorer, object_output_date=object_output_date,
+                           responsible_restorer=responsible_restorer, origin_description=origin_description,
+                           appearance_description=appearance_description, damages_description=damages_description,
+                           signs_description=signs_description, size_description=size_description,
+                           purposes_researches=purposes_researches, methods_researches=methods_researches,
+                           executor_date_researches=executor_date_researches, results_researches=results_researches,
+                           restoration_program=restoration_program, treatments_descriptions=treatments_descriptions,
+                           treatments_chemicals=treatments_chemicals, treatments_executor_date=treatments_executor_date,
+                           treatments_results=treatments_results)
 
 
 @app.route('/update_passport/<string:id_post>', methods=['POST', 'GET'])
@@ -307,8 +324,14 @@ def update_passport(id_post):
     dbase = DataBase(db)
     current_restorer_id = current_user.get_id()
 
-    passport_number, inventory_number, acceptance_number, institution_name, department_name, definition, typological, object_owner, author, clarified_author, object_name, clarified_object_name, time_of_creation, clarified_time_of_creation, material, clarified_material, technique, clarified_technique, object_size, clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer, object_output_date, responsible_restorer, origin_description, appearance_description, damages_description, signs_description, size_description, purposes_researches, methods_researches, executor_date_researches, results_researches, restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results = dbase.get_passport_to_update(
-        id_post)
+    passport_number, inventory_number, acceptance_number, institution_name, department_name, definition, typological, \
+    object_owner, author, clarified_author, object_name, clarified_object_name, time_of_creation, \
+    clarified_time_of_creation, material, clarified_material, technique, clarified_technique, object_size, \
+    clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer, object_output_date, \
+    responsible_restorer, origin_description, appearance_description, damages_description, signs_description, \
+    size_description, purposes_researches, methods_researches, executor_date_researches, results_researches, \
+    restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date, \
+    treatments_results = dbase.get_passport_to_update(id_post)
 
     if request.method == 'POST':
         if len(request.form['inventory_number']) > 0 and len(request.form['acceptance_number']) > 0:
@@ -365,7 +388,7 @@ def update_passport(id_post):
             flash("Спочатку введіть, будь ласка, інвентарний номер та дані акта приймання пам'ятки.", category='error')
 
     return render_template('update_passport.html', main_menu=dbase.get_main_menu(), web_page_title='Публікація',
-                           passport=dbase.get_current_passport(id_post), passport_number=passport_number,
+                           passport=dbase.get_current_passport_id(id_post), passport_number=passport_number,
                            inventory_number=inventory_number, acceptance_number=acceptance_number,
                            institution_name=institution_name,
                            department_name=department_name, definition=definition, typological=typological,
@@ -394,11 +417,18 @@ def delete_passport(id_post):
     db = get_db()
     dbase = DataBase(db)
 
-    passport_number, inventory_number, acceptance_number, institution_name, department_name, definition, typological, object_owner, author, clarified_author, object_name, clarified_object_name, time_of_creation, clarified_time_of_creation, material, clarified_material, technique, clarified_technique, object_size, clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer, object_output_date, responsible_restorer, origin_description, appearance_description, damages_description, signs_description, size_description, purposes_researches, methods_researches, executor_date_researches, results_researches, restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date, treatments_results = dbase.get_passport(
-        id_post)
+    passport_number, inventory_number, acceptance_number, institution_name, department_name, definition, typological, \
+    object_owner, author, clarified_author, object_name, clarified_object_name, time_of_creation, \
+    clarified_time_of_creation, material, clarified_material, technique, clarified_technique, object_size, \
+    clarified_size, weight, clarified_weight, reason, object_input_date, execute_restorer, object_output_date, \
+    responsible_restorer, origin_description, appearance_description, damages_description, signs_description, \
+    size_description, purposes_researches, methods_researches, executor_date_researches, results_researches, \
+    restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date, \
+    treatments_results = dbase.get_passport(id_post)
 
     return render_template('delete_passport.html', main_menu=dbase.get_main_menu(), web_page_title='Видалення',
-                           passport=dbase.get_current_passport(id_post), passport_number=passport_number,
+                           passport=dbase.get_current_passport_deletion_warning_data(id_post),
+                           passport_number=passport_number,
                            inventory_number=inventory_number, acceptance_number=acceptance_number,
                            institution_name=institution_name,
                            department_name=department_name, definition=definition, typological=typological,
@@ -474,7 +504,8 @@ def register():
                 and request.form['restorer_password'] == request.form['repeated_restorer_password']:
 
             hashed_restorer_password = generate_password_hash(request.form['restorer_password'])
-            result = dbase.add_restorer(request.form['restorer_name'], request.form['restorer_email'], hashed_restorer_password)
+            result = dbase.add_restorer(request.form['restorer_name'], request.form['restorer_email'],
+                                        hashed_restorer_password)
             if result:
                 flash('Вітаємо, ви створили свій кабінет!', category='success')
                 return redirect(url_for('cabinet'), code=301)
@@ -482,7 +513,7 @@ def register():
                 flash('Будь ласка перевірте введені дані і спробуйте ще', category='error')
         else:
             flash('Будь ласка перевірте коректність введених даних і спробуйте ще', category='error')
-    return render_template('register.html', main_menu=dbase.get_main_menu(), web_page_title='Створення профілю')
+    return render_template('register.html', main_menu=dbase.get_main_menu(), web_page_title='Створення кабінета')
 
 
 @app.route('/logout')
@@ -531,6 +562,61 @@ def add_experience():
     print(url_for('add_experience'))
 
     if request.method == 'POST':
+        if len(request.form['experienced_material']) > 0:
+            experienced_fields_input = dbase.store_experience(request.form['experienced_material'],
+                                                              request.form['experienced_description'],
+                                                              request.form['experienced_damages_description'],
+                                                              request.form['experienced_research_title'],
+                                                              request.form['experienced_research_description'],
+                                                              request.form['experienced_restoration_program'],
+                                                              request.form['experienced_treatments_descriptions'],
+                                                              request.form['experienced_treatments_chemicals'],
+                                                              author_of_experience_id)
+
+            if not experienced_fields_input:
+                flash('Виникла помилка публікування досвіду', category='error')
+            else:
+                flash('Успішно опубліковано!', category='success')
+                return redirect(url_for('cabinet'), code=301)
+
+        else:
+            flash('Введіть назву матеріалу, будь ласка', category='error')
+
+    return render_template('add_experience.html', main_menu=dbase.get_main_menu(), web_page_title='Додати досвід')
+
+
+@app.route('/show_experience/<string:id_post>')
+@login_required
+def show_experience(id_post):
+    db = get_db()
+    dbase = DataBase(db)
+
+    experienced_material, experienced_description, experienced_damages_description, experienced_research_title, \
+    experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, \
+    experienced_treatments_chemicals = dbase.get_experience_to_show(id_post)
+
+    return render_template('show_experience.html', main_menu=dbase.get_main_menu(), web_page_title=experienced_material,
+                           experienced_material=experienced_material, experienced_description=experienced_description,
+                           experienced_damages_description=experienced_damages_description,
+                           experienced_research_title=experienced_research_title,
+                           experienced_research_description=experienced_research_description,
+                           experienced_restoration_program=experienced_restoration_program,
+                           experienced_treatments_descriptions=experienced_treatments_descriptions,
+                           experienced_treatments_chemicals=experienced_treatments_chemicals)
+
+
+@app.route('/update_experience/<string:id_post>', methods=['POST', 'GET'])
+@login_required
+def update_experience(id_post):
+    db = get_db()
+    dbase = DataBase(db)
+    author_of_experience_id = current_user.get_id()
+
+    experienced_material, experienced_description, experienced_damages_description, experienced_research_title, \
+    experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, \
+    experienced_treatments_chemicals = dbase.get_experience_to_update(id_post)
+
+    if request.method == 'POST':
         experienced_fields_input = dbase.store_experience(request.form['experienced_material'],
                                                           request.form['experienced_description'],
                                                           request.form['experienced_damages_description'],
@@ -547,18 +633,9 @@ def add_experience():
             flash('Успішно опубліковано!', category='success')
             return redirect(url_for('cabinet'), code=301)
 
-    return render_template('add_experience.html', main_menu=dbase.get_main_menu(), web_page_title='Додати досвід')
-
-
-@app.route('/show_experience/<int:id_post>')
-@login_required
-def show_experience(id_post):
-    db = get_db()
-    dbase = DataBase(db)
-
-    experienced_material, experienced_description, experienced_damages_description, experienced_research_title, experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, experienced_treatments_chemicals = dbase.get_experience_to_show(id_post)
-
-    return render_template('show_experience.html', main_menu=dbase.get_main_menu(), web_page_title=experienced_material,
+    return render_template('update_experience.html', main_menu=dbase.get_main_menu(),
+                           web_page_title=experienced_material,
+                           experience=dbase.get_current_experience_id(id_post),
                            experienced_material=experienced_material,
                            experienced_description=experienced_description,
                            experienced_damages_description=experienced_damages_description,
@@ -567,6 +644,38 @@ def show_experience(id_post):
                            experienced_restoration_program=experienced_restoration_program,
                            experienced_treatments_descriptions=experienced_treatments_descriptions,
                            experienced_treatments_chemicals=experienced_treatments_chemicals)
+
+
+@app.route('/delete_experience/<string:id_post>')
+@login_required
+def delete_experience(id_post):
+    db = get_db()
+    dbase = DataBase(db)
+
+    experienced_material, experienced_description, experienced_damages_description, experienced_research_title, \
+    experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, \
+    experienced_treatments_chemicals = dbase.get_experience_to_show(id_post)
+
+    return render_template('delete_experience.html', main_menu=dbase.get_main_menu(), web_page_title='Видалення',
+                           experience=dbase.get_current_experience_deletion_warning_data(id_post),
+                           experienced_material=experienced_material,
+                           experienced_description=experienced_description,
+                           experienced_damages_description=experienced_damages_description,
+                           experienced_research_title=experienced_research_title,
+                           experienced_research_description=experienced_research_description,
+                           experienced_restoration_program=experienced_restoration_program,
+                           experienced_treatments_descriptions=experienced_treatments_descriptions,
+                           experienced_treatments_chemicals=experienced_treatments_chemicals)
+
+
+@app.route('/deleted_experience_report/<string:id_post>')
+@login_required
+def deleted_experience_report(id_post):
+    db = get_db()
+    dbase = DataBase(db)
+    dbase.delete_experience(id_post)
+    return render_template('deleted_experience_report.html', main_menu=dbase.get_main_menu(),
+                           web_page_title='Досвід видалено')
 
 
 @app.errorhandler(404)

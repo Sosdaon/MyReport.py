@@ -157,6 +157,22 @@ input.experienced_material {
     font-size: 30px; width: 500px;
 }
 
+input.institution_department {
+    font-size: 16px; width: 700px;
+}
+
+input.object_owner {
+    font-size: 16px; width: 850px;
+}
+
+input.attribution {
+    font-size: 16px; width: 400px;
+}
+
+input.clarified_attribution {
+    font-size: 16px; width: 220px;
+}
+
 button.upload_passport {
     display: inline-block;
     padding: 15px 25px;
@@ -268,6 +284,7 @@ TD, TH {
     padding: 3px;
     border: 1px solid black;
 }
+
 TH {
     background: #8FBC8F;
 }

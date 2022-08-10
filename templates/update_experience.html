@@ -32,31 +32,31 @@
 </div>
 
 <div class="content" align="center">
-    <form enctype="multipart/form-data" action="{{url_for('add_experience')}}" method="post">
+    <form enctype="multipart/form-data" action="{{url_for('update_experience', id_post=experience.id)}}" method="post">
 
         <table>
-        <tr><th>Матеріал: <input class="experienced_material" name="experienced_material" required></th></tr>
+        <tr><th>Матеріал: <input class="experienced_material" name="experienced_material" placeholder="{{experienced_material}}"></th></tr>
             <tr><th>Послідовність опису матеріалу:</th></tr>
-            <tr><td><textarea rows="30" cols="140" name="experienced_description"></textarea></td></tr>
+            <tr><td><textarea rows="30" cols="140" name="experienced_description">{{experienced_description}}</textarea></td></tr>
             <tr><th>Характерні втрати та пошкодження:</th></tr>
-            <tr><td><textarea rows="30" cols="140" name="experienced_damages_description"></textarea></td></tr>
+            <tr><td><textarea rows="30" cols="140" name="experienced_damages_description">{{experienced_damages_description}}</textarea></td></tr>
         </table>
 
         <br><table>
             <tr><th>Назви лабораторних дослідженнь:</th><th>Опис проведення лабораторних дослідженнь:</th></tr>
-            <tr><td><textarea rows="30" cols="22" name="experienced_research_title"></textarea></td>
-                <td><textarea rows="30" cols="35" name="experienced_research_description"></textarea></td></tr>
+            <tr><td><textarea rows="30" cols="22" name="experienced_research_title">{{experienced_research_title}}</textarea></td>
+                <td><textarea rows="30" cols="35" name="experienced_research_description">{{experienced_research_description}}</textarea></td></tr>
         </table>
 
         <br><table>
             <tr><th>Реставраційна програма:</th></tr>
-            <tr><td><textarea rows="20" cols="91" name="experienced_restoration_program"></textarea></td></tr>
+            <tr><td><textarea rows="20" cols="91" name="experienced_restoration_program">{{experienced_restoration_program}}</textarea></td></tr>
         </table>
 
         <br><table>
             <tr><th>Опис проведення реставраційних заходів:</th><th>Матеріали та хімікати використані під час проведення реставраційних заходів:</th></tr>
-            <tr><td><textarea rows="29" cols="60" name="experienced_treatments_descriptions"></textarea></td>
-                <td><textarea rows="29" cols="35" name="experienced_treatments_chemicals"></textarea></td></tr>
+            <tr><td><textarea rows="29" cols="60" name="experienced_treatments_descriptions">{{experienced_treatments_descriptions}}</textarea></td>
+                <td><textarea rows="29" cols="35" name="experienced_treatments_chemicals">{{experienced_treatments_chemicals}}</textarea></td></tr>
         </table>
 
         <p><button class="upload_passport">Додати</button></p>

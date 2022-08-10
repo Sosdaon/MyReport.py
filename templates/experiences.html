@@ -36,8 +36,8 @@
 <li class="portfolio_suggestions_links">
     <p class="object_name_inventory_number_appearance">{{experienced_restoration.experienced_material}}</p>
     <p><a href="{{ url_for('show_experience', id_post=experienced_restoration.id)}}" class="show_suggestion"><b>Переглянути</b></a></p>
-    <p><a href="{{url_for('update_passport', id_post=experienced_restoration.id)}}" class="update_suggestion"><b>Заповнити подібний</b></a></p>
-    <p><a href="{{url_for('delete_passport', id_post=experienced_restoration.id)}}" class="delete_suggestion"><b>Позбутися</b></a></p>
+    <p><a href="{{url_for('update_experience', id_post=experienced_restoration.id)}}" class="update_suggestion"><b>Додати подібний</b></a></p>
+    <p><a href="{{url_for('delete_experience', id_post=experienced_restoration.id)}}" class="delete_suggestion"><b>Позбутися</b></a></p>
 </li>
 {% endfor %}
 {% endif %}
