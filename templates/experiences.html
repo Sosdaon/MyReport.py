@@ -41,6 +41,28 @@
 </li>
 {% endfor %}
 {% endif %}
+
+{% if experiences_2 %}
+{% for experienced_restoration in experiences_2 %}
+<li class="portfolio_suggestions_links">
+    <p class="object_name_inventory_number_appearance">{{experienced_restoration.experienced_material_2}}</p>
+    <p><a href="{{ url_for('show_experience_2', id_post=experienced_restoration.id)}}" class="show_suggestion"><b>Переглянути</b></a></p>
+    <p><a href="{{url_for('update_experience', id_post=experienced_restoration.id)}}" class="update_suggestion"><b>Додати подібний</b></a></p>
+    <p><a href="{{url_for('delete_experience_2', id_post=experienced_restoration.id)}}" class="delete_suggestion"><b>Позбутися</b></a></p>
+</li>
+{% endfor %}
+{% endif %}
+
+{% if experiences_3 %}
+{% for experienced_restoration in experiences_3 %}
+<li class="portfolio_suggestions_links">
+    <p class="object_name_inventory_number_appearance">{{experienced_restoration.experienced_material_3}}</p>
+    <p><a href="{{ url_for('show_experience_3', id_post=experienced_restoration.id)}}" class="show_suggestion"><b>Переглянути</b></a></p>
+    <p><a href="{{url_for('update_experience', id_post=experienced_restoration.id)}}" class="update_suggestion"><b>Додати подібний</b></a></p>
+    <p><a href="{{url_for('delete_experience_3', id_post=experienced_restoration.id)}}" class="delete_suggestion"><b>Позбутися</b></a></p>
+</li>
+{% endfor %}
+{% endif %}
 </ul>
 </div>
 <div align="center"><p><h6>Використовувати застосунок виключно з освітньою метою.</h6></div>

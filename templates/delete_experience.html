@@ -31,10 +31,22 @@
         </p>
     <div class="popup_appearance" id="popup">
             <h1>Дійсно видалити?</h1>
+            {% if experience.experienced_material %}
             <p><h3>Реставраційний досвід роботи з матеріалом "{{experience.experienced_material}}" буде видалено назавжди.</h3></p>
             <a type="button" href="{{url_for('deleted_experience_report', id_post=experience.id)}}" onclick="closePopup();" class="danger"><b>Знищити</b></a>
+            {% endif %}
+
+            {% if experience.experienced_material_2 %}
+            <p><h3>Реставраційний досвід роботи з матеріалом "{{experience.experienced_material_2}}" буде видалено назавжди.</h3></p>
+            <a type="button" href="{{url_for('deleted_experience_report_2', id_post=experience.id)}}" onclick="closePopup();" class="danger"><b>Знищити</b></a>
+            {% endif %}
+
+            {% if experience.experienced_material_3 %}
+            <p><h3>Реставраційний досвід роботи з матеріалом "{{experience.experienced_material_3}}" буде видалено назавжди.</h3></p>
+            <a type="button" href="{{url_for('deleted_experience_report_3', id_post=experience.id)}}" onclick="closePopup();" class="danger"><b>Знищити</b></a>
+            {% endif %}
             <a type="button" onclick="closePopup();" class="cancel"><b>Скасувати</b></a>
-</div>
+    </div>
 
 
 <div class="content" align="center">

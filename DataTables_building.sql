@@ -72,3 +72,31 @@ experienced_treatments_chemicals TEXT NOT NULL,
 author_of_experience_id TEXT NOT NULL,
 TIME INTEGER NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS experience_2 (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+experienced_material_2 TEXT NOT NULL,
+experienced_description_2 TEXT NOT NULL,
+experienced_damages_description_2 TEXT NOT NULL,
+experienced_research_title_2 TEXT NOT NULL,
+experienced_research_description_2 TEXT NOT NULL,
+experienced_restoration_program_2 TEXT NOT NULL,
+experienced_treatments_descriptions_2 TEXT NOT NULL,
+experienced_treatments_chemicals_2 TEXT NOT NULL,
+author_of_experience_id TEXT NOT NULL,
+TIME INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS experience_3 (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+experienced_material_3 TEXT NOT NULL,
+experienced_description_3 TEXT NOT NULL,
+experienced_damages_description_3 TEXT NOT NULL,
+experienced_research_title_3 TEXT NOT NULL,
+experienced_research_description_3 TEXT NOT NULL,
+experienced_restoration_program_3 TEXT NOT NULL,
+experienced_treatments_descriptions_3 TEXT NOT NULL,
+experienced_treatments_chemicals_3 TEXT NOT NULL,
+author_of_experience_id TEXT NOT NULL,
+TIME INTEGER NOT NULL
+);

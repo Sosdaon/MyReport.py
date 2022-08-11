@@ -144,6 +144,54 @@ class ChangeFormsForMaterial:
         self.changed_treatments_chemicals += experienced_treatments_chemicals
         self.js.document.getElementById("dynamic_treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
 
+    def fillInExperiencedMaterialForm_2(self):
+        db = get_db()
+        dbase = DataBase(db)
+        current_restorer_id = current_user.get_id()
+
+        experienced_material_2, experienced_description_2, experienced_damages_description_2, experienced_research_title_2,\
+        experienced_research_description_2, experienced_restoration_program_2, experienced_treatments_descriptions_2, \
+        experienced_treatments_chemicals_2 = dbase.get_experience_by_pushing_button_2(current_restorer_id)
+
+        self.changed_appearance_description += experienced_description_2
+        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
+        self.changed_damages_description += experienced_damages_description_2
+        self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
+        self.changed_research_title += experienced_research_title_2
+        self.js.document.getElementById("dynamic_purposes_researches_by_material").innerHTML = self.changed_research_title
+        self.changed_research_description += experienced_research_description_2
+        self.js.document.getElementById("dynamic_methods_researches_by_material").innerHTML = self.changed_research_description
+        self.changed_restoration_program += experienced_restoration_program_2
+        self.js.document.getElementById("dynamic_restoration_program_by_material").innerHTML = self.changed_restoration_program
+        self.changed_treatments_descriptions += experienced_treatments_descriptions_2
+        self.js.document.getElementById("dynamic_treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
+        self.changed_treatments_chemicals += experienced_treatments_chemicals_2
+        self.js.document.getElementById("dynamic_treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
+
+    def fillInExperiencedMaterialForm_3(self):
+        db = get_db()
+        dbase = DataBase(db)
+        current_restorer_id = current_user.get_id()
+
+        experienced_material_3, experienced_description_3, experienced_damages_description_3, experienced_research_title_3,\
+        experienced_research_description_3, experienced_restoration_program_3, experienced_treatments_descriptions_3, \
+        experienced_treatments_chemicals_3 = dbase.get_experience_by_pushing_button_3(current_restorer_id)
+
+        self.changed_appearance_description += experienced_description_3
+        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
+        self.changed_damages_description += experienced_damages_description_3
+        self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
+        self.changed_research_title += experienced_research_title_3
+        self.js.document.getElementById("dynamic_purposes_researches_by_material").innerHTML = self.changed_research_title
+        self.changed_research_description += experienced_research_description_3
+        self.js.document.getElementById("dynamic_methods_researches_by_material").innerHTML = self.changed_research_description
+        self.changed_restoration_program += experienced_restoration_program_3
+        self.js.document.getElementById("dynamic_restoration_program_by_material").innerHTML = self.changed_restoration_program
+        self.changed_treatments_descriptions += experienced_treatments_descriptions_3
+        self.js.document.getElementById("dynamic_treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
+        self.changed_treatments_chemicals += experienced_treatments_chemicals_3
+        self.js.document.getElementById("dynamic_treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
+
 
 def create_db():
     db = connect_db()
@@ -202,6 +250,14 @@ def add_passport():
     experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, \
     experienced_treatments_chemicals = dbase.get_experience_by_pushing_button(current_restorer_id)
 
+    experienced_material_2, experienced_description_2, experienced_damages_description_2, experienced_research_title_2,\
+    experienced_research_description_2, experienced_restoration_program_2, experienced_treatments_descriptions_2, \
+    experienced_treatments_chemicals_2 = dbase.get_experience_by_pushing_button_2(current_restorer_id)
+
+    experienced_material_3, experienced_description_3, experienced_damages_description_3, experienced_research_title_3,\
+    experienced_research_description_3, experienced_restoration_program_2, experienced_treatments_descriptions_3, \
+    experienced_treatments_chemicals_3 = dbase.get_experience_by_pushing_button_3(current_restorer_id)
+
     if request.method == 'POST':
         if len(request.form['inventory_number']) > 0 and len(request.form['acceptance_number']) > 0:
 
@@ -257,7 +313,8 @@ def add_passport():
             flash("Спочатку введіть, будь ласка, інвентарний номер та дані акта приймання пам'ятки.", category='error')
     return ChangeFormsForMaterial.render(
         render_template('add_passport.html', main_menu=dbase.get_main_menu(), web_page_title='Публікація',
-                        experienced_material=experienced_material))
+                        experienced_material=experienced_material, experienced_material_2=experienced_material_2,
+                        experienced_material_3=experienced_material_3))
 
 
 @app.route('/show_passport/<string:id_post>')
@@ -550,7 +607,9 @@ def experiences():
 
     print(url_for('experiences'))
     return render_template('experiences.html', main_menu=dbase.get_main_menu(), web_page_title='Досвід',
-                           experiences=dbase.get_experiences_preview(current_restorer_id))
+                           experiences=dbase.get_experiences_preview(current_restorer_id),
+                           experiences_2=dbase.get_experiences_preview_2(current_restorer_id),
+                           experiences_3=dbase.get_experiences_preview_3(current_restorer_id))
 
 
 @app.route('/add_experience', methods=['POST', 'GET'])
@@ -561,9 +620,53 @@ def add_experience():
 
     print(url_for('add_experience'))
 
-    if request.method == 'POST':
+    experiences_amount = dbase.count_experiences_preview(author_of_experience_id)
+    experiences_amount_2 = dbase.count_experiences_preview_2(author_of_experience_id)
+    experiences_amount_3 = dbase.count_experiences_preview_3(author_of_experience_id)
+
+    if request.method == 'POST' and experiences_amount == 'empty':
         if len(request.form['experienced_material']) > 0:
             experienced_fields_input = dbase.store_experience(request.form['experienced_material'],
+                                                              request.form['experienced_description'],
+                                                              request.form['experienced_damages_description'],
+                                                              request.form['experienced_research_title'],
+                                                              request.form['experienced_research_description'],
+                                                              request.form['experienced_restoration_program'],
+                                                              request.form['experienced_treatments_descriptions'],
+                                                              request.form['experienced_treatments_chemicals'],
+                                                              author_of_experience_id)
+
+            if not experienced_fields_input:
+                flash('Виникла помилка публікування досвіду', category='error')
+            else:
+                flash('Успішно опубліковано!', category='success')
+                return redirect(url_for('cabinet'), code=301)
+
+        else:
+            flash('Введіть назву матеріалу, будь ласка', category='error')
+    if request.method == 'POST' and experiences_amount != 'empty' and experiences_amount_2 == 'empty':
+        if len(request.form['experienced_material']) > 0:
+            experienced_fields_input = dbase.store_experience_2(request.form['experienced_material'],
+                                                              request.form['experienced_description'],
+                                                              request.form['experienced_damages_description'],
+                                                              request.form['experienced_research_title'],
+                                                              request.form['experienced_research_description'],
+                                                              request.form['experienced_restoration_program'],
+                                                              request.form['experienced_treatments_descriptions'],
+                                                              request.form['experienced_treatments_chemicals'],
+                                                              author_of_experience_id)
+
+            if not experienced_fields_input:
+                flash('Виникла помилка публікування досвіду', category='error')
+            else:
+                flash('Успішно опубліковано!', category='success')
+                return redirect(url_for('cabinet'), code=301)
+
+        else:
+            flash('Введіть назву матеріалу, будь ласка', category='error')
+    if request.method == 'POST' and experiences_amount != 'empty' and experiences_amount_2 != 'empty' and experiences_amount_3 == 'empty':
+        if len(request.form['experienced_material']) > 0:
+            experienced_fields_input = dbase.store_experience_3(request.form['experienced_material'],
                                                               request.form['experienced_description'],
                                                               request.form['experienced_damages_description'],
                                                               request.form['experienced_research_title'],
@@ -603,6 +706,46 @@ def show_experience(id_post):
                            experienced_restoration_program=experienced_restoration_program,
                            experienced_treatments_descriptions=experienced_treatments_descriptions,
                            experienced_treatments_chemicals=experienced_treatments_chemicals)
+
+
+@app.route('/show_experience_2/<string:id_post>')
+@login_required
+def show_experience_2(id_post):
+    db = get_db()
+    dbase = DataBase(db)
+
+    experienced_material_2, experienced_description_2, experienced_damages_description_2, experienced_research_title_2,\
+    experienced_research_description_2, experienced_restoration_program_2, experienced_treatments_descriptions_2, \
+    experienced_treatments_chemicals_2 = dbase.get_experience_to_show_2(id_post)
+
+    return render_template('show_experience.html', main_menu=dbase.get_main_menu(), web_page_title=experienced_material_2,
+                           experienced_material=experienced_material_2, experienced_description=experienced_description_2,
+                           experienced_damages_description=experienced_damages_description_2,
+                           experienced_research_title=experienced_research_title_2,
+                           experienced_research_description=experienced_research_description_2,
+                           experienced_restoration_program=experienced_restoration_program_2,
+                           experienced_treatments_descriptions=experienced_treatments_descriptions_2,
+                           experienced_treatments_chemicals=experienced_treatments_chemicals_2)
+
+
+@app.route('/show_experience_3/<string:id_post>')
+@login_required
+def show_experience_3(id_post):
+    db = get_db()
+    dbase = DataBase(db)
+
+    experienced_material_3, experienced_description_3, experienced_damages_description_3, experienced_research_title_3,\
+    experienced_research_description_3, experienced_restoration_program_3, experienced_treatments_descriptions_3, \
+    experienced_treatments_chemicals_3 = dbase.get_experience_to_show_3(id_post)
+
+    return render_template('show_experience.html', main_menu=dbase.get_main_menu(), web_page_title=experienced_material_3,
+                           experienced_material=experienced_material_3, experienced_description=experienced_description_3,
+                           experienced_damages_description=experienced_damages_description_3,
+                           experienced_research_title=experienced_research_title_3,
+                           experienced_research_description=experienced_research_description_3,
+                           experienced_restoration_program=experienced_restoration_program_3,
+                           experienced_treatments_descriptions=experienced_treatments_descriptions_3,
+                           experienced_treatments_chemicals=experienced_treatments_chemicals_3)
 
 
 @app.route('/update_experience/<string:id_post>', methods=['POST', 'GET'])
@@ -668,12 +811,76 @@ def delete_experience(id_post):
                            experienced_treatments_chemicals=experienced_treatments_chemicals)
 
 
+@app.route('/delete_experience_2/<string:id_post>')
+@login_required
+def delete_experience_2(id_post):
+    db = get_db()
+    dbase = DataBase(db)
+
+    experienced_material_2, experienced_description_2, experienced_damages_description_2, experienced_research_title_2, \
+    experienced_research_description_2, experienced_restoration_program_2, experienced_treatments_descriptions_2, \
+    experienced_treatments_chemicals_2 = dbase.get_experience_to_show_2(id_post)
+
+    return render_template('delete_experience.html', main_menu=dbase.get_main_menu(), web_page_title='Видалення',
+                           experience=dbase.get_current_experience_deletion_warning_data_2(id_post),
+                           experienced_material=experienced_material_2,
+                           experienced_description=experienced_description_2,
+                           experienced_damages_description=experienced_damages_description_2,
+                           experienced_research_title=experienced_research_title_2,
+                           experienced_research_description=experienced_research_description_2,
+                           experienced_restoration_program=experienced_restoration_program_2,
+                           experienced_treatments_descriptions=experienced_treatments_descriptions_2,
+                           experienced_treatments_chemicals=experienced_treatments_chemicals_2)
+
+
+@app.route('/delete_experience_3/<string:id_post>')
+@login_required
+def delete_experience_3(id_post):
+    db = get_db()
+    dbase = DataBase(db)
+
+    experienced_material_3, experienced_description_3, experienced_damages_description_3, experienced_research_title_3, \
+    experienced_research_description_3, experienced_restoration_program_3, experienced_treatments_descriptions_3, \
+    experienced_treatments_chemicals_3 = dbase.get_experience_to_show_3(id_post)
+
+    return render_template('delete_experience.html', main_menu=dbase.get_main_menu(), web_page_title='Видалення',
+                           experience=dbase.get_current_experience_deletion_warning_data_3(id_post),
+                           experienced_material=experienced_material_3,
+                           experienced_description=experienced_description_3,
+                           experienced_damages_description=experienced_damages_description_3,
+                           experienced_research_title=experienced_research_title_3,
+                           experienced_research_description=experienced_research_description_3,
+                           experienced_restoration_program=experienced_restoration_program_3,
+                           experienced_treatments_descriptions=experienced_treatments_descriptions_3,
+                           experienced_treatments_chemicals=experienced_treatments_chemicals_3)
+
+
 @app.route('/deleted_experience_report/<string:id_post>')
 @login_required
 def deleted_experience_report(id_post):
     db = get_db()
     dbase = DataBase(db)
     dbase.delete_experience(id_post)
+    return render_template('deleted_experience_report.html', main_menu=dbase.get_main_menu(),
+                           web_page_title='Досвід видалено')
+
+
+@app.route('/deleted_experience_report_2/<string:id_post>')
+@login_required
+def deleted_experience_report_2(id_post):
+    db = get_db()
+    dbase = DataBase(db)
+    dbase.delete_experience_2(id_post)
+    return render_template('deleted_experience_report.html', main_menu=dbase.get_main_menu(),
+                           web_page_title='Досвід видалено')
+
+
+@app.route('/deleted_experience_report_3/<string:id_post>')
+@login_required
+def deleted_experience_report_3(id_post):
+    db = get_db()
+    dbase = DataBase(db)
+    dbase.delete_experience_3(id_post)
     return render_template('deleted_experience_report.html', main_menu=dbase.get_main_menu(),
                            web_page_title='Досвід видалено')
 
