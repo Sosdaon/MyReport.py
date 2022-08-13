@@ -252,6 +252,15 @@ class DataBase:
                          author_of_experience_id):
         try:
             # Carriage return
+            experienced_description = f'{experienced_description}\r\r'
+            experienced_damages_description = f'{experienced_damages_description}\r\r'
+            experienced_research_title = f'{experienced_research_title}\r\r'
+            experienced_research_description = f'{experienced_research_description}\r\r'
+            experienced_restoration_program = f'{experienced_restoration_program}\r\r'
+            experienced_treatments_descriptions = f'{experienced_treatments_descriptions}\r\r'
+            experienced_treatments_chemicals = f'{experienced_treatments_chemicals}\r\r'
+
+            # Carriage return to show correctly
             experienced_description = re.sub(r'\n', '<br>', experienced_description)
             experienced_damages_description = re.sub(r'\n', '<br>', experienced_damages_description)
             experienced_research_title = re.sub(r'\n', '<br>', experienced_research_title)
@@ -280,6 +289,15 @@ class DataBase:
                          author_of_experience_id):
         try:
             # Carriage return
+            experienced_description_2 = f'{experienced_description_2}\r\r'
+            experienced_damages_description_2 = f'{experienced_damages_description_2}\r\r'
+            experienced_research_title_2 = f'{experienced_research_title_2}\r\r'
+            experienced_research_description_2 = f'{experienced_research_description_2}\r\r'
+            experienced_restoration_program_2 = f'{experienced_restoration_program_2}\r\r'
+            experienced_treatments_descriptions_2 = f'{experienced_treatments_descriptions_2}\r\r'
+            experienced_treatments_chemicals_2 = f'{experienced_treatments_chemicals_2}\r\r'
+
+            # Carriage return to show correctly
             experienced_description_2 = re.sub(r'\n', '<br>', experienced_description_2)
             experienced_damages_description_2 = re.sub(r'\n', '<br>', experienced_damages_description_2)
             experienced_research_title_2 = re.sub(r'\n', '<br>', experienced_research_title_2)
@@ -308,6 +326,15 @@ class DataBase:
                          author_of_experience_id):
         try:
             # Carriage return
+            experienced_description_3 = f'{experienced_description_3}\r\r'
+            experienced_damages_description_3 = f'{experienced_damages_description_3}\r\r'
+            experienced_research_title_3 = f'{experienced_research_title_3}\r\r'
+            experienced_research_description_3 = f'{experienced_research_description_3}\r\r'
+            experienced_restoration_program_3 = f'{experienced_restoration_program_3}\r\r'
+            experienced_treatments_descriptions_3 = f'{experienced_treatments_descriptions_3}\r\r'
+            experienced_treatments_chemicals_3 = f'{experienced_treatments_chemicals_3}\r\r'
+
+            # Carriage return to show correctly
             experienced_description_3 = re.sub(r'\n', '<br>', experienced_description_3)
             experienced_damages_description_3 = re.sub(r'\n', '<br>', experienced_damages_description_3)
             experienced_research_title_3 = re.sub(r'\n', '<br>', experienced_research_title_3)
