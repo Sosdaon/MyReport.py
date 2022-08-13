@@ -20,7 +20,14 @@
 </ul>
     {% endblock main_menu -%}
 
+
+{% for ctg, msg in get_flashed_messages(True) %}
+<div class="flash {{ctg}}">{{msg}}</div>
+{% endfor %}
+
+
+
 <div class="content">
-    <p><h4>Головна сторінка сайту.</h4></p>
+    <p>Публікацію успішно видалено. Повернутися на <a href="{{url_for('index')}}" class="link_to_main" >головну сторінку</a>
 </div>
 {% endblock %}

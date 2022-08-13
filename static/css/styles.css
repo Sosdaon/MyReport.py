@@ -6,6 +6,18 @@ html, body {
     width: 100%;
 }
 
+.serif {
+    font-family: Times New Roman
+}
+
+div.content {
+    margin: 30px;
+}
+
+div.register_content {
+    margin: 0px 0px 0 500px;
+}
+
 a {
     color: #F8F8FF;
     background: #3F4137;
@@ -16,9 +28,202 @@ a:hover {
     text-decoration: underline;
 }
 
-.clear {clear: both;}
+a.show_suggestion {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #3F4137;
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
 
-ul.mainmenu {
+a.show_suggestion:hover {
+    background-color: #00FFFF
+}
+
+a.update_suggestion {
+    display: inline-block;
+    padding: 21px 20px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #006400;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+a.update_suggestion:hover {
+    background-color: #00FF00
+}
+
+a.delete_suggestion {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #800000;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+a.delete_suggestion:hover {
+    background-color: #FF0000
+}
+
+a.download_passport {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #2E8B57;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+a.download_passport:hover {
+    background-color: #00FF7F
+}
+
+a.link_to_main {
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 2px;
+}
+
+li.portfolio_suggestions_links {
+    background: #A9A9A9;
+}
+
+input.register {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #2E8B57;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+input.register:hover {
+    background-color: #00FF7F
+}
+
+input.register:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+input.name_email_register {
+    border: 5px solid #3F4137;
+    border-radius: 3px;
+    font-size: 30px; width: 300px;
+}
+
+input.password_register {
+    border: 5px solid #3F4137;
+    border-radius: 3px;
+    font-size: 30px; width: 50px;
+}
+
+input.experienced_material {
+    border: 12px solid #2E8B57;
+    border-radius: 30px;
+    font-size: 30px; width: 500px;
+}
+
+input.institution_department {
+    font-size: 16px; width: 700px;
+}
+
+input.object_owner {
+    font-size: 16px; width: 850px;
+}
+
+input.attribution {
+    font-size: 16px; width: 400px;
+}
+
+input.clarified_attribution {
+    font-size: 16px; width: 220px;
+}
+
+button.upload_passport {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #2E8B57;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+button.upload_passport:hover {
+    background-color: #00FF7F
+}
+
+button.upload_passport:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+button.material {
+    display: inline-block;
+    padding: 7px 9px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #2E8B57;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 3px #999;
+}
+
+button.material:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+button.material:focus {
+    background-color:#00FF7F;
+}
+
+ul.main_menu_appearance {
     list-style: none;
     background: #3F4137;
     height: 70px;
@@ -28,32 +233,9 @@ ul.mainmenu {
     font-size: 20px;
     overflow: hidden;
 }
-ul.mainmenu li {
+ul.main_menu_appearance li {
     float: left;
-    margin: 22px 35px 0 22px;
-}
-ul.mainmanu li.last {float: right;}
-
-ul.mainmanu li a {
-    color: #fdc073;
-    text-decoration: none;
-}
-
-ul.mainmanu li a:hover {
-    color: #FDA83D;
-}
-
-div.content {
-    margin: 30px;
-}
-
-.form-contact label {
-    display: inline-block;
-    min-width: 80px;
-}
-.form-contact p {margin: 10px 0 10px 0;}
-.form-contact input[type=submit], textarea {
-    font-size: 16px;
+    margin: 22px 35px 0 20px;
 }
 
 .flash {padding: 10px;}
@@ -66,33 +248,193 @@ div.content {
     background: #fa8072;
 }
 
-ul.list-posts {
+ul.list_passports_appearance {
     list-style: none;
     margin: 0;
     padding: 0;
-    max-width: 600px;
+    max-width: 400px;
+
 }
-ul.list-posts li {
-    margin: 20px 0 0 0;
-    border: 1px solid #eee;
+
+ul.list_passports_appearance li {
+    margin: 55px 0 0 0;
+    color: #FFFFFF;
+    font-size: 20px;
+    border-radius: 7px;
+    border: 10px solid #3F4137;
 }
-ul.list-posts .title {
-    margin: 0;
-    padding: 5px;
-    background: #eee;
+
+ul.list_passports_appearance .object_name_inventory_number_appearance {
+    font-size: 25px;
+    margin: 0px 0px 0 0px;
+    padding: 20px;
+    background: #3F4137;
 }
-ul.list-posts .announce {
+ul.list_passports_appearance .acceptance_number_appearance {
     margin: 0;
     padding: 10px 5px 10px 5px
 }
+
 TABLE {
-    width: 850px; /* Ширина таблицы */
-    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+    width: 850px;
+    border-collapse: collapse;
 }
+
 TD, TH {
-    padding: 3px; /* Поля вокруг содержимого таблицы */
-    border: 1px solid black; /* Параметры рамки */
+    padding: 3px;
+    border: 1px solid black;
 }
+
 TH {
-    background: #8FBC8F; /* Цвет фона */
+    background: #8FBC8F;
 }
+.hide{
+  display:none;
+}
+.show{
+  display:block;
+}
+.purposes_researches_table_space{
+width: 120px;
+}
+.methods_researches_table_space{
+width: 190px;
+}
+.executor_date_researches_table_space{
+width: 118px;
+}
+
+.treatment_base_space{
+width: 1080px;
+}
+
+.treatments_descriptions_table_space{
+width: 500px;
+}
+.treatments_chemicals_table_space{
+width: 290px;
+}
+.treatments_executor_date_table_space{
+width: 270px;
+}
+
+.pale_TABLE {
+    width: 850px;
+    border-collapse: collapse;
+    opacity: 0.5;
+}
+
+.pale_treatment_TABLE {
+    width: 1080px;
+    opacity: 0.5;
+}
+
+.pale_text {
+    opacity: 0.5;
+}
+
+.light_text {
+    color: #A9A9A9;
+}
+
+.popup_appearance {
+    font-family: sans-serif;
+    width: 400px;
+    background: #800000;
+    border-radius: 6px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #FFFFFF;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+
+.open-popup_appearance {
+    visibility: visible;
+    top: 70%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popup h2{
+    font-size: 38px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+}
+
+a.danger {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #CD5C5C;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #696969;
+}
+
+a.danger:hover {
+    background-color: #FF0000
+}
+
+a.danger:active {
+    background-color: #FF0000;
+    box-shadow: 0 5px #FF4500;
+    transform: translateY(4px);
+}
+
+a.cancel {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #2E8B57;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+a.cancel:hover {
+    background-color: #00FF7F
+}
+
+a.cancel:active {
+    background-color: #00FF7F;
+    box-shadow: 0 5px #00FFFF;
+    transform: translateY(4px);
+}
+
+a.exit {
+    font-size: 20px;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.cabinet_workflow_suggestions_links {
+    background-color: white;
+    color: black;
+    border-radius: 7px;
+    border: 10px solid #3F4137;
+    font-size: 20px;
+    padding: 20px;
+    width: 220px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.cabinet_workflow_suggestions_links:hover {
+  background-color: #D3D3D3;
+  text-decoration: none;
+  color: black;

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
+    <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <title>Назва сайту - {{web_page_title}}</title>
+</head>
+<body>
+{% block content -%}
+    {%- block main_menu -%}
+<ul class="main_menu_appearance">
+
+
+    {% for main_choice in main_menu -%}
+    <li><a href="{{main_choice.url}}">{{main_choice.menu_element}}</a></li>
+    {% endfor -%}
+
+
+</ul>
+    {% endblock main_menu -%}
+
+
+{% for ctg, msg in get_flashed_messages(True) %}
+<div class="flash {{ctg}}">{{msg}}</div>
+{% endfor %}
+
+
+<div align="center">
+<h2>Переглянути досвід</h2>
+<hr width="1000px">
+</div>
+
+<div class="content" align="center">
+    <p>Матеріал: <b>{{experienced_material}}</b></p>
+    <p><b><i>Послідовність опису матеріалу:</i></b></p>
+    <div align="justify"><p>{{experienced_description | safe}}</p></div>
+    <p><b><i>Характерні втрати та пошкодження:</i></b></p>
+    <div align="justify"><p>{{experienced_damages_description | safe}}</p></div>
+
+    <br><table>
+    <tr>
+        <th>Назви лабораторних дослідженнь:</th>
+        <th>Опис проведення лабораторних дослідженнь:</th>
+    </tr>
+    <tr>
+        <td class="purposes_researches_table_space">{{experienced_research_title | safe}}</td>
+        <td class="methods_researches_table_space">{{experienced_research_description | safe }}</td>
+    </tr>
+</table>
+
+    <br><table>
+    <tr><th>Реставраційна програма:</th></tr>
+    <tr><td>{{experienced_restoration_program | safe}}</td></tr>
+</table>
+
+    <br><table class="treatment_base_space">
+    <tr>
+        <th>Опис проведення реставраційних заходів:</th>
+        <th>Матеріали та хімікати використані під час проведення реставраційних заходів:</th>
+    </tr>
+    <tr>
+        <td class="treatments_descriptions_table_space">{{experienced_treatments_descriptions | safe}}</td>
+        <td class="treatments_chemicals_table_space">{{experienced_treatments_chemicals | safe}}</td>
+    </tr>
+</table>
+</div>
+<div align="center"><p><h6>Використовувати застосунок виключно з освітньою метою.</h6></div>
+{% endblock %}

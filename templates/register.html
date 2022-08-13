@@ -25,23 +25,24 @@
 <div class="flash {{ctg}}">{{msg}}</div>
 {% endfor %}
 
-
 <div align="center">
-<p><h2>Увійти в особистий кабінет</h2>
+<p><h2>Створити кабінет</h2>
 <hr width="1000px">
 </div>
 
-
 <div class="register_content">
-    <form action="/login" method="post" class="login-cabinet">
+    <form action="/register" method="post">
+        <p><h3><b>Ім'я та прізвище:</b></h3>
+        <p><input type="text" name="restorer_name" class="name_email_register" required></p>
         <p><h3><b>Ваша електронна адреса:</b></h3>
         <p><input type="text" name="restorer_email" class="name_email_register" required></p>
-        <p><h3><b>Пароль від вашого кабінету:</b></h3>
+        <p><h3><b>Вигадайте пароль з чотирьох цифр:</b></h3>
         <p><input type="password" name="restorer_password" placeholder="****" class="password_register" required></p>
-        <p><input type="checkbox" name="remember_restorer">Запам'ятати мене і надалі впускати без авторизації.</p>
-        <p><input type="submit" value="Увійти" class="register"></p>
-        <hr align="left" width="300px">
-        <p>Якщо ви ще не створили кабінет натисніть <a href="{{url_for('register')}}" style="font-size: 15px; padding: 5px; border-radius: 2px;">Створити кабінет</a></p>
+        <p><h3><b>Введіть вигаданий пароль повторно:</b></h3>
+        <p><input type="password" name="repeated_restorer_password" placeholder="****" class="password_register" required>
+        <p><input type="submit" class="register" value="Створити кабінет"></p>
+        <br>
     </form>
 </div>
+<div align="center"><p><h6>Використовувати застосунок виключно з освітньою метою.</h6></div>
 {% endblock %}

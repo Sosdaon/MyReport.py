@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
+    <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <title>Назва сайту - {{web_page_title}}</title>
+</head>
+<body>
+{% block content -%}
+{%- block main_menu -%}
+<ul class="main_menu_appearance">
+
+
+    {% for main_choice in main_menu -%}
+    <li><a href="{{main_choice.url}}">{{main_choice.menu_element}}</a></li>
+    {% endfor -%}
+
+
+</ul>
+{% endblock main_menu -%}
+
+
+{% for ctg, msg in get_flashed_messages(True) %}
+<div class="flash {{ctg}}">{{msg}}</div>
+{% endfor %}
+
+<div class="content">
+        <p>
+            <a onclick="openPopup(); window.scrollTo(0, 0);" class="delete_suggestion">Видалити</a>
+        </p>
+    <div class="popup_appearance" id="popup">
+            <h1>Дійсно видалити?</h1>
+            {% if experience.experienced_material %}
+            <p><h3>Реставраційний досвід роботи з матеріалом "{{experience.experienced_material}}" буде видалено назавжди.</h3></p>
+            <a type="button" href="{{url_for('deleted_experience_report', id_post=experience.id)}}" onclick="closePopup();" class="danger"><b>Знищити</b></a>
+            {% endif %}
+
+            {% if experience.experienced_material_2 %}
+            <p><h3>Реставраційний досвід роботи з матеріалом "{{experience.experienced_material_2}}" буде видалено назавжди.</h3></p>
+            <a type="button" href="{{url_for('deleted_experience_report_2', id_post=experience.id)}}" onclick="closePopup();" class="danger"><b>Знищити</b></a>
+            {% endif %}
+
+            {% if experience.experienced_material_3 %}
+            <p><h3>Реставраційний досвід роботи з матеріалом "{{experience.experienced_material_3}}" буде видалено назавжди.</h3></p>
+            <a type="button" href="{{url_for('deleted_experience_report_3', id_post=experience.id)}}" onclick="closePopup();" class="danger"><b>Знищити</b></a>
+            {% endif %}
+            <a type="button" onclick="closePopup();" class="cancel"><b>Скасувати</b></a>
+    </div>
+
+
+<div class="content" align="center">
+    <p class="light_text">Матеріал: <b class="light_text">{{experienced_material}}</b></p>
+    <p><b><i class="light_text">Послідовність опису матеріалу:</i></b></p>
+    <div align="justify"><p class="light_text">{{experienced_description | safe}}</p></div>
+    <p><b><i class="light_text">Характерні втрати та пошкодження:</i></b></p>
+    <div align="justify"><p class="light_text">{{experienced_damages_description | safe}}</p></div>
+
+    <br><table>
+    <tr>
+        <th style="background: #D3D3D3; border: 1px solid grey;"><div class="light_text">Назви лабораторних дослідженнь:</div></th>
+        <th style="background: #D3D3D3; border: 1px solid grey;"><div class="light_text">Опис проведення лабораторних дослідженнь:</div></th>
+    </tr>
+    <tr>
+        <td class="purposes_researches_table_space" style="border: 1px solid grey;"><div class="light_text">{{experienced_research_title | safe}}</div></td>
+        <td class="methods_researches_table_space" style="border: 1px solid grey;"><div class="light_text">{{experienced_research_description | safe }}</div></td>
+    </tr>
+</table>
+
+    <br><table>
+    <tr><th style="background: #D3D3D3; border: 1px solid grey;"><div class="light_text">Реставраційна програма:</div></th></tr>
+    <tr><td style="border: 1px solid grey;"><div class="light_text">{{experienced_restoration_program | safe}}</div></td></tr>
+</table>
+
+    <br><table>
+    <tr>
+        <th style="background: #D3D3D3; border: 1px solid grey;"><div class="light_text">Опис проведення реставраційних заходів:</div></th>
+        <th style="background: #D3D3D3; border: 1px solid grey;"><div class="light_text">Матеріали та хімікати використані під час проведення реставраційних заходів:</div></th>
+    </tr>
+    <tr>
+        <td class="treatments_descriptions_table_space" style="border: 1px solid grey;"><div class="light_text">{{experienced_treatments_descriptions | safe}}</div></td>
+        <td class="treatments_chemicals_table_space" style="border: 1px solid grey;"><div class="light_text">{{experienced_treatments_chemicals | safe}}</div></td>
+    </tr>
+</table>
+</div>
+<div align="center"><p><h6>Використовувати застосунок виключно з освітньою метою.</h6></div>
+{% endblock %}
+
+<script>
+let popup = document.getElementById("popup");
+
+function openPopup() {
+    popup.classList.add("open-popup_appearance");
+}
+
+function closePopup() {
+    popup.classList.remove("open-popup_appearance");
+}
+</script>
+</div>
+</div>
+</body>
+</html>
