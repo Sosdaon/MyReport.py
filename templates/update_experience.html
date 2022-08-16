@@ -32,10 +32,10 @@
 </div>
 
 <div class="content" align="center">
-    <form enctype="multipart/form-data" action="{{url_for('update_experience', id_post=experience.id)}}" method="post">
+    <form enctype="multipart/form-data" action="{{url_for(experience_number, id_post=experience.id)}}" method="post">
 
         <table>
-        <tr><th>Матеріал: <input class="experienced_material" name="experienced_material" placeholder="{{experienced_material}}"></th></tr>
+        <tr><th>Матеріал: <input class="experienced_material" name="experienced_material" placeholder="{{experienced_material}}" required></th></tr>
             <tr><th>Послідовність опису матеріалу:</th></tr>
             <tr><td><textarea rows="30" cols="140" name="experienced_description">{{experienced_description}}</textarea></td></tr>
             <tr><th>Характерні втрати та пошкодження:</th></tr>

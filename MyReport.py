@@ -624,66 +624,73 @@ def add_experience():
     experiences_amount_2 = dbase.count_experiences_preview_2(author_of_experience_id)
     experiences_amount_3 = dbase.count_experiences_preview_3(author_of_experience_id)
 
-    if request.method == 'POST' and experiences_amount == 'empty':
-        if len(request.form['experienced_material']) > 0:
-            experienced_fields_input = dbase.store_experience(request.form['experienced_material'],
-                                                              request.form['experienced_description'],
-                                                              request.form['experienced_damages_description'],
-                                                              request.form['experienced_research_title'],
-                                                              request.form['experienced_research_description'],
-                                                              request.form['experienced_restoration_program'],
-                                                              request.form['experienced_treatments_descriptions'],
-                                                              request.form['experienced_treatments_chemicals'],
-                                                              author_of_experience_id)
+    if experiences_amount != 'empty' and experiences_amount_2 != 'empty' and experiences_amount_3 != 'empty':
+        flash('Ви додали максимальну кількість досвіду. Видаліть один досвід для публікування.', category='error')
+        return redirect(url_for('experiences'), code=301)
 
-            if not experienced_fields_input:
-                flash('Виникла помилка публікування досвіду', category='error')
+    if request.method == 'POST':
+        if experiences_amount == 'empty':
+            if len(request.form['experienced_material']) > 0:
+                experienced_fields_input = dbase.store_experience(request.form['experienced_material'],
+                                                                  request.form['experienced_description'],
+                                                                  request.form['experienced_damages_description'],
+                                                                  request.form['experienced_research_title'],
+                                                                  request.form['experienced_research_description'],
+                                                                  request.form['experienced_restoration_program'],
+                                                                  request.form['experienced_treatments_descriptions'],
+                                                                  request.form['experienced_treatments_chemicals'],
+                                                                  author_of_experience_id)
+
+                if not experienced_fields_input:
+                    flash('Виникла помилка публікування досвіду', category='error')
+                else:
+                    flash('Успішно опубліковано!', category='success')
+                    return redirect(url_for('cabinet'), code=301)
+
             else:
-                flash('Успішно опубліковано!', category='success')
-                return redirect(url_for('cabinet'), code=301)
+                flash('Введіть назву матеріалу, будь ласка', category='error')
 
-        else:
-            flash('Введіть назву матеріалу, будь ласка', category='error')
-    if request.method == 'POST' and experiences_amount != 'empty' and experiences_amount_2 == 'empty':
-        if len(request.form['experienced_material']) > 0:
-            experienced_fields_input = dbase.store_experience_2(request.form['experienced_material'],
-                                                              request.form['experienced_description'],
-                                                              request.form['experienced_damages_description'],
-                                                              request.form['experienced_research_title'],
-                                                              request.form['experienced_research_description'],
-                                                              request.form['experienced_restoration_program'],
-                                                              request.form['experienced_treatments_descriptions'],
-                                                              request.form['experienced_treatments_chemicals'],
-                                                              author_of_experience_id)
+        if experiences_amount != 'empty' and experiences_amount_2 == 'empty':
+            if len(request.form['experienced_material']) > 0:
+                experienced_fields_input = dbase.store_experience_2(request.form['experienced_material'],
+                                                                    request.form['experienced_description'],
+                                                                    request.form['experienced_damages_description'],
+                                                                    request.form['experienced_research_title'],
+                                                                    request.form['experienced_research_description'],
+                                                                    request.form['experienced_restoration_program'],
+                                                                    request.form['experienced_treatments_descriptions'],
+                                                                    request.form['experienced_treatments_chemicals'],
+                                                                    author_of_experience_id)
 
-            if not experienced_fields_input:
-                flash('Виникла помилка публікування досвіду', category='error')
+                if not experienced_fields_input:
+                    flash('Виникла помилка публікування досвіду', category='error')
+                else:
+                    flash('Успішно опубліковано!', category='success')
+                    return redirect(url_for('cabinet'), code=301)
+
             else:
-                flash('Успішно опубліковано!', category='success')
-                return redirect(url_for('cabinet'), code=301)
+                flash('Введіть назву матеріалу, будь ласка', category='error')
 
-        else:
-            flash('Введіть назву матеріалу, будь ласка', category='error')
-    if request.method == 'POST' and experiences_amount != 'empty' and experiences_amount_2 != 'empty' and experiences_amount_3 == 'empty':
-        if len(request.form['experienced_material']) > 0:
-            experienced_fields_input = dbase.store_experience_3(request.form['experienced_material'],
-                                                              request.form['experienced_description'],
-                                                              request.form['experienced_damages_description'],
-                                                              request.form['experienced_research_title'],
-                                                              request.form['experienced_research_description'],
-                                                              request.form['experienced_restoration_program'],
-                                                              request.form['experienced_treatments_descriptions'],
-                                                              request.form['experienced_treatments_chemicals'],
-                                                              author_of_experience_id)
+        if experiences_amount != 'empty' and experiences_amount_2 != 'empty' and experiences_amount_3 == 'empty':
+            if len(request.form['experienced_material']) > 0:
+                experienced_fields_input = dbase.store_experience_3(request.form['experienced_material'],
+                                                                    request.form['experienced_description'],
+                                                                    request.form['experienced_damages_description'],
+                                                                    request.form['experienced_research_title'],
+                                                                    request.form['experienced_research_description'],
+                                                                    request.form['experienced_restoration_program'],
+                                                                    request.form['experienced_treatments_descriptions'],
+                                                                    request.form['experienced_treatments_chemicals'],
+                                                                    author_of_experience_id)
 
-            if not experienced_fields_input:
-                flash('Виникла помилка публікування досвіду', category='error')
+                if not experienced_fields_input:
+                    flash('Виникла помилка публікування досвіду', category='error')
+                else:
+                    flash('Успішно опубліковано!', category='success')
+                    return redirect(url_for('cabinet'), code=301)
+
             else:
-                flash('Успішно опубліковано!', category='success')
-                return redirect(url_for('cabinet'), code=301)
-
-        else:
-            flash('Введіть назву матеріалу, будь ласка', category='error')
+                flash('Введіть назву матеріалу, будь ласка', category='error')
 
     return render_template('add_experience.html', main_menu=dbase.get_main_menu(), web_page_title='Додати досвід')
 
@@ -760,24 +767,27 @@ def update_experience(id_post):
     experienced_treatments_chemicals = dbase.get_experience_to_update(id_post)
 
     if request.method == 'POST':
-        experienced_fields_input = dbase.store_experience(request.form['experienced_material'],
-                                                          request.form['experienced_description'],
-                                                          request.form['experienced_damages_description'],
-                                                          request.form['experienced_research_title'],
-                                                          request.form['experienced_research_description'],
-                                                          request.form['experienced_restoration_program'],
-                                                          request.form['experienced_treatments_descriptions'],
-                                                          request.form['experienced_treatments_chemicals'],
-                                                          author_of_experience_id)
+        if len(request.form['experienced_material']) > 0:
+            dbase.delete_experience(id_post)
+            experienced_fields_input = dbase.store_experience(request.form['experienced_material'],
+                                                              request.form['experienced_description'],
+                                                              request.form['experienced_damages_description'],
+                                                              request.form['experienced_research_title'],
+                                                              request.form['experienced_research_description'],
+                                                              request.form['experienced_restoration_program'],
+                                                              request.form['experienced_treatments_descriptions'],
+                                                              request.form['experienced_treatments_chemicals'],
+                                                              author_of_experience_id)
 
-        if not experienced_fields_input:
-            flash('Виникла помилка публікування досвіду', category='error')
-        else:
-            flash('Успішно опубліковано!', category='success')
-            return redirect(url_for('cabinet'), code=301)
+            if not experienced_fields_input:
+                flash('Виникла помилка редагування досвіду', category='error')
+            else:
+                flash('Успішно опубліковано!', category='success')
+                return redirect(url_for('experiences'), code=301)
 
     return render_template('update_experience.html', main_menu=dbase.get_main_menu(),
                            web_page_title=experienced_material,
+                           experience_number='update_experience',
                            experience=dbase.get_current_experience_id(id_post),
                            experienced_material=experienced_material,
                            experienced_description=experienced_description,
@@ -787,6 +797,93 @@ def update_experience(id_post):
                            experienced_restoration_program=experienced_restoration_program,
                            experienced_treatments_descriptions=experienced_treatments_descriptions,
                            experienced_treatments_chemicals=experienced_treatments_chemicals)
+
+@app.route('/update_experience_2/<string:id_post>', methods=['POST', 'GET'])
+@login_required
+def update_experience_2(id_post):
+    db = get_db()
+    dbase = DataBase(db)
+    author_of_experience_id = current_user.get_id()
+
+    experienced_material_2, experienced_description_2, experienced_damages_description_2, experienced_research_title_2,\
+    experienced_research_description_2, experienced_restoration_program_2, experienced_treatments_descriptions_2, \
+    experienced_treatments_chemicals_2 = dbase.get_experience_to_update_2(id_post)
+
+    if request.method == 'POST':
+        if len(request.form['experienced_material']) > 0:
+            dbase.delete_experience_2(id_post)
+            experienced_fields_input = dbase.store_experience_2(request.form['experienced_material'],
+                                                                request.form['experienced_description'],
+                                                                request.form['experienced_damages_description'],
+                                                                request.form['experienced_research_title'],
+                                                                request.form['experienced_research_description'],
+                                                                request.form['experienced_restoration_program'],
+                                                                request.form['experienced_treatments_descriptions'],
+                                                                request.form['experienced_treatments_chemicals'],
+                                                                author_of_experience_id)
+
+            if not experienced_fields_input:
+                flash('Виникла помилка редагування досвіду', category='error')
+            else:
+                flash('Успішно опубліковано!', category='success')
+                return redirect(url_for('experiences'), code=301)
+
+    return render_template('update_experience.html', main_menu=dbase.get_main_menu(),
+                           web_page_title=experienced_material_2,
+                           experience_number='update_experience_2',
+                           experience=dbase.get_current_experience_id_2(id_post),
+                           experienced_material=experienced_material_2,
+                           experienced_description=experienced_description_2,
+                           experienced_damages_description=experienced_damages_description_2,
+                           experienced_research_title=experienced_research_title_2,
+                           experienced_research_description=experienced_research_description_2,
+                           experienced_restoration_program=experienced_restoration_program_2,
+                           experienced_treatments_descriptions=experienced_treatments_descriptions_2,
+                           experienced_treatments_chemicals=experienced_treatments_chemicals_2)
+
+
+@app.route('/update_experience_3/<string:id_post>', methods=['POST', 'GET'])
+@login_required
+def update_experience_3(id_post):
+    db = get_db()
+    dbase = DataBase(db)
+    author_of_experience_id = current_user.get_id()
+
+    experienced_material_3, experienced_description_3, experienced_damages_description_3, experienced_research_title_3,\
+    experienced_research_description_3, experienced_restoration_program_3, experienced_treatments_descriptions_3, \
+    experienced_treatments_chemicals_3 = dbase.get_experience_to_update_3(id_post)
+
+    if request.method == 'POST':
+        if len(request.form['experienced_material']) > 0:
+            dbase.delete_experience_3(id_post)
+            experienced_fields_input = dbase.store_experience_3(request.form['experienced_material'],
+                                                                request.form['experienced_description'],
+                                                                request.form['experienced_damages_description'],
+                                                                request.form['experienced_research_title'],
+                                                                request.form['experienced_research_description'],
+                                                                request.form['experienced_restoration_program'],
+                                                                request.form['experienced_treatments_descriptions'],
+                                                                request.form['experienced_treatments_chemicals'],
+                                                                author_of_experience_id)
+
+            if not experienced_fields_input:
+                flash('Виникла помилка редагування досвіду', category='error')
+            else:
+                flash('Успішно опубліковано!', category='success')
+                return redirect(url_for('experiences'), code=301)
+
+    return render_template('update_experience.html', main_menu=dbase.get_main_menu(),
+                           web_page_title=experienced_material_3,
+                           experience_number='update_experience_3',
+                           experience=dbase.get_current_experience_id_3(id_post),
+                           experienced_material=experienced_material_3,
+                           experienced_description=experienced_description_3,
+                           experienced_damages_description=experienced_damages_description_3,
+                           experienced_research_title=experienced_research_title_3,
+                           experienced_research_description=experienced_research_description_3,
+                           experienced_restoration_program=experienced_restoration_program_3,
+                           experienced_treatments_descriptions=experienced_treatments_descriptions_3,
+                           experienced_treatments_chemicals=experienced_treatments_chemicals_3)
 
 
 @app.route('/delete_experience/<string:id_post>')
