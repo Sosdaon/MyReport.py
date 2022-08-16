@@ -640,6 +640,32 @@ class DataBase:
             print('Нажаль виникла помилка отримання другого досвіду з бази даних для редагування' + str(e))
             flash('Нажаль виникла помилка отримання другого досвіду з бази даних для додавання подібного досвіду', category='error')
 
+    def get_experience_to_update_3(self, id_post):
+        try:
+            self.__cur.execute(
+                f'SELECT experienced_material_3, experienced_description_3, experienced_damages_description_3, '
+                f'experienced_research_title_3, experienced_research_description_3, '
+                f'experienced_restoration_program_3, experienced_treatments_descriptions_3, '
+                f'experienced_treatments_chemicals_3 FROM experience_3 WHERE id = {id_post} LIMIT 1')
+            experienced_material_3, experienced_description_3, experienced_damages_description_3, \
+            experienced_research_title_3, experienced_research_description_3, experienced_restoration_program_3, \
+            experienced_treatments_descriptions_3, experienced_treatments_chemicals_3 = self.__cur.fetchone()
+
+            # Get rid of tags
+            experienced_description_3 = re.sub(r'<br>', '', experienced_description_3)
+            experienced_damages_description_3 = re.sub(r'<br>', '', experienced_damages_description_3)
+            experienced_research_title_3 = re.sub(r'<br>', '', experienced_research_title_3)
+            experienced_research_description_3 = re.sub(r'<br>', '', experienced_research_description_3)
+            experienced_restoration_program_3 = re.sub(r'<br>', '', experienced_restoration_program_3)
+            experienced_treatments_descriptions_3 = re.sub(r'<br>', '', experienced_treatments_descriptions_3)
+            experienced_treatments_chemicals_3 = re.sub(r'<br>', '', experienced_treatments_chemicals_3)
+            return experienced_material_3, experienced_description_3, experienced_damages_description_3, \
+                   experienced_research_title_3, experienced_research_description_3, experienced_restoration_program_3,\
+                   experienced_treatments_descriptions_3, experienced_treatments_chemicals_3
+        except sqlite3.Error as e:
+            print('Нажаль виникла помилка отримання другого досвіду з бази даних для редагування' + str(e))
+            flash('Нажаль виникла помилка отримання другого досвіду з бази даних для додавання подібного досвіду', category='error')
+
     def get_current_experience_id(self, id_post):
         try:
             self.__cur.execute(f'SELECT id FROM experience WHERE id = {id_post} LIMIT 1')
@@ -649,6 +675,26 @@ class DataBase:
         except sqlite3.Error as e:
             print('Нажаль виникла помилка отримання досвіду з бази даних для редагування' + str(e))
             flash('Нажаль виникла помилка отримання досвіду з бази даних для додавання подібного досвіду', category='error')
+
+    def get_current_experience_id_2(self, id_post):
+        try:
+            self.__cur.execute(f'SELECT id FROM experience_2 WHERE id = {id_post} LIMIT 1')
+            experience_fields_output = self.__cur.fetchone()
+            if experience_fields_output:
+                return experience_fields_output
+        except sqlite3.Error as e:
+            print('Нажаль виникла помилка отримання другого досвіду з бази даних для редагування' + str(e))
+            flash('Нажаль виникла помилка отримання другого досвіду з бази даних для додавання подібного досвіду', category='error')
+
+    def get_current_experience_id_3(self, id_post):
+        try:
+            self.__cur.execute(f'SELECT id FROM experience_3 WHERE id = {id_post} LIMIT 1')
+            experience_fields_output = self.__cur.fetchone()
+            if experience_fields_output:
+                return experience_fields_output
+        except sqlite3.Error as e:
+            print('Нажаль виникла помилка отримання другого досвіду з бази даних для редагування' + str(e))
+            flash('Нажаль виникла помилка отримання другого досвіду з бази даних для додавання подібного досвіду', category='error')
 
     def get_current_experience_deletion_warning_data(self, id_post):
         try:
@@ -700,8 +746,8 @@ class DataBase:
             self.__cur.execute(f'DELETE FROM experience_2 WHERE id == {id_post}')
             self.__db.commit()
         except sqlite3.Error as error:
-            print('Нажаль виникла помилка видалення досвіду з бази даних' + str(error))
-            flash('Нажаль виникла помилка видалення досвіду', category='error')
+            print('Нажаль виникла помилка видалення другого досвіду з бази даних' + str(error))
+            flash('Нажаль виникла помилка видалення другого досвіду', category='error')
             return True
 
     def delete_experience_3(self, id_post):
