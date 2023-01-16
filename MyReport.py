@@ -2,12 +2,10 @@ import os
 
 from flask import Flask, render_template, url_for, request, flash, redirect, abort, g, send_file
 import sqlite3
-import jyserver.Flask as js_Flask
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 from DataBase import DataBase
-from heritageDescription import GeneralPassportDescription, Materials
 from printable.PrintPassportPaper import Paperwork
 from Login import RestorerLogin
 
@@ -31,166 +29,6 @@ def load_restorer(restorer_id):
     dbase = DataBase(db)
     print('load_restorer')
     return RestorerLogin().from_data_base(restorer_id, dbase)
-
-
-@js_Flask.use(app)
-class ChangeFormsForMaterial:
-    def __init__(self, initial_changed_value='', fillInExamples=GeneralPassportDescription.AppearanceDescription(),
-                 fillInIron=Materials.Iron(), fillInCuprum=Materials.Cuprum(), fillInSilver=Materials.Silver()):
-        # General texts for any heritage object
-        self.changed_appearance_description = fillInExamples.general_appearance_description
-        self.changed_damages_description = fillInExamples.general_damages_description
-        self.changed_research_title, self.changed_research_description, self.changed_restoration_program, \
-        self.changed_treatments_descriptions, self.changed_treatments_chemicals = initial_changed_value, \
-                                                                                  initial_changed_value, \
-                                                                                  initial_changed_value, \
-                                                                                  initial_changed_value, \
-                                                                                  initial_changed_value
-
-        # Iron
-        self.iron_appearance_description = fillInIron.iron_appearance_description
-        self.iron_damage_description = fillInIron.iron_damage_description
-        self.iron_research_title = fillInIron.iron_research_titles
-        self.iron_research_description = fillInIron.iron_research_descriptions
-        self.restoration_program_iron = fillInIron.iron_restoration_program
-        self.iron_treatments_descriptions = fillInIron.iron_treatments_descriptions
-        self.iron_treatments_chemicals = fillInIron.iron_treatments_chemicals
-        # Cuprum
-        self.cuprum_appearance_description = fillInCuprum.cuprum_appearance_description
-        self.cuprum_damage_description = fillInCuprum.cuprum_damage_description
-        self.cuprum_research_title = fillInCuprum.cuprum_research_titles
-        self.cuprum_research_description = fillInCuprum.cuprum_research_descriptions
-        self.restoration_program_cuprum = fillInCuprum.cuprum_restoration_program
-        self.cuprum_treatments_descriptions = fillInCuprum.cuprum_treatments_descriptions
-        self.cuprum_treatments_chemicals = fillInCuprum.cuprum_treatments_chemicals
-        # Silver
-        self.silver_appearance_description = fillInSilver.silver_appearance_description
-        self.silver_damage_description = fillInSilver.silver_damage_description
-        self.silver_research_title = fillInSilver.silver_research_titles
-        self.silver_research_description = fillInSilver.silver_research_descriptions
-        self.restoration_program_silver = fillInSilver.silver_restoration_program
-        self.silver_treatments_descriptions = fillInSilver.silver_treatments_descriptions
-        self.silver_treatments_chemicals = fillInSilver.silver_treatments_chemicals
-
-    def fillInIronForm(self):
-        self.changed_appearance_description += self.iron_appearance_description
-        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
-        self.changed_damages_description += self.iron_damage_description
-        self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
-        self.changed_research_title += self.iron_research_title
-        self.js.document.getElementById("dynamic_purposes_researches_by_material").innerHTML = self.changed_research_title
-        self.changed_research_description += self.iron_research_description
-        self.js.document.getElementById("dynamic_methods_researches_by_material").innerHTML = self.changed_research_description
-        self.changed_restoration_program += self.restoration_program_iron
-        self.js.document.getElementById("dynamic_restoration_program_by_material").innerHTML = self.changed_restoration_program
-        self.changed_treatments_descriptions += self.iron_treatments_descriptions
-        self.js.document.getElementById("dynamic_treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
-        self.changed_treatments_chemicals += self.iron_treatments_chemicals
-        self.js.document.getElementById("dynamic_treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
-
-    def fillInCuprumForm(self):
-        self.changed_appearance_description += self.cuprum_appearance_description
-        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
-        self.changed_damages_description += self.cuprum_damage_description
-        self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
-        self.changed_research_title += self.cuprum_research_title
-        self.js.document.getElementById("dynamic_purposes_researches_by_material").innerHTML = self.changed_research_title
-        self.changed_research_description += self.cuprum_research_description
-        self.js.document.getElementById("dynamic_methods_researches_by_material").innerHTML = self.changed_research_description
-        self.changed_restoration_program += self.restoration_program_cuprum
-        self.js.document.getElementById("dynamic_restoration_program_by_material").innerHTML = self.changed_restoration_program
-        self.changed_treatments_descriptions += self.cuprum_treatments_descriptions
-        self.js.document.getElementById("dynamic_treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
-        self.changed_treatments_chemicals += self.cuprum_treatments_chemicals
-        self.js.document.getElementById("dynamic_treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
-
-    def fillInSilverForm(self):
-        self.changed_appearance_description += self.silver_appearance_description
-        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
-        self.changed_damages_description += self.silver_damage_description
-        self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
-        self.changed_research_title += self.silver_research_title
-        self.js.document.getElementById("dynamic_purposes_researches_by_material").innerHTML = self.changed_research_title
-        self.changed_research_description += self.silver_research_description
-        self.js.document.getElementById("dynamic_methods_researches_by_material").innerHTML = self.changed_research_description
-        self.changed_restoration_program += self.restoration_program_silver
-        self.js.document.getElementById("dynamic_restoration_program_by_material").innerHTML = self.changed_restoration_program
-        self.changed_treatments_descriptions += self.silver_treatments_descriptions
-        self.js.document.getElementById("dynamic_treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
-        self.changed_treatments_chemicals += self.silver_treatments_chemicals
-        self.js.document.getElementById("dynamic_treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
-
-    def fillInExperiencedMaterialForm(self):
-        db = get_db()
-        dbase = DataBase(db)
-        current_restorer_id = current_user.get_id()
-
-        experienced_material, experienced_description, experienced_damages_description, experienced_research_title,\
-        experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, \
-        experienced_treatments_chemicals = dbase.get_experience_by_pushing_button(current_restorer_id)
-
-        self.changed_appearance_description += experienced_description
-        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
-        self.changed_damages_description += experienced_damages_description
-        self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
-        self.changed_research_title += experienced_research_title
-        self.js.document.getElementById("dynamic_purposes_researches_by_material").innerHTML = self.changed_research_title
-        self.changed_research_description += experienced_research_description
-        self.js.document.getElementById("dynamic_methods_researches_by_material").innerHTML = self.changed_research_description
-        self.changed_restoration_program += experienced_restoration_program
-        self.js.document.getElementById("dynamic_restoration_program_by_material").innerHTML = self.changed_restoration_program
-        self.changed_treatments_descriptions += experienced_treatments_descriptions
-        self.js.document.getElementById("dynamic_treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
-        self.changed_treatments_chemicals += experienced_treatments_chemicals
-        self.js.document.getElementById("dynamic_treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
-
-    def fillInExperiencedMaterialForm_2(self):
-        db = get_db()
-        dbase = DataBase(db)
-        current_restorer_id = current_user.get_id()
-
-        experienced_material_2, experienced_description_2, experienced_damages_description_2, experienced_research_title_2,\
-        experienced_research_description_2, experienced_restoration_program_2, experienced_treatments_descriptions_2, \
-        experienced_treatments_chemicals_2 = dbase.get_experience_by_pushing_button_2(current_restorer_id)
-
-        self.changed_appearance_description += experienced_description_2
-        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
-        self.changed_damages_description += experienced_damages_description_2
-        self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
-        self.changed_research_title += experienced_research_title_2
-        self.js.document.getElementById("dynamic_purposes_researches_by_material").innerHTML = self.changed_research_title
-        self.changed_research_description += experienced_research_description_2
-        self.js.document.getElementById("dynamic_methods_researches_by_material").innerHTML = self.changed_research_description
-        self.changed_restoration_program += experienced_restoration_program_2
-        self.js.document.getElementById("dynamic_restoration_program_by_material").innerHTML = self.changed_restoration_program
-        self.changed_treatments_descriptions += experienced_treatments_descriptions_2
-        self.js.document.getElementById("dynamic_treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
-        self.changed_treatments_chemicals += experienced_treatments_chemicals_2
-        self.js.document.getElementById("dynamic_treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
-
-    def fillInExperiencedMaterialForm_3(self):
-        db = get_db()
-        dbase = DataBase(db)
-        current_restorer_id = current_user.get_id()
-
-        experienced_material_3, experienced_description_3, experienced_damages_description_3, experienced_research_title_3,\
-        experienced_research_description_3, experienced_restoration_program_3, experienced_treatments_descriptions_3, \
-        experienced_treatments_chemicals_3 = dbase.get_experience_by_pushing_button_3(current_restorer_id)
-
-        self.changed_appearance_description += experienced_description_3
-        self.js.document.getElementById("changed_appearance_description").innerHTML = self.changed_appearance_description
-        self.changed_damages_description += experienced_damages_description_3
-        self.js.document.getElementById("changed_damages_description").innerHTML = self.changed_damages_description
-        self.changed_research_title += experienced_research_title_3
-        self.js.document.getElementById("dynamic_purposes_researches_by_material").innerHTML = self.changed_research_title
-        self.changed_research_description += experienced_research_description_3
-        self.js.document.getElementById("dynamic_methods_researches_by_material").innerHTML = self.changed_research_description
-        self.changed_restoration_program += experienced_restoration_program_3
-        self.js.document.getElementById("dynamic_restoration_program_by_material").innerHTML = self.changed_restoration_program
-        self.changed_treatments_descriptions += experienced_treatments_descriptions_3
-        self.js.document.getElementById("dynamic_treatments_descriptions_by_material").innerHTML = self.changed_treatments_descriptions
-        self.changed_treatments_chemicals += experienced_treatments_chemicals_3
-        self.js.document.getElementById("dynamic_treatments_chemicals_by_material").innerHTML = self.changed_treatments_chemicals
 
 
 def create_db():
@@ -244,19 +82,24 @@ def add_passport():
     db = get_db()
     dbase = DataBase(db)
     current_restorer_id = current_user.get_id()
-    print(url_for('add_passport'))
+    practice = bool(dbase.check_practice(current_restorer_id))
+    practice_2 = bool(dbase.check_practice_2(current_restorer_id))
+    practice_3 = bool(dbase.check_practice_3(current_restorer_id))
+    if practice:
+        experienced_material, experienced_description, experienced_damages_description, experienced_research_title, experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, experienced_treatments_chemicals = dbase.get_practice(current_restorer_id)
+    else:
+        experienced_material, experienced_description, experienced_damages_description, experienced_research_title, experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, experienced_treatments_chemicals = '', '', '', '', '', '', '', ''
 
-    experienced_material, experienced_description, experienced_damages_description, experienced_research_title, \
-    experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, \
-    experienced_treatments_chemicals = dbase.get_experience_by_pushing_button(current_restorer_id)
+    if practice_2:
+        experienced_material_2, experienced_description_2, experienced_damages_description_2, experienced_research_title_2, experienced_research_description_2, experienced_restoration_program_2, experienced_treatments_descriptions_2, experienced_treatments_chemicals_2 = dbase.get_practice_2(current_restorer_id)
+    else:
+        experienced_material_2, experienced_description_2, experienced_damages_description_2, experienced_research_title_2, experienced_research_description_2, experienced_restoration_program_2, experienced_treatments_descriptions_2, experienced_treatments_chemicals_2 = '', '', '', '', '', '', '', ''
 
-    experienced_material_2, experienced_description_2, experienced_damages_description_2, experienced_research_title_2,\
-    experienced_research_description_2, experienced_restoration_program_2, experienced_treatments_descriptions_2, \
-    experienced_treatments_chemicals_2 = dbase.get_experience_by_pushing_button_2(current_restorer_id)
+    if practice_3:
+        experienced_material_3, experienced_description_3, experienced_damages_description_3, experienced_research_title_3, experienced_research_description_3, experienced_restoration_program_3, experienced_treatments_descriptions_3, experienced_treatments_chemicals_3 = dbase.get_practice_3(current_restorer_id)
+    else:
+        experienced_material_3, experienced_description_3, experienced_damages_description_3, experienced_research_title_3, experienced_research_description_3, experienced_restoration_program_3, experienced_treatments_descriptions_3, experienced_treatments_chemicals_3 = '', '', '', '', '', '', '', ''
 
-    experienced_material_3, experienced_description_3, experienced_damages_description_3, experienced_research_title_3,\
-    experienced_research_description_3, experienced_restoration_program_2, experienced_treatments_descriptions_3, \
-    experienced_treatments_chemicals_3 = dbase.get_experience_by_pushing_button_3(current_restorer_id)
 
     if request.method == 'POST':
         if len(request.form['inventory_number']) > 0 and len(request.form['acceptance_number']) > 0:
@@ -311,10 +154,31 @@ def add_passport():
                 return redirect(url_for('portfolio'), code=301)
         else:
             flash("Спочатку введіть, будь ласка, інвентарний номер та дані акта приймання пам'ятки.", category='error')
-    return ChangeFormsForMaterial.render(
-        render_template('add_passport.html', main_menu=dbase.get_main_menu(), web_page_title='Публікація',
-                        experienced_material=experienced_material, experienced_material_2=experienced_material_2,
-                        experienced_material_3=experienced_material_3))
+    return render_template('add_passport.html', main_menu=dbase.get_main_menu(), web_page_title='Публікація',
+                            experienced_material=experienced_material,
+                            experienced_damages_description=experienced_damages_description,
+                            experienced_research_title=experienced_research_title,
+                            experienced_research_description=experienced_research_description,
+                            experienced_restoration_program=experienced_restoration_program,
+                            experienced_treatments_descriptions=experienced_treatments_descriptions,
+                            experienced_treatments_chemicals=experienced_treatments_chemicals,
+                            experienced_description=experienced_description,
+                            experienced_material_2=experienced_material_2,
+                            experienced_damages_description_2=experienced_damages_description_2,
+                            experienced_research_title_2=experienced_research_title_2,
+                            experienced_research_description_2=experienced_research_description_2,
+                            experienced_restoration_program_2=experienced_restoration_program_2,
+                            experienced_treatments_descriptions_2=experienced_treatments_descriptions_2,
+                            experienced_treatments_chemicals_2=experienced_treatments_chemicals_2,
+                            experienced_description_2=experienced_description_2,
+                            experienced_material_3=experienced_material_3,
+                            experienced_damages_description_3=experienced_damages_description_3,
+                            experienced_research_title_3=experienced_research_title_3,
+                            experienced_research_description_3=experienced_research_description_3,
+                            experienced_restoration_program_3=experienced_restoration_program_3,
+                            experienced_treatments_descriptions_3=experienced_treatments_descriptions_3,
+                            experienced_treatments_chemicals_3=experienced_treatments_chemicals_3,
+                            experienced_description_3=experienced_description_3)
 
 
 @app.route('/show_passport/<string:id_post>')
@@ -388,7 +252,7 @@ def update_passport(id_post):
     responsible_restorer, origin_description, appearance_description, damages_description, signs_description, \
     size_description, purposes_researches, methods_researches, executor_date_researches, results_researches, \
     restoration_program, treatments_descriptions, treatments_chemicals, treatments_executor_date, \
-    treatments_results = dbase.get_passport_to_update(id_post)
+    treatments_results = dbase.get_passport(id_post)
 
     if request.method == 'POST':
         if len(request.form['inventory_number']) > 0 and len(request.form['acceptance_number']) > 0:
@@ -607,87 +471,75 @@ def experiences():
 
     print(url_for('experiences'))
     return render_template('experiences.html', main_menu=dbase.get_main_menu(), web_page_title='Досвід',
-                           experiences=dbase.get_experiences_preview(current_restorer_id),
-                           experiences_2=dbase.get_experiences_preview_2(current_restorer_id),
-                           experiences_3=dbase.get_experiences_preview_3(current_restorer_id))
+                           experiences=dbase.get_practices_preview(current_restorer_id),
+                           experiences_2=dbase.get_practices_preview_2(current_restorer_id),
+                           experiences_3=dbase.get_practices_preview_3(current_restorer_id))
 
 
 @app.route('/add_experience', methods=['POST', 'GET'])
 def add_experience():
     db = get_db()
     dbase = DataBase(db)
-    author_of_experience_id = current_user.get_id()
+    author_of_practice_id = current_user.get_id()
 
     print(url_for('add_experience'))
 
-    experiences_amount = dbase.count_experiences_preview(author_of_experience_id)
-    experiences_amount_2 = dbase.count_experiences_preview_2(author_of_experience_id)
-    experiences_amount_3 = dbase.count_experiences_preview_3(author_of_experience_id)
+    practices_amount = dbase.count_practices_preview(author_of_practice_id)
+    practices_amount_2 = dbase.count_practices_preview_2(author_of_practice_id)
+    practices_amount_3 = dbase.count_practices_preview_3(author_of_practice_id)
 
-    if experiences_amount != 'empty' and experiences_amount_2 != 'empty' and experiences_amount_3 != 'empty':
+    if practices_amount != 'empty' and practices_amount_2 != 'empty' and practices_amount_3 != 'empty':
         flash('Ви додали максимальну кількість досвіду. Видаліть один досвід для публікування.', category='error')
         return redirect(url_for('experiences'), code=301)
 
     if request.method == 'POST':
-        if experiences_amount == 'empty':
+        if practices_amount == 'empty':
             if len(request.form['experienced_material']) > 0:
-                experienced_fields_input = dbase.store_experience(request.form['experienced_material'],
-                                                                  request.form['experienced_description'],
-                                                                  request.form['experienced_damages_description'],
-                                                                  request.form['experienced_research_title'],
-                                                                  request.form['experienced_research_description'],
-                                                                  request.form['experienced_restoration_program'],
-                                                                  request.form['experienced_treatments_descriptions'],
-                                                                  request.form['experienced_treatments_chemicals'],
-                                                                  author_of_experience_id)
-
-                if not experienced_fields_input:
-                    flash('Виникла помилка публікування досвіду', category='error')
-                else:
-                    flash('Успішно опубліковано!', category='success')
-                    return redirect(url_for('cabinet'), code=301)
+                dbase.store_practice(request.form['experienced_material'],
+                                     request.form['experienced_description'],
+                                     request.form['experienced_damages_description'],
+                                     request.form['experienced_research_title'],
+                                     request.form['experienced_research_description'],
+                                     request.form['experienced_restoration_program'],
+                                     request.form['experienced_treatments_descriptions'],
+                                     request.form['experienced_treatments_chemicals'],
+                                     author_of_practice_id)
+                flash('Успішно опубліковано!', category='success')
+                return redirect(url_for('cabinet'), code=301)
 
             else:
                 flash('Введіть назву матеріалу, будь ласка', category='error')
 
-        if experiences_amount != 'empty' and experiences_amount_2 == 'empty':
+        if practices_amount != 'empty' and practices_amount_2 == 'empty':
             if len(request.form['experienced_material']) > 0:
-                experienced_fields_input = dbase.store_experience_2(request.form['experienced_material'],
-                                                                    request.form['experienced_description'],
-                                                                    request.form['experienced_damages_description'],
-                                                                    request.form['experienced_research_title'],
-                                                                    request.form['experienced_research_description'],
-                                                                    request.form['experienced_restoration_program'],
-                                                                    request.form['experienced_treatments_descriptions'],
-                                                                    request.form['experienced_treatments_chemicals'],
-                                                                    author_of_experience_id)
-
-                if not experienced_fields_input:
-                    flash('Виникла помилка публікування досвіду', category='error')
-                else:
-                    flash('Успішно опубліковано!', category='success')
-                    return redirect(url_for('cabinet'), code=301)
+                dbase.store_practice_2(request.form['experienced_material'],
+                                       request.form['experienced_description'],
+                                       request.form['experienced_damages_description'],
+                                       request.form['experienced_research_title'],
+                                       request.form['experienced_research_description'],
+                                       request.form['experienced_restoration_program'],
+                                       request.form['experienced_treatments_descriptions'],
+                                       request.form['experienced_treatments_chemicals'],
+                                       author_of_practice_id)
+                flash('Успішно опубліковано!', category='success')
+                return redirect(url_for('cabinet'), code=301)
 
             else:
                 flash('Введіть назву матеріалу, будь ласка', category='error')
 
-        if experiences_amount != 'empty' and experiences_amount_2 != 'empty' and experiences_amount_3 == 'empty':
+        if practices_amount != 'empty' and practices_amount_2 != 'empty' and practices_amount_3 == 'empty':
             if len(request.form['experienced_material']) > 0:
-                experienced_fields_input = dbase.store_experience_3(request.form['experienced_material'],
-                                                                    request.form['experienced_description'],
-                                                                    request.form['experienced_damages_description'],
-                                                                    request.form['experienced_research_title'],
-                                                                    request.form['experienced_research_description'],
-                                                                    request.form['experienced_restoration_program'],
-                                                                    request.form['experienced_treatments_descriptions'],
-                                                                    request.form['experienced_treatments_chemicals'],
-                                                                    author_of_experience_id)
-
-                if not experienced_fields_input:
-                    flash('Виникла помилка публікування досвіду', category='error')
-                else:
-                    flash('Успішно опубліковано!', category='success')
-                    return redirect(url_for('cabinet'), code=301)
+                dbase.store_practice_3(request.form['experienced_material'],
+                                         request.form['experienced_description'],
+                                         request.form['experienced_damages_description'],
+                                         request.form['experienced_research_title'],
+                                         request.form['experienced_research_description'],
+                                         request.form['experienced_restoration_program'],
+                                         request.form['experienced_treatments_descriptions'],
+                                         request.form['experienced_treatments_chemicals'],
+                                         author_of_practice_id)
+                flash('Успішно опубліковано!', category='success')
+                return redirect(url_for('cabinet'), code=301)
 
             else:
                 flash('Введіть назву матеріалу, будь ласка', category='error')
@@ -703,7 +555,7 @@ def show_experience(id_post):
 
     experienced_material, experienced_description, experienced_damages_description, experienced_research_title, \
     experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, \
-    experienced_treatments_chemicals = dbase.get_experience_to_show(id_post)
+    experienced_treatments_chemicals = dbase.get_practice_to_show(id_post)
 
     return render_template('show_experience.html', main_menu=dbase.get_main_menu(), web_page_title=experienced_material,
                            experienced_material=experienced_material, experienced_description=experienced_description,
@@ -723,7 +575,7 @@ def show_experience_2(id_post):
 
     experienced_material_2, experienced_description_2, experienced_damages_description_2, experienced_research_title_2,\
     experienced_research_description_2, experienced_restoration_program_2, experienced_treatments_descriptions_2, \
-    experienced_treatments_chemicals_2 = dbase.get_experience_to_show_2(id_post)
+    experienced_treatments_chemicals_2 = dbase.get_practice_to_show_2(id_post)
 
     return render_template('show_experience.html', main_menu=dbase.get_main_menu(), web_page_title=experienced_material_2,
                            experienced_material=experienced_material_2, experienced_description=experienced_description_2,
@@ -743,7 +595,7 @@ def show_experience_3(id_post):
 
     experienced_material_3, experienced_description_3, experienced_damages_description_3, experienced_research_title_3,\
     experienced_research_description_3, experienced_restoration_program_3, experienced_treatments_descriptions_3, \
-    experienced_treatments_chemicals_3 = dbase.get_experience_to_show_3(id_post)
+    experienced_treatments_chemicals_3 = dbase.get_practice_to_show_3(id_post)
 
     return render_template('show_experience.html', main_menu=dbase.get_main_menu(), web_page_title=experienced_material_3,
                            experienced_material=experienced_material_3, experienced_description=experienced_description_3,
@@ -764,31 +616,28 @@ def update_experience(id_post):
 
     experienced_material, experienced_description, experienced_damages_description, experienced_research_title, \
     experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, \
-    experienced_treatments_chemicals = dbase.get_experience_to_update(id_post)
+    experienced_treatments_chemicals = dbase.get_practice_to_update(id_post)
 
     if request.method == 'POST':
         if len(request.form['experienced_material']) > 0:
             dbase.delete_experience(id_post)
-            experienced_fields_input = dbase.store_experience(request.form['experienced_material'],
-                                                              request.form['experienced_description'],
-                                                              request.form['experienced_damages_description'],
-                                                              request.form['experienced_research_title'],
-                                                              request.form['experienced_research_description'],
-                                                              request.form['experienced_restoration_program'],
-                                                              request.form['experienced_treatments_descriptions'],
-                                                              request.form['experienced_treatments_chemicals'],
-                                                              author_of_experience_id)
+            dbase.store_practice(request.form['experienced_material'],
+                                 request.form['experienced_description'],
+                                 request.form['experienced_damages_description'],
+                                 request.form['experienced_research_title'],
+                                 request.form['experienced_research_description'],
+                                 request.form['experienced_restoration_program'],
+                                 request.form['experienced_treatments_descriptions'],
+                                 request.form['experienced_treatments_chemicals'],
+                                 author_of_experience_id)
 
-            if not experienced_fields_input:
-                flash('Виникла помилка редагування досвіду', category='error')
-            else:
-                flash('Успішно опубліковано!', category='success')
-                return redirect(url_for('experiences'), code=301)
+            flash('Успішно опубліковано!', category='success')
+            return redirect(url_for('experiences'), code=301)
 
     return render_template('update_experience.html', main_menu=dbase.get_main_menu(),
                            web_page_title=experienced_material,
                            experience_number='update_experience',
-                           experience=dbase.get_current_experience_id(id_post),
+                           experience=dbase.get_current_practice_id(id_post),
                            experienced_material=experienced_material,
                            experienced_description=experienced_description,
                            experienced_damages_description=experienced_damages_description,
@@ -807,31 +656,27 @@ def update_experience_2(id_post):
 
     experienced_material_2, experienced_description_2, experienced_damages_description_2, experienced_research_title_2,\
     experienced_research_description_2, experienced_restoration_program_2, experienced_treatments_descriptions_2, \
-    experienced_treatments_chemicals_2 = dbase.get_experience_to_update_2(id_post)
+    experienced_treatments_chemicals_2 = dbase.get_practice_to_update_2(id_post)
 
     if request.method == 'POST':
         if len(request.form['experienced_material']) > 0:
             dbase.delete_experience_2(id_post)
-            experienced_fields_input = dbase.store_experience_2(request.form['experienced_material'],
-                                                                request.form['experienced_description'],
-                                                                request.form['experienced_damages_description'],
-                                                                request.form['experienced_research_title'],
-                                                                request.form['experienced_research_description'],
-                                                                request.form['experienced_restoration_program'],
-                                                                request.form['experienced_treatments_descriptions'],
-                                                                request.form['experienced_treatments_chemicals'],
-                                                                author_of_experience_id)
-
-            if not experienced_fields_input:
-                flash('Виникла помилка редагування досвіду', category='error')
-            else:
-                flash('Успішно опубліковано!', category='success')
-                return redirect(url_for('experiences'), code=301)
+            dbase.store_practice_2(request.form['experienced_material'],
+                                   request.form['experienced_description'],
+                                   request.form['experienced_damages_description'],
+                                   request.form['experienced_research_title'],
+                                   request.form['experienced_research_description'],
+                                   request.form['experienced_restoration_program'],
+                                   request.form['experienced_treatments_descriptions'],
+                                   request.form['experienced_treatments_chemicals'],
+                                   author_of_experience_id)
+            flash('Успішно опубліковано!', category='success')
+            return redirect(url_for('experiences'), code=301)
 
     return render_template('update_experience.html', main_menu=dbase.get_main_menu(),
                            web_page_title=experienced_material_2,
                            experience_number='update_experience_2',
-                           experience=dbase.get_current_experience_id_2(id_post),
+                           experience=dbase.get_current_practice_id_2(id_post),
                            experienced_material=experienced_material_2,
                            experienced_description=experienced_description_2,
                            experienced_damages_description=experienced_damages_description_2,
@@ -851,31 +696,27 @@ def update_experience_3(id_post):
 
     experienced_material_3, experienced_description_3, experienced_damages_description_3, experienced_research_title_3,\
     experienced_research_description_3, experienced_restoration_program_3, experienced_treatments_descriptions_3, \
-    experienced_treatments_chemicals_3 = dbase.get_experience_to_update_3(id_post)
+    experienced_treatments_chemicals_3 = dbase.get_practice_to_update_3(id_post)
 
     if request.method == 'POST':
         if len(request.form['experienced_material']) > 0:
             dbase.delete_experience_3(id_post)
-            experienced_fields_input = dbase.store_experience_3(request.form['experienced_material'],
-                                                                request.form['experienced_description'],
-                                                                request.form['experienced_damages_description'],
-                                                                request.form['experienced_research_title'],
-                                                                request.form['experienced_research_description'],
-                                                                request.form['experienced_restoration_program'],
-                                                                request.form['experienced_treatments_descriptions'],
-                                                                request.form['experienced_treatments_chemicals'],
-                                                                author_of_experience_id)
-
-            if not experienced_fields_input:
-                flash('Виникла помилка редагування досвіду', category='error')
-            else:
-                flash('Успішно опубліковано!', category='success')
-                return redirect(url_for('experiences'), code=301)
+            dbase.store_practice_3(request.form['experienced_material'],
+                                   request.form['experienced_description'],
+                                   request.form['experienced_damages_description'],
+                                   request.form['experienced_research_title'],
+                                   request.form['experienced_research_description'],
+                                   request.form['experienced_restoration_program'],
+                                   request.form['experienced_treatments_descriptions'],
+                                   request.form['experienced_treatments_chemicals'],
+                                   author_of_experience_id)
+            flash('Успішно опубліковано!', category='success')
+            return redirect(url_for('experiences'), code=301)
 
     return render_template('update_experience.html', main_menu=dbase.get_main_menu(),
                            web_page_title=experienced_material_3,
                            experience_number='update_experience_3',
-                           experience=dbase.get_current_experience_id_3(id_post),
+                           experience=dbase.get_current_practice_id_3(id_post),
                            experienced_material=experienced_material_3,
                            experienced_description=experienced_description_3,
                            experienced_damages_description=experienced_damages_description_3,
@@ -894,7 +735,7 @@ def delete_experience(id_post):
 
     experienced_material, experienced_description, experienced_damages_description, experienced_research_title, \
     experienced_research_description, experienced_restoration_program, experienced_treatments_descriptions, \
-    experienced_treatments_chemicals = dbase.get_experience_to_show(id_post)
+    experienced_treatments_chemicals = dbase.get_practice_to_show(id_post)
 
     return render_template('delete_experience.html', main_menu=dbase.get_main_menu(), web_page_title='Видалення',
                            experience=dbase.get_current_experience_deletion_warning_data(id_post),
@@ -916,7 +757,7 @@ def delete_experience_2(id_post):
 
     experienced_material_2, experienced_description_2, experienced_damages_description_2, experienced_research_title_2, \
     experienced_research_description_2, experienced_restoration_program_2, experienced_treatments_descriptions_2, \
-    experienced_treatments_chemicals_2 = dbase.get_experience_to_show_2(id_post)
+    experienced_treatments_chemicals_2 = dbase.get_practice_to_show_2(id_post)
 
     return render_template('delete_experience.html', main_menu=dbase.get_main_menu(), web_page_title='Видалення',
                            experience=dbase.get_current_experience_deletion_warning_data_2(id_post),
@@ -938,7 +779,7 @@ def delete_experience_3(id_post):
 
     experienced_material_3, experienced_description_3, experienced_damages_description_3, experienced_research_title_3, \
     experienced_research_description_3, experienced_restoration_program_3, experienced_treatments_descriptions_3, \
-    experienced_treatments_chemicals_3 = dbase.get_experience_to_show_3(id_post)
+    experienced_treatments_chemicals_3 = dbase.get_practice_to_show_3(id_post)
 
     return render_template('delete_experience.html', main_menu=dbase.get_main_menu(), web_page_title='Видалення',
                            experience=dbase.get_current_experience_deletion_warning_data_3(id_post),
@@ -987,6 +828,13 @@ def page_not_found(error):
     db = get_db()
     dbase = DataBase(db)
     return render_template('page404.html', main_menu=dbase.get_main_menu(), web_page_title='Не знайдено'), 404
+
+
+@app.errorhandler(500)
+def page_not_found(error):
+    db = get_db()
+    dbase = DataBase(db)
+    return render_template('page500.html', main_menu=dbase.get_main_menu(), web_page_title='Не знайдено'), 500
 
 
 if __name__ == '__main__':

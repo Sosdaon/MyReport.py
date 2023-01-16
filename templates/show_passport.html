@@ -142,7 +142,7 @@
         </table>
 
         <p><b>4. Підстава для проведення реставраційних заходів</b></p>
-        <div align="justify"><p>{{ reason | safe }}</p></div>
+        <div align="justify"><p>{{reason}}</p></div>
 
 
         <p>
@@ -161,72 +161,10 @@
             </tr>
         </table>
 
-
-        <p><b>5. Основні дані з історії пам'ятки (довідка про побутування; відомості про умови зберігання,</b></p>
-        <p><b>попередні дослідження, консерваційно-реставраційні заходи тощо), джерело надходження інформації</b></p>
-        <div align="justify"><p>{{ origin_description | safe }}</p></div>
-
-        <p><b>6. Стан пам'ятки до реставрації</b></p>
-        <p><b><i>6.1 За візуальним спостереженням:</i></b></p>
-        <div align="justify"><p>{{ appearance_description | safe }}</p></div>
-        <p><b><i>6.1.2 Втрати та пошкодження:</i></b></p>
-        <div align="justify"><p>{{ damages_description | safe }}</p></div>
-        <p><b><i>6.1.3 Старі номери та позначення:</i></b></p>
-        <div align="justify"><p>{{ signs_description | safe }}</p></div>
-        <p><b><i>6.1.4 Розміри:</i></b></p>
-        <div align="justify"><p> {{ size_description | safe }}</p></div>
-
-
-        <b>6.2. За даними лабораторних досліджень:</b>
-
-
-        <p>
-        <table>
-            <tr>
-                <th>Мета дослідження</th>
-                <th>Методи і результати дослідження</th>
-                <th>Виконавець та дата</th>
-            </tr>
-            <tr>
-                <td class="purposes_researches_table_space">{{ purposes_researches | safe }}</td>
-                <td class="methods_researches_table_space">{{ methods_researches | safe }}</td>
-                <td class="executor_date_researches_table_space">{{ executor_date_researches | safe }}</td>
-            </tr>
-        </table>
-
-
-        <p><b>6.3 Загальний висновок за результатами досліджень:</b></p>
-        <div align="justify"><p>{{ results_researches | safe }}</p></div>
-
-        <p><b>7. Програма проведення реставраційних заходів та їх обгрунтування:</b></p>
-
-
-        <div align="justify"><p>{{ restoration_program | safe }}</p></div>
-
-
-        <p>
-            <b>8. Проведення реставраційних заходів:</b>
-        <table class="treatment_base_space">
-            <tr>
-                <th>Опис операцій із зазначенням методу, методики, технології, інструментарію</th>
-                <th>Матеріали, хімікати (консентрація %)</th>
-                <th>Виконавець та дата</th>
-            </tr>
-            <tr>
-                <td class="treatments_descriptions_table_space">{{ treatments_descriptions | safe }}</td>
-                <td class="treatments_chemicals_table_space">{{ treatments_chemicals | safe }}</td>
-                <td class="treatments_executor_date_table_space">{{ treatments_executor_date | safe }}</td>
-            </tr>
-        </table>
-
-
-        <p><b>9. Стислий опис реставраційних заходів; опис змін технічного та зовнішнього стану пам'ятки після
-            реставрації, уточнення атрибуції тощо:</b></p>
-        <div align="justify"><p>{{ treatments_results | safe }}</p></div>
-
         <p>
             <a href="{{url_for('download_passport')}}" class="download_passport">Завантажити</a>
         </p>
+
 <div align="center"><p><h6>Використовувати застосунок виключно з освітньою метою.</h6></div>
 {% endblock -%}
     </div>

@@ -59,7 +59,7 @@ hashed_restorer_password TEXT NOT NULL,
 TIME INTEGER NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS experience (
+CREATE TABLE IF NOT EXISTS practice (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 experienced_material TEXT NOT NULL,
 experienced_description TEXT NOT NULL,
@@ -73,7 +73,7 @@ author_of_experience_id TEXT NOT NULL,
 TIME INTEGER NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS experience_2 (
+CREATE TABLE IF NOT EXISTS practice_2 (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 experienced_material_2 TEXT NOT NULL,
 experienced_description_2 TEXT NOT NULL,
@@ -87,7 +87,7 @@ author_of_experience_id TEXT NOT NULL,
 TIME INTEGER NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS experience_3 (
+CREATE TABLE IF NOT EXISTS practice_3 (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 experienced_material_3 TEXT NOT NULL,
 experienced_description_3 TEXT NOT NULL,

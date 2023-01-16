@@ -169,10 +169,17 @@ input.attribution {
     font-size: 16px; width: 400px;
 }
 
-input.clarified_attribution {
+textarea.attribution {
+    font-size: 16px; width: 400px;
+}
+
+textarea.clarified_attribution {
     font-size: 16px; width: 220px;
 }
 
+input.clarified_attribution {
+    font-size: 16px; width: 220px;
+}
 button.upload_passport {
     display: inline-block;
     padding: 15px 25px;

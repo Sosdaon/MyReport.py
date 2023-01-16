@@ -148,7 +148,7 @@
         </table>
 
         <p class="pale_text" ><b>4. Підстава для проведення реставраційних заходів</b></p>
-        <div align="justify" class="pale_text" ><p>{{ reason | safe }}</p></div>
+        <div align="justify" class="pale_text" ><p>{{reason}}</p></div>
 
 
         <p>
@@ -166,75 +166,9 @@
                 <td>Керівник: {{responsible_restorer}}</td>
             </tr>
         </table>
-
-
-        <p class="pale_text" ><b>5. Основні дані з історії пам'ятки (довідка про побутування; відомості про умови зберігання,</b></p>
-        <p class="pale_text" ><b>попередні дослідження, консерваційно-реставраційні заходи тощо), джерело надходження інформації</b></p>
-        <div align="justify" class="pale_text" ><p>{{ origin_description | safe }}</p></div>
-
-        <p class="pale_text" ><b>6. Стан пам'ятки до реставрації</b></p>
-        <p class="pale_text" ><b><i>6.1 За візуальним спостереженням:</i></b></p>
-        <div align="justify" class="pale_text" ><p>{{ appearance_description | safe }}</p></div>
-        <p class="pale_text" ><b><i>6.1.2 Втрати та пошкодження:</i></b></p>
-        <div align="justify" class="pale_text" ><p>{{ damages_description | safe }}</p></div>
-        <p class="pale_text" ><b><i>6.1.3 Старі номери та позначення:</i></b></p>
-        <div align="justify" class="pale_text" ><p>{{ signs_description | safe }}</p></div>
-        <p class="pale_text" ><b><i>6.1.4 Розміри:</i></b></p>
-        <div align="justify" class="pale_text" ><p> {{ size_description | safe }}</p></div>
-
-
-        <b class="pale_text" >6.2. За даними лабораторних досліджень:</b>
-
-
-        <p>
-        <table class="pale_TABLE">
-            <tr>
-                <th>Мета дослідження</th>
-                <th>Методи і результати дослідження</th>
-                <th>Виконавець та дата</th>
-            </tr>
-            <tr>
-                <td class="purposes_researches_table_space">{{ purposes_researches | safe }}</td>
-                <td class="methods_researches_table_space">{{ methods_researches | safe }}</td>
-                <td class="executor_date_researches_table_space">{{ executor_date_researches | safe }}</td>
-            </tr>
-        </table>
-
-
-        <p class="pale_text" ><b>6.3 Загальний висновок за результатами досліджень:</b></p>
-        <div align="justify" class="pale_text" ><p>{{ results_researches | safe }}</p></div>
-
-        <p class="pale_text" ><b>7. Програма проведення реставраційних заходів та їх обгрунтування:</b></p>
-
-
-        <div align="justify" class="pale_text" ><p>{{ restoration_program | safe }}</p></div>
-
-
-        <p class="pale_text" >
-            <b>8. Проведення реставраційних заходів:</b>
-        <table class="pale_treatment_TABLE">
-            <tr>
-                <th>Опис операцій із зазначенням методу, методики, технології, інструментарію</th>
-                <th>Матеріали, хімікати (консентрація %)</th>
-                <th>Виконавець та дата</th>
-            </tr>
-            <tr>
-                <td class="treatments_descriptions_table_space">{{ treatments_descriptions | safe }}</td>
-                <td class="treatments_chemicals_table_space">{{ treatments_chemicals | safe }}</td>
-                <td class="treatments_executor_date_table_space">{{ treatments_executor_date | safe }}</td>
-            </tr>
-        </table>
-
-
-        <p class="pale_text" ><b>9. Стислий опис реставраційних заходів; опис змін технічного та зовнішнього стану пам'ятки після
-            реставрації, уточнення атрибуції тощо:</b></p>
-        <div align="justify" class="pale_text" ><p>{{ treatments_results | safe }}</p></div>
-
-</div>
 <div align="center"><p><h6>Використовувати застосунок виключно з освітньою метою.</h6></div>
 {% endblock -%}
-
-<script>
+    <script>
 let popup = document.getElementById("popup");
 
 function openPopup() {
@@ -245,6 +179,7 @@ function closePopup() {
     popup.classList.remove("open-popup_appearance");
 }
 </script>
+</div>
 </div>
 </div>
 </body>
