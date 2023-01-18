@@ -110,6 +110,31 @@ a.link_to_main {
     border-radius: 2px;
 }
 
+a.tutorial {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #CD5C5C;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #696969;
+}
+
+a.tutorial:hover {
+    background-color: #FF0000
+}
+
+a.tutorial:active {
+    background-color: #FF0000;
+    box-shadow: 0 5px #FF4500;
+    transform: translateY(4px);
+}
+
 li.portfolio_suggestions_links {
     background: #A9A9A9;
 }

@@ -1,108 +1,131 @@
+import re
+
 from docx import Document
 from docx.shared import Inches
 from docx.shared import Pt
 from docx.enum.style import WD_STYLE_TYPE
-import re
-from heritageDescription.PassportPaperBlank import PassportPaperTitles
 
 
-class Paperwork:
-    def __init__(self, titles=PassportPaperTitles(), photos_amount='', map_schemes_amount='',
-                 additional_researches_amount='', other_related_materials_amount=''):
-        self.passport_number_title = titles.passport_number
-        self.inventory_number_title = titles.inventory_number
-        self.acceptance_number_title = titles.acceptance_number
-        self.ministry_title = titles.ministry
-        self.passport_type_title = titles.passport_type
-        self.institution_title = titles.institution
-        self.department_title = titles.department
-        self.typological_title = titles.typological
-        self.definition_title = titles.definition
-        self.fine_art_title = titles.fine_art
-        self.applied_art_title = titles.applied_art
-        self.archeological_title = titles.archeological
-        self.documentary_title = titles.documentary
-        self.other_object_title = titles.other_object
-        self.object_owner_title = titles.object_owner
-        self.attribution_data_from_acceptance_report_title = titles.attribution_data_from_acceptance_report
-        self.clarification_title = titles.clarification
-        self.author_title = titles.author
-        self.object_name_title = titles.object_name
-        self.time_of_creation_title = titles.time_of_creation
-        self.material_title = titles.material
-        self.technique_title = titles.technique
-        self.object_size_title = titles.object_size
-        self.weight_title = titles.weight
-        self.reason_title = titles.reason
-        self.dates_title = titles.dates
-        self.restorers_title = titles.restorers
-        self.object_input_date_title = titles.object_input_date
-        self.execute_restorer_title = titles.execute_restorer
-        self.object_output_date_title = titles.object_output_date
-        self.responsible_restorer_title = titles.responsible_restorer
-        self.origin_description_title = titles.origin_description
-        self.condition_before_restoration_title = titles.condition_before_restoration
-        self.appearance_description_title = titles.appearance_description
-        self.damages_description_title = titles.damages_description
-        self.signs_description_title = titles.signs_description
-        self.size_description_title = titles.size_description
-        self.researches_title = titles.researches
-        self.purposes_researches_title = titles.purposes_researches
-        self.methods_researches_title = titles.methods_researches
-        self.executor_date_researches_title = titles.executor_date_researches
-        self.results_researches_title = titles.results_researches
-        self.restoration_program_title = titles.restoration_program
-        self.sequence_of_treatments_title = titles.sequence_of_treatments
-        self.program_approved_meeting_title = titles.program_approved_meeting
-        self.approved_meeting_protocol_number_title = titles.approved_meeting_protocol_number
-        self.appointed_responsible_restorer_title = titles.appointed_responsible_restorer
-        self.meeting_secretary_title = titles.meeting_secretary
-        self.reapproved_restoration_program_title = titles.reapproved_restoration_program
-        self.reapproved_program_meeting_place_title = titles.reapproved_program_meeting_place
-        self.reapproved_meeting_protocol_number_title = titles.reapproved_meeting_protocol_number
-        self.treatments_title = titles.treatments
-        self.treatments_descriptions_title = titles.treatments_descriptions
-        self.treatments_chemicals_title = titles.treatments_chemicals
-        self.treatments_executor_date_title = titles.treatments_executor_date
-        self.treatments_results_title = titles.treatments_results
-        self.responsible_restorer_signature_title = titles.responsible_restorer_signature
+class Passport:
+    def __init__(self):
+        self.passport_number_title = "№ реставраційного паспорта:\n\n"
+        self.inventory_number_title = "інвентарний № пам'ятки\n\n"
+        self.acceptance_number_title = "Акт приймання\n"
+        self.ministry_title = "\nМіністерство культури та інформаційної політики України"
+        self.passport_type_title = "ПАСПОРТ РЕСТАВРАЦІЇ ПАМ'ЯТКИ ІСТОРІЇ ТА КУЛЬТУРИ (РУХОМОЇ)"
+        self.institution_title = "назва закладу, який здійснює реставрацію"
+        self.department_title = "назва відділу/сектору"
+        self.typological_title = "1. Типологічна приналежність пам'ятки"
+        self.definition_title = "Визначення характер пам'ятки:"
+        self.fine_art_title = "пам'ятка образотворчого мистецтва:"
+        self.applied_art_title = "пам'ятка декоративно-ужиткового мистецтва:"
+        self.archeological_title = "археологічна пам'ятка:"
+        self.documentary_title = "документальна пам'ятка:"
+        self.other_object_title = "інша пам'ятка історії та культури:"
+        self.object_owner_title = "2. Місце постійного зберігання, власник пам'ятки"
+        self.attribution_data_from_acceptance_report_title = "3. Атрибутивні дані про пам'ятку згідно з актом приймання"
+        self.clarification_title = "Уточнення в процесі реставрації"
+        self.author_title = "Автор: "
+        self.object_name_title = "Назва: "
+        self.time_of_creation_title = "Час створення: "
+        self.material_title = "Матеріал, основа: "
+        self.technique_title = "Техніка виконання: "
+        self.object_size_title = "Розміри: "
+        self.weight_title = "Вага: "
+        self.reason_title = "4. Підстава для проведення реставраційних заходів"
+        self.dates_title = "Дати"
+        self.restorers_title = "Реставратори"
+        self.object_input_date_title = "Дата передання: "
+        self.execute_restorer_title = "Виконавець: "
+        self.object_output_date_title = "Дата завершення: "
+        self.responsible_restorer_title = "Керівник: "
+        self.origin_description_title = '''5. Основні дані з історії пам'ятки (довідка про побутування; 
+відомості про умови зберігання, попередні дослідження, консерваційно-реставраційні заходи тощо), 
+джерело надходження інформації'''
+        self.condition_before_restoration_title = "6. Стан пам'ятки до реставрації"
+        self.appearance_description_title = "6.1 За візуальним спостереженням:"
+        self.damages_description_title = "6.1.2 Втрати та пошкодження:"
+        self.signs_description_title = "6.1.3 Старі номери та позначення:"
+        self.size_description_title = "6.1.4 Розміри:"
+        self.researches_title = "6.2. За даними лабораторних досліджень:"
+        self.purposes_researches_title = "Мета дослідження"
+        self.methods_researches_title = "Методи і результати дослідження"
+        self.executor_date_researches_title = "Виконавець та дата"
+        self.results_researches_title = "6.3 Загальний висновок за результатами досліджень:"
+        self.restoration_program_title = "7. Програма проведення реставраційних заходів та їх обгрунтування:"
+        self.restoration_program_title = "7. Програма проведення реставраційних заходів та їх обгрунтування:"
+        self.sequence_of_treatments_title = "Послідовність заходів"
+        self.program_approved_meeting_title = '''Програма затверджена на засіданні науково-реставраційної/реставраційної ради
+____________________________________________________________________________________________________
+місце проведення ради (назва закладу)'''
+        self.approved_meeting_protocol_number_title = "Протокол №____ від '     '_______________ 20___р."
+        self.appointed_responsible_restorer_title = "Керівником роботи призначено (ПІБ):___________________________________________________________"
+        self.meeting_secretary_title = "Голова або секретар науково-реставраційної/реставраційної ради (ПІБ):__________________________________________________________________________________________________"
+        self.reapproved_restoration_program_title = "8. Зміни в програмі реставраційних заходів та їх обгрунтування:\n"
+        self.reapproved_program_meeting_place_title = '''Зміни в програмі затверджені на засіданні науково-реставраційної/реставраційної ради
+_______________________________________________________________________________________________________
+місце проведення ради (назва закладу)'''
+        self.reapproved_meeting_protocol_number_title = "Протокол №____ від '     '_______________ 20___р."
+        self.treatments_title = "9. Проведення реставраційних заходів:"
+        self.treatments_descriptions_title = "Опис операцій із зазначенням методу, методики, технології, інструментарію"
+        self.treatments_chemicals_title = "Матеріали, хімікати (концентрація %)"
+        self.treatments_executor_date_title = "Виконавець та дата"
+        self.treatments_results_title = "10. Стислий опис реставраційних заходів; опис змін технічного та " \
+                                        "зовнішнього стану пам'ятки після реставрації, уточнення атрибуції тощо:"
+        self.responsible_restorer_signature_title = "Керівник роботи (ПІБ та підпис):"
         self.signature_place = '_______________________________________'
-        self.execute_restorer_signature_title = titles.execute_restorer_signature
-        self.meeting_conclusion_title = titles.meeting_conclusion
-        self.meeting_place_title = titles.meeting_place
-        self.after_restoration_meeting_protocol_number_title = titles.after_restoration_meeting_protocol_number
-        self.recommendations_title = titles.recommendations
-        self.illustrative_material_title = titles.illustrative_material
-        self.before_restoration_image_description_title = titles.before_restoration_image_description
-        self.process_restoration_image_description_title = titles.process_restoration_image_description
-        self.after_restoration_image_description_title = titles.after_restoration_image_description
-        self.appendix_title = titles.appendix
-        self.related_materials_title = titles.related_materials
-        self.photos_title = titles.photos
-        self.photos_amount = photos_amount
+        self.execute_restorer_signature_title = "Виконавець (ПІБ та підпис):"
+        self.meeting_conclusion_title = "\n\n\n\n\n\n11. Висновок науково-реставраційної/реставраційної ради (витяг з протоколу)"
+        self.meeting_place_title = '''
+____________________________________________________________________________________________________
+____________________________________________________________________________________________________
+____________________________________________________________________________________________________
+місце проведення ради (назва закладу)'''
+        self.after_restoration_meeting_protocol_number_title = "Протокол №____ від '     '_______________ 20___р."
+        self.recommendations_title = "12. Рекомендації щодо умов зберігання пам'ятки"
+        self.illustrative_material_title = "13. Ілюстративний матеріал:"
+        self.before_restoration_image_description_title = 'Мал.1. "До реставрації": '
+        self.process_restoration_image_description_title = 'Мал.2. "В процесі реставрації": '
+        self.after_restoration_image_description_title = 'Мал.3. "Після реставрації"'
+        self.appendix_title = '14. Додатки до паспорта: '
+        self.related_materials_title = 'ілюстративний матеріал, результати дослідження тощо'
+        self.photos_title = "фотовідбитки"
+        self.photos_amount = ''
         self.units_title = "од."
-        self.map_schemes_title = titles.map_schemes
-        self.map_schemes_amount = map_schemes_amount
-        self.additional_researches_results_title = titles.additional_researches_results
-        self.additional_researches_amount = additional_researches_amount
-        self.other_related_materials_title = titles.other_related_materials
-        self.other_related_materials_amount = other_related_materials_amount
-        self.attachment_illustrative_material_place_title = titles.attachment_illustrative_material_place
-        self.object_transferred_place_title = titles.object_transferred_place
-        self.responsible_treasurer_and_storage_place_title = titles.responsible_treasurer_and_storage_place
-        self.give_back_report_title = titles.give_back_report
-        self.passport_copies_transferred_place_title = titles.passport_copies_transferred_place
-        self.head_of_institution_title = titles.head_of_institution
-        self.head_of_the_department_title = titles.head_of_the_department
-        self.head_of_restoration_title = titles.head_of_restoration
-        self.executor_of_restoration_title = titles.executor_of_restoration
-        self.restorers_and_other_executors_title = titles.restorers_and_other_executors
+        self.map_schemes_title = "картосхеми"
+        self.map_schemes_amount = ''
+        self.additional_researches_results_title = 'результати дослідження'
+        self.additional_researches_amount = ''
+        self.other_related_materials_title = 'інше (зазначити)'
+        self.other_related_materials_amount = ''
+        self.attachment_illustrative_material_place_title = '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n' \
+                                                            'місце клапана для\nматеріалів додатка\n\n\n'
+        self.object_transferred_place_title = '''Після реставрації пам'ятка передана в:
+____________________________________________________________________________________________________
+назва організації, № і дата акту про передачу'''
+        self.responsible_treasurer_and_storage_place_title = '''
+____________________________________________________________________________________________________
+назва фондової групи, відповідальний хранитель'''
+        self.give_back_report_title = "Акт повернення №____ від '     '_______________ 20___р."
+        self.passport_copies_transferred_place_title = '''
+Копії паспорту в 2-х прим. передані в:
+____________________________________________________________________________________________________
+назва організації, № накладної і дата передачі паспортів'''
+        self.head_of_institution_title = 'Керівник організації:'
+        self.head_of_the_department_title = 'Завідувач відділу:'
+        self.head_of_restoration_title = 'Керівник роботи:'
+        self.executor_of_restoration_title = 'Виконавець роботи:'
+        self.restorers_and_other_executors_title = 'Реставратори та інші виконавці:'
         self.empty_row_place = "___________________________________________________________________________"
-        self.other_executors_signature_title = titles.other_executors_signature
-        self.condition_check_date_title = titles.condition_check_date
-        self.condition_description_title = titles.condition_description
-        self.storage_condition_title = titles.storage_condition
-        self.checking_person_signature_title = titles.checking_person_signature
+        self.other_executors_signature_title = '''
+М.П._______________________________________________________________________________________________
+____________________________________________________________________________________________________
+____________________________________________________________________________________________________
+(ПІБ), посада, кваліфікаційна категорія, підпис'''
+        self.condition_check_date_title = 'Дата огляду'
+        self.condition_description_title = "Стан пам'ятки"
+        self.storage_condition_title = 'Умови зберігання'
+        self.checking_person_signature_title = 'Посада, ПІБ, підпис'
         self.indent = '\n\n\n\n\n\n\n\n\n\n'
 
     def build_passport(self, passport_number, inventory_number, acceptance_number, institution_name, department_name,
@@ -615,3 +638,6 @@ class Paperwork:
         document.add_page_break()
 
         document.save('filled_passport.docx')
+
+# For Linux Ubuntu Apache2 replace last line by this:
+#       document.save('/var/www/html/yourProjectDirectory/filled_passport.docx')
