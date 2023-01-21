@@ -2,7 +2,7 @@
 <html lang="ua">
 <head>
     <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
-    <link type="text/css" href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet"/>
+    <link type="text/css" href="{{url_for('static', filename='css/style_entrance.css')}}" rel="stylesheet"/>
     <meta charset="UTF-8">
     <title>Назва сайту - {{web_page_title}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,7 +34,7 @@
 
 
 <div class="register_content">
-    <form action="/login" method="post" class="login-cabinet">
+    <form action="/login" method="post" class="entrance_cabinet">
         <p><h3>Ваша електронна адреса:</h3>
         <p><input type="text" name="restorer_email" class="name_email_register" required></p>
         <p><h3>Пароль від вашого кабінету:</h3>
@@ -52,5 +52,4 @@
         <a href="{{url_for('register')}}" class="link_to_main">Створити кабінет</a>
     </form>
 </div>
-<div align="center" class="footer_warning" >Використовувати застосунок виключно з освітньою метою.</div>
 {% endblock %}

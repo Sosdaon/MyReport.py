@@ -2,9 +2,10 @@
 <html lang="ua">
 <head>
     <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
-    <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
+    <link type="text/css" href="{{url_for('static', filename='css/style_entrance.css')}}" rel="stylesheet"/>
     <meta charset="UTF-8">
     <title>Назва сайту - {{web_page_title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 {% block content -%}
@@ -20,11 +21,10 @@
 </ul>
     {% endblock main_menu -%}
 
-<div class="content">
-<p><b>Ви можете надіслати лист на електронну пошту:</b>
-<p>sosdaon@gmail.com
-<h2>Інструкція з користування:</h2>
-<p><a href="https://youtube.com/playlist?list=PLA96blugpiDKDB059eAVTnG6p4-4xeepR" target="_blank" class="tutorial">Відеоуроки</a>
+<div>
+    <h2 class="general_title">Надіслати електронний лист:</h2>
+        <p class="main_page_text">sosdaon@gmail.com</p>
+    <h2 class="general_title">Інструкція з користування:</h2>
+        <p><a href="https://youtube.com/playlist?list=PLA96blugpiDKDB059eAVTnG6p4-4xeepR" target="_blank" class="tutorial">Відеоуроки</a></p>
 </div>
-<div align="center"><p><h6>Використовувати застосунок виключно з освітньою метою.</h6></div>
 {% endblock %}

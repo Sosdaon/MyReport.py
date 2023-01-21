@@ -2,7 +2,7 @@
 <html lang="ua">
 <head>
     <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
-    <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet"/>
+    <link type="text/css" href="{{url_for('static', filename='css/style_entrance.css')}}" rel="stylesheet"/>
     <meta charset="UTF-8">
     <title>Назва сайту - {{web_page_title}}</title>
 </head>
@@ -25,13 +25,12 @@
 <div class="flash {{ctg}}">{{msg}}</div>
 {% endfor %}
 
-<div align="center">
-<p><h2>Створити кабінет</h2>
-<hr width="1000px">
-</div>
+<div align="center" class="entrance_title">
+<p>Створити кабінет</div>
+<hr class="underline">
 
 <div class="register_content">
-    <form action="/register" method="post">
+    <form action="/register" method="post" class="entrance_cabinet">
         <p><h3><b>Ім'я та прізвище:</b></h3>
         <p><input type="text" name="restorer_name" class="name_email_register" required></p>
         <p><h3><b>Ваша електронна адреса:</b></h3>
@@ -44,5 +43,4 @@
         <br>
     </form>
 </div>
-<div align="center"><p><h6>Використовувати застосунок виключно з освітньою метою.</h6></div>
 {% endblock %}
