@@ -1,0 +1,250 @@
+* {
+    margin: 0;
+    padding 0;
+}
+
+ul.main_menu_appearance {
+    list-style: none;
+    background: #3F4137;
+    width: 100%;
+    padding: 0;
+    font-size: 32px;
+    overflow: hidden;
+}
+ul.main_menu_appearance li {
+    float: left;
+    margin: 10px;
+}
+
+a {
+    color: #F8F8FF;
+    background: #3F4137;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #8FBC8F;
+    text-decoration: underline;
+}
+
+.flash {
+    padding: 10px;
+}
+
+.flash.success {
+    border: 1px solid #21DB56;
+    background: #98fb98;
+}
+
+.flash.error{
+    boarder: 1px solid #21DB56;
+    background: #fa8072;
+}
+
+div.register_content {
+    margin-left: 2%;
+    margin-top: 20px;
+}
+
+.login-cabinet {
+    font-size: 25px;
+}
+
+.entrance_title {
+    font-size: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.underline {
+    width: 100%;
+}
+
+input.register {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #2E8B57;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    margin-top: 60px;
+    margin-left: 3%;
+    margin-bottom: 30px;
+    font-size: 34px;
+}
+
+input.register:hover {
+    background-color: #00FF7F
+}
+
+input.register:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+input.name_email_register {
+    border: 5px solid #3F4137;
+    border-radius: 3px;
+    font-size: 40px; width: 300px;
+    margin-top: 5px;
+    margin-bottom: 30px;
+}
+
+input.password_register {
+    border: 5px solid #3F4137;
+    border-radius: 3px;
+    font-size: 40px; width: 70px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+
+/* Customize the label (the container) */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-size: 30px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2E8B57;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.suggestion_to_create {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+a.link_to_main {
+    font-size: 34px;
+    padding: 14px 10px;
+    border-radius: 10px;
+    margin-left: 3%;
+    margin-bottom: 30px;
+}
+.footer_warning {
+    margin-top: 50px;
+    font-size: 15px;
+}
+
+@media only screen and (min-width: 768px) {
+    div.register_content {
+    margin-left: 15%;
+    }
+    .login-cabinet {
+    font-size: 35px;
+    }
+    .footer_warning {
+    margin-top: 150px;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .entrance_title {
+    font-size: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    }
+    div.register_content {
+    margin-left: 35%;
+    }
+    .login-cabinet {
+    font-size: 18px;
+    }
+    input.name_email_register {
+    border: 4px solid #3F4137;
+    border-radius: 3px;
+    font-size: 25px; width: 250px;
+    margin-bottom: 10px;
+    }
+    input.password_register {
+    border: 4px solid #3F4137;
+    border-radius: 3px;
+    font-size: 25px; width: 50px;
+    margin-bottom: 5px;
+    }
+    .container {
+    font-size: 20px;
+    }
+    input.register {
+    padding: 10px 20px;
+    margin-top: 30px;
+    font-size: 20px;
+    }
+    a.link_to_main {
+    font-size: 20px;
+    padding: 10px 5px;
+    margin-left: 3%;
+    margin-bottom: 30px;
+    }
+    .footer_warning {
+    margin-top: 50px;
+    }
+}
