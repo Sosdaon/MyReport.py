@@ -2,9 +2,10 @@
 <html lang="ua">
 <head>
     <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
-    <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet"/>
+    <link type="text/css" href="{{url_for('static', filename='css/style_entrance.css')}}" rel="stylesheet"/>
     <meta charset="UTF-8">
     <title>Назва сайту - {{web_page_title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 {% block content -%}
@@ -25,9 +26,11 @@
 <div class="flash {{ctg}}">{{msg}}</div>
 {% endfor %}
 
+<div align="center" class="entrance_title">
+<p>{{current_restorer_name}}</div>
+<hr class="underline">
 
-<div align="center">
-    <p><h2 style="font-size: 25px;">{{current_restorer_name}}</h2><hr width="1000px">
+<div align="center" class="general_cabinet">
     <p><a href="{{url_for('add_passport')}}" class="cabinet_workflow_suggestions_links"><b>Заповнити паспорт</b></a>
     <p><a href="{{url_for('portfolio')}}" class="cabinet_workflow_suggestions_links"><b>Портфоліо</b></a>
     <p><a href="{{url_for('experiences')}}" class="cabinet_workflow_suggestions_links"><b>Досвід</b></a>
@@ -51,5 +54,4 @@ function closePopup() {
 }
 </script>
 </div>
-<div align="center"><p><h6>Використовувати застосунок виключно з освітньою метою.</h6></div>
 {% endblock %}
