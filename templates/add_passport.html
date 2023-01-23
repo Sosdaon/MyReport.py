@@ -2,9 +2,10 @@
 <html lang="ua">
 <head>
     <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
-    <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet"/>
+    <link type="text/css" href="{{url_for('static', filename='css/style_entrance.css')}}" rel="stylesheet"/>
     <meta charset="UTF-8">
     <title>Назва сайту - {{web_page_title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
 
 function appendExperiencedMaterial()
@@ -84,79 +85,81 @@ function appendExperiencedMaterial_3()
 <div class="flash {{ctg}}">{{msg}}</div>
 {% endfor %}
 
-
-<div align="center">
-<h2>Заповнення паспорта</h2>
-<hr width="1000px">
-</div>
+<div align="center" class="entrance_title">
+<p>Заповнення паспорта</div>
+<hr class="underline">
 
 <form enctype="multipart/form-data" action="{{url_for('add_passport')}}" method="post">
     <div align="center">
         <p>
-        <table>
+        <table class="passport_identity">
             <tr>
                 <th>№ реставраційного паспорта:</th>
                 <th>інвентарний № пам'ятки</th>
                 <th>Акт приймання</th>
             </tr>
             <tr>
-                <td><input name="passport_number" type="text" placeholder="№ паспорта" required></td>
-                <td><input type="text" name="inventory_number" placeholder="інвентарний №" required></td>
-                <td><textarea name="acceptance_number" placeholder="№
+                <td><input name="passport_number" type="text" class="passport_identity" placeholder="№ паспорта" required></td>
+                <td><input type="text" name="inventory_number" class="passport_identity" placeholder="інвентарний №" required></td>
+                <td><textarea name="acceptance_number" class="passport_identity" placeholder="№
 від: число/місяць/рік" required></textarea></td>
             </tr>
         </table>
+        <div class="passport_ministry">
+            <p>Міністерство культури та інформаційної політики України
+            <p>ПАСПОРТ РЕСТАВРАЦІЇ ПАМ'ЯТКИ ІСТОРІЇ ТА КУЛЬТУРИ (РУХОМОЇ)
+        </div>
 
-        <p></p>
-        <h3>Міністерство культури та інформаційної політики України</h3>
-        <p></p>
-        <h3>ПАСПОРТ РЕСТАВРАЦІЇ ПАМ'ЯТКИ ІСТОРІЇ ТА КУЛЬТУРИ (РУХОМОЇ)</h3>
-        <p><b>Назва закладу, який здійснює реставрацію</b></p>
-        <p><input type="text" name="institution_name" class="institution_department" placeholder="Назва установи/музею/учбового закладу" required></p>
-        <p><b>Назва відділу/сектору</b></p>
-        <p><input type="text" name="department_name" class="institution_department" placeholder="Відділ/сектор/майстерня" required></p>
+        <div class="passport_institution_department">
+            <p><b>Назва закладу, який здійснює реставрацію</b></p>
+            <p><input type="text" name="institution_name" placeholder="Назва установи/музею/учбового закладу" required></p>
+            <p><b>Назва відділу/сектору</b></p>
+            <p><input type="text" name="department_name" placeholder="Відділ/сектор/майстерня" required></p>
+        </div>
 
+        <div class="passport_typological">
+        <p class="passport_title"><b>1. Типологічна приналежність пам'ятки</b>
+            <table>
+                <tr>
+                    <th>Визначення, характер пам'ятки:</th>
+                    <th>пам'ятка образотворчого мистецтва</th>
+                    <th>пам'ятка декоративно-ужиткового мистецтва</th>
+                    <th>археологічна пам'ятка</th>
+                    <th>документальна пам'ятка</th>
+                    <th>інша пам'ятка історії та культури</th>
+                </tr>
+                <tr>
+                    <td><input type="text" name="definition" placeholder="Цільова приналежність" class="passport_definition" required></td>
+                    <td><input type="radio" name="typological" value="(1)" required>1</td>
+                    <td><input type="radio" name="typological" value="(2)" required>2</td>
+                    <td><input type="radio" name="typological" value="(3)" required>3</td>
+                    <td><input type="radio" name="typological" value="(4)" required>4</td>
+                    <td><input type="radio" name="typological" value="(5)" required>5</td>
+                </tr>
+            </table>
+        </div>
+
+        <p class="passport_title"><b>2. Місце постійного зберігання, власник пам'ятки</b></p>
+        <p><input type="text" name="object_owner" class="passport_object_owner" placeholder="Назва установи/ім'я та прізвище хранителя/приватна колекція" required></p>
+
+        <div class="attribution">
         <p>
-            <b>1. Типологічна приналежність пам'ятки</b>
         <table>
             <tr>
-                <th>Визначення, характер пам'ятки:</th>
-                <th>пам'ятка образотворчого мистецтва</th>
-                <th>пам'ятка декоративно-ужиткового мистецтва</th>
-                <th>археологічна пам'ятка</th>
-                <th>документальна пам'ятка</th>
-                <th>інша пам'ятка історії та культури</th>
+                <th class="passport_attribution">3. Атрибутивні дані про пам'ятку згідно з актом приймання</th>
+                <th class="passport_attribution">Уточнення в процесі реставрації</th>
             </tr>
             <tr>
-                <td><input type="text" name="definition" placeholder="Цільова приналежність" required></td>
-                <td><input type="radio" name="typological" value="(1)" required>1</td>
-                <td><input type="radio" name="typological" value="(2)" required>2</td>
-                <td><input type="radio" name="typological" value="(3)" required>3</td>
-                <td><input type="radio" name="typological" value="(4)" required>4</td>
-                <td><input type="radio" name="typological" value="(5)" required>5</td>
-            </tr>
-        </table>
-
-        <p><b>2. Місце постійного зберігання, власник пам'ятки</b></p>
-        <p><input type="text" name="object_owner" class="object_owner" placeholder="Назва установи/ім'я та прізвище хранителя/приватна колекція" required></p>
-
-        <p>
-        <table>
-            <tr>
-                <th>3. Атрибутивні дані про пам'ятку згідно з актом приймання</th>
-                <th>Уточнення в процесі реставрації</th>
+                <td>Автор:<div align="center"><input type="text" name="author" placeholder="Ім'я автора/культура/школа" required></div></td>
+                <td>*<div align="center"><input type="text" name="clarified_author" placeholder="Ім'я автора/культура/школа"></div></td>
             </tr>
             <tr>
-                <td>Автор:<div align="center"><input type="text" name="author" class="attribution" placeholder="Ім'я автора/культура/школа" required></div></td>
-                <td><div align="center"><input type="text" name="clarified_author" class="clarified_attribution" placeholder="Ім'я автора/культура/школа"></div></td>
+                <td>Назва:<div align="center"><input type="text" name="object_name" placeholder="Введіть назву предмета" required></div></td>
+                <td>*<div align="center"><input type="text" name="clarified_object_name" placeholder="Введіть назву предмета"></div></td>
             </tr>
             <tr>
-                <td>Назва:<div align="center"><input type="text" name="object_name" class="attribution" placeholder="Введіть назву предмета" required></div></td>
-                <td><div align="center"><input type="text" name="clarified_object_name" class="clarified_attribution" placeholder="Введіть назву предмета"></div></td>
-            </tr>
-            <tr>
-                <td>Час створення:<div align="center"><input type="text" name="time_of_creation" class="attribution" placeholder="Рік/століття/проміжок часу" required></div></td>
-                <td><div align="center"><input type="text" name="clarified_time_of_creation" class="clarified_attribution" placeholder="Рік/століття/проміжок часу"></div></td>
+                <td>Час створення:<div align="center"><input type="text" name="time_of_creation" placeholder="Рік/століття/проміжок часу" required></div></td>
+                <td>*<div align="center"><input type="text" name="clarified_time_of_creation" placeholder="Рік/століття/проміжок часу"></div></td>
             </tr></table>
 
                     <div align="center"><br>
@@ -170,32 +173,35 @@ function appendExperiencedMaterial_3()
                     <button type="button" onclick="appendExperiencedMaterial_3()" class="material">{{experienced_material_3}}</button>
                     {% endif %}
                     </div>
+
         <p>
         <table>
             <tr>
-                <td>Матеріал, основа:<div align="center"><input type="text" name="material" class="attribution" placeholder="Перелік назв матеріалів" required></div></td>
-                <td width="295"><div align="center"><input type="text" name="clarified_material" class="clarified_attribution" placeholder="Перелік назв матеріалів"></div></td>
+                <td>Матеріал, основа:<div align="center"><input type="text" name="material" placeholder="Перелік назв матеріалів" required></div></td>
+                <td>*<div align="center"><input type="text" name="clarified_material" placeholder="Перелік назв матеріалів"></div></td>
             </tr>
 
 
             <tr>
-                <td>Техніка виконання:<div align="center"><input type="text" name="technique" class="attribution" placeholder="Введіть назву техніки" required></div></td>
-                <td><div align="center"><input type="text" name="clarified_technique" class="clarified_attribution" placeholder="Введіть назву техніки"></div></td>
+                <td>Техніка виконання:<div align="center"><input type="text" name="technique" placeholder="Введіть назву техніки" required></div></td>
+                <td>*<div align="center"><input type="text" name="clarified_technique" placeholder="Введіть назву техніки"></div></td>
             </tr>
             <tr>
-                <td>Розміри:<div align="center"><input type="text" name="object_size" class="attribution" placeholder="Довжина/висота/ширина" required></div></td>
-                <td><div align="center"><input type="text" name="clarified_size" class="clarified_attribution" placeholder="Довжина/висота/ширина"></div></td>
+                <td>Розміри:<div align="center"><input type="text" name="object_size" placeholder="Довжина/висота/ширина" required></div></td>
+                <td>*<div align="center"><input type="text" name="clarified_size" placeholder="Довжина/висота/ширина"></div></td>
             </tr>
             <tr>
-                <td>Вага:<div align="center"><input type="text" name="weight" class="attribution" placeholder="Кілограм/грам" required></div></td>
-                <td><div align="center"><input type="text" name="clarified_weight" class="clarified_attribution" placeholder="Кілограм/грам"></div></td>
+                <td>Вага:<div align="center"><input type="text" name="weight" placeholder="Кілограм/грам" required></div></td>
+                <td>*<div align="center"><input type="text" name="clarified_weight" placeholder="Кілограм/грам"></div></td>
             </tr>
         </table>
+        </div>
 
         <p><b>4. Підстава для проведення реставраційних заходів</b></p>
         <p><textarea name="reason" contenteditable="true" rows="5" cols="140"
                      placeholder="Вкажіть підставу проведення реставрації" required>Пам'ятка вкрита нестійкими пиловими/пило-брудовими нашаруваннями/кородована/має сколи/тріщини/вибоїни/втрати.</textarea>
         </p>
+
 
 
         <p>

@@ -1,6 +1,6 @@
 * {
     margin: 0;
-    padding 0;
+    padding: 0;
 }
 
 ul.main_menu_appearance {
@@ -314,6 +314,79 @@ a.cancel:active {
     transform: translateY(4px);
 }
 
+th {
+    background: #8FBC8F;
+}
+
+.passport_identity {
+    font-size: 12px;
+    width: 85px;
+    margin: 1px;
+}
+
+.passport_identity input {
+    font-size: 12px;
+    width: 85px;
+    border: 1px solid #3F4137;
+    margin: 1px;
+}
+
+.passport_identity textarea {
+    width: 140px;
+}
+
+.passport_ministry {
+    font-size: 10px;
+}
+
+.passport_institution_department {
+    font-size: 12px;
+}
+
+.passport_institution_department input {
+    font-size: 12px;
+    width: 300px;
+    border: 1px solid #3F4137;
+    margin: 1px;
+    margin-bottom: 3px;
+}
+
+.passport_title {
+    font-size: 12px;
+}
+
+.passport_typological {
+    font-size: 9px;
+    margin: 1px;
+}
+
+.passport_definition {
+    font-size: 8px;
+    width: 85px;
+    border: 1px solid #3F4137;
+}
+
+.passport_object_owner {
+    font-size: 11px;
+    width: 330px;
+    border: 1px solid #3F4137;
+    margin: 1px;
+    margin-bottom: 3px;
+}
+
+.attribution {
+    font-size: 12px;
+    margin: 1px;
+}
+
+.attribution input {
+    font-size: 12px;
+    width: 160px;
+    border: 1px solid #3F4137;
+    margin: 3px;
+    margin-bottom: 3px;
+}
+
 @media only screen and (min-width: 712px) {
     ul.main_menu_appearance {
     font-size: 40px;
@@ -377,12 +450,14 @@ a.cancel:active {
     a.danger {
     padding: 20px 30px;
     font-size: 35px;
+    box-shadow: 0 8px #696969;
     margin: 10px;
     margin-top: 30px;
     }
     a.cancel {
     padding: 20px 30px;
     font-size: 35px;
+    box-shadow: 0 8px #999;
     margin: 10px;
     margin-top: 30px;
     }
@@ -449,11 +524,6 @@ a.cancel:active {
     .popup_appearance h3 {
     margin-top: 5px;
     font-size: 20px;
-    }
-    .open-popup_appearance {
-    visibility: visible;
-    top: 70%;
-    transform: translate(-50%, -50%) scale(1);
     }
     a.danger {
     padding: 10px 15px;
