@@ -314,25 +314,33 @@ a.cancel:active {
     transform: translateY(4px);
 }
 
+.passport_title {
+    font-size: 12px;
+    margin: 1px;
+}
+
 th {
     background: #8FBC8F;
 }
 
 .passport_identity {
     font-size: 12px;
-    width: 85px;
+    width: 99%;
     margin: 1px;
 }
 
 .passport_identity input {
     font-size: 12px;
-    width: 85px;
+    width: 95%;
     border: 1px solid #3F4137;
     margin: 1px;
 }
 
 .passport_identity textarea {
+    font-size: 12px;
     width: 140px;
+    border: 1px solid #3F4137;
+    margin: 1px;
 }
 
 .passport_ministry {
@@ -345,18 +353,15 @@ th {
 
 .passport_institution_department input {
     font-size: 12px;
-    width: 300px;
+    width: 90%;
     border: 1px solid #3F4137;
     margin: 1px;
     margin-bottom: 3px;
 }
 
-.passport_title {
-    font-size: 12px;
-}
-
 .passport_typological {
     font-size: 9px;
+    width: 99%;
     margin: 1px;
 }
 
@@ -364,11 +369,16 @@ th {
     font-size: 8px;
     width: 85px;
     border: 1px solid #3F4137;
+    margin: 1px;
+}
+
+.radio_button {
+    accent-color: #8FBC8F;
 }
 
 .passport_object_owner {
-    font-size: 11px;
-    width: 330px;
+    font-size: 12px;
+    width: 98%;
     border: 1px solid #3F4137;
     margin: 1px;
     margin-bottom: 3px;
@@ -376,15 +386,205 @@ th {
 
 .attribution {
     font-size: 12px;
+    width: 99%;
     margin: 1px;
 }
 
 .attribution input {
     font-size: 12px;
-    width: 160px;
+    width: 175px;
     border: 1px solid #3F4137;
-    margin: 3px;
-    margin-bottom: 3px;
+    margin: 1px;
+}
+
+button.material {
+    display: inline-block;
+    padding: 7px 9px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #2E8B57;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 3px #999;
+    margin: 1px;
+}
+
+button.material:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+button.material:focus {
+    background-color:#00FF7F;
+}
+
+.attribution_after_material input {
+    font-size: 12px;
+    width: 95%;
+    border: 1px solid #3F4137;
+    margin: 1px;
+}
+
+.passport_reason {
+    font-size: 12px;
+    width: 99%;
+    height: 45px;
+    border: 1px solid #3F4137;
+    margin: 1px;
+}
+
+.dates_restorers {
+    font-size: 12px;
+    width: 99%;
+    margin: 1px;
+}
+
+.dates_restorers {
+    font-size: 12px;
+    width: 99%;
+}
+
+.dates {
+    font-size: 12px;
+    width: 98%;
+    border: 1px solid #3F4137;
+    margin-top: 1px;
+}
+
+.restorers {
+    font-size: 12px;
+    width: 132px;
+    border: 1px solid #3F4137;
+    margin-top: 15px;
+}
+
+.passport_origin_description {
+    font-size: 12px;
+    width: 99%;
+    height: 100px;
+    border: 1px solid #3F4137;
+    margin: 1px;
+}
+
+.passport_appearance_description {
+    font-size: 12px;
+    width: 99%;
+    height: 560px;
+    border: 1px solid #3F4137;
+    margin: 1px;
+}
+
+.passport_damages_description {
+    font-size: 12px;
+    width: 99%;
+    height: 535px;
+    border: 1px solid #3F4137;
+    margin: 1px;
+}
+
+.passport_signs_description {
+    font-size: 12px;
+    width: 99%;
+    height: 100px;
+    border: 1px solid #3F4137;
+    margin: 1px;
+}
+
+.passport_size_description {
+    font-size: 12px;
+    width: 99%;
+    height: 100px;
+    border: 1px solid #3F4137;
+    margin: 1px;
+}
+
+.researches {
+    font-size: 12px;
+    width: 99%;
+    margin: 1px;
+}
+
+.researches textarea {
+    font-size: 12px;
+    width: 98%;
+    height: 250px;
+    border: 1px solid #3F4137;
+    margin: 1px;
+}
+
+.passport_results_researches {
+    font-size: 12px;
+    width: 99%;
+    height: 100px;
+    border: 1px solid #3F4137;
+    margin: 1px;
+}
+
+.passport_restoration_program {
+    font-size: 12px;
+    width: 99%;
+    margin: 1px;
+}
+
+.passport_restoration_program textarea {
+    font-size: 12px;
+    width: 98%;
+    height: 120px;
+    border: 1px solid #3F4137;
+    margin: 1px;
+}
+
+.treatments {
+    font-size: 12px;
+    width: 99%;
+    margin: 1px;
+}
+
+.treatments textarea {
+    font-size: 12px;
+    width: 98%;
+    height: 250px;
+    border: 1px solid #3F4137;
+    margin: 1px;
+}
+
+.passport_treatments_results {
+    font-size: 12px;
+    width: 99%;
+    height: 100px;
+    border: 1px solid #3F4137;
+    margin: 1px;
+}
+
+button.upload_passport {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #2E8B57;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    margin-bottom: 5%;
+}
+
+button.upload_passport:hover {
+    background-color: #00FF7F
+}
+
+button.upload_passport:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
 }
 
 @media only screen and (min-width: 712px) {
@@ -461,6 +661,118 @@ th {
     margin: 10px;
     margin-top: 30px;
     }
+    .passport_title {
+    font-size: 22px;
+    }
+    .passport_identity {
+    font-size: 22px;
+    }
+    .passport_identity input {
+    font-size: 22px;
+    }
+    .passport_identity textarea {
+    font-size: 22px;
+    width: 260px;
+    }
+    .passport_ministry {
+    font-size: 20px;
+    }
+    .passport_institution_department {
+    font-size: 22px;
+    }
+    .passport_institution_department input {
+    font-size: 22px;
+    width: 90%;
+    }
+    .passport_typological {
+    font-size: 14px;
+    }
+    .passport_definition {
+    font-size: 16px;
+    width: 175px;
+    }
+    .passport_object_owner {
+    font-size: 22px;
+    }
+    .attribution {
+    font-size: 22px;
+    }
+    .attribution input {
+    font-size: 22px;
+    width: 290px;
+    }
+    button.material {
+    padding: 10px 15px;
+    font-size: 22px;
+    margin: 5px;
+    }
+    .passport_reason {
+    font-size: 22px;
+    height: 100px;
+    }
+    .dates_restorers {
+    font-size: 22px;
+    }
+    .dates_restorers {
+    font-size: 22px;
+    }
+    .dates {
+    font-size: 22px;
+    }
+    .restorers {
+    font-size: 22px;
+    width: 245px;
+    margin-top: 26px;
+    }
+    .passport_origin_description {
+    font-size: 22px;
+    height: 200px;
+    }
+    .passport_appearance_description {
+    font-size: 22px;
+    height: 1020px;
+    }
+    .passport_damages_description {
+    font-size: 22px;
+    height: 1000px;
+    }
+    .passport_signs_description {
+    font-size: 22px;
+    height: 200px;
+    }
+    .passport_size_description {
+    font-size: 22px;
+    height: 200px;
+    }
+    .researches {
+    font-size: 22px;
+    }
+    .researches textarea {
+    font-size: 22px;
+    height: 500px;
+    }
+    .passport_results_researches {
+    font-size: 22px;
+    height: 200px;
+    }
+    .passport_restoration_program {
+    font-size: 22px;
+    }
+    .passport_restoration_program textarea {
+    font-size: 22px;
+    height: 240px;
+    }
+    .treatments {
+    font-size: 22px;
+    }
+    .treatments textarea {
+    font-size: 22px;
+    height: 500px;
+    }
+    .passport_treatments_results {
+    font-size: 22px;
+    height: 200px;
+    }
 }
 
 @media only screen and (min-width: 1000px) {
@@ -536,6 +848,160 @@ th {
     font-size: 25px;
     margin: 5px;
     margin-top: 20px;
+    }
+    .passport_title {
+    font-size: 18px;
+    width: 800px;
+    margin: 5px;
+    }
+    .passport_identity {
+    font-size: 18px;
+    width: 800px;
+    margin: 5px;
+    }
+    .passport_identity input {
+    font-size: 18px;
+    width: 95%;
+    margin: 5px;
+    }
+    .passport_identity textarea {
+    font-size: 18px;
+    width: 220px;
+    margin: 5px;
+    }
+    .passport_ministry {
+    font-size: 18px;
+    }
+    .passport_institution_department {
+    font-size: 18px;
+    margin: 5px;
+    }
+    .passport_institution_department input {
+    font-size: 18px;
+    width: 800px;
+    margin: 5px;
+    }
+    .passport_typological {
+    font-size: 18px;
+    width: 850px;
+    margin: 5px;
+    }
+    .passport_definition {
+    font-size: 18px;
+    width: 200px;
+    margin: 5px;
+    }
+    .passport_object_owner {
+    font-size: 18px;
+    width: 800px;
+    margin: 5px;
+    }
+    .attribution {
+    font-size: 18px;
+    width: 800px;
+    margin: 5px;
+    }
+    .attribution input {
+    font-size: 18px;
+    margin: 5px;
+    }
+    button.material {
+    padding: 8px 10px;
+    font-size: 18px;
+    }
+    .attribution_after_material input {
+    font-size: 18px;
+    margin: 5px;
+    }
+    .passport_reason {
+    font-size: 18px;
+    height: 100px;
+    margin: 5px;
+    }
+    .dates_restorers {
+    font-size: 18px;
+    width: 99%;
+    margin: 5px;
+    }
+    .dates_restorers {
+    font-size: 18px;
+    width: 800px;
+    }
+    .dates {
+    font-size: 18px;
+    margin-top: 5px;
+    }
+    .restorers {
+    font-size: 18px;
+    width: 200px;
+    margin-top: 25px;
+    }
+    .passport_origin_description {
+    font-size: 18px;
+    width: 950px;
+    height: 200px;
+    margin: 5px;
+    }
+    .passport_appearance_description {
+    font-size: 18px;
+    width: 950px;
+    height: 600px;
+    margin: 5px;
+    }
+    .passport_damages_description {
+    font-size: 18px;
+    width: 950px;
+    height: 600px;
+    margin: 5px;
+    }
+    .passport_signs_description {
+    font-size: 18px;
+    width: 950px;
+    height: 200px;
+    margin: 5px;
+    }
+    .passport_size_description {
+    font-size: 18px;
+    width: 950px;
+    height: 200px;
+    margin: 5px;
+    }
+    .researches {
+    font-size: 18px;
+    margin: 5px;
+    }
+    .researches textarea {
+    font-size: 18px;
+    height: 400px;
+    margin: 5px;
+    }
+    .passport_results_researches {
+    font-size: 18px;
+    width: 950px;
+    height: 100px;
+    margin: 5px;
+    }
+    .passport_restoration_program {
+    font-size: 18px;
+    width: 99%;
+    margin: 5px;
+    }
+    .passport_restoration_program textarea {
+    font-size: 18px;
+    height: 250px;
+    margin: 5px;
+    }
+    .treatments {
+    font-size: 18px;
+    width: 950px;
+    }
+    .treatments textarea {
+    font-size: 18px;
+    }
+    .passport_treatments_results {
+    font-size: 18px;
+    width: 950px;
+    height: 150px;
     }
 }
 
@@ -777,5 +1243,174 @@ th {
     }
     .open-popup_appearance {
     top: 70%;
+    }
+    .passport_title {
+    font-size: 50px;
+    width: 1500px;
+    margin: 20px;
+    }
+    .passport_identity {
+    font-size: 50px;
+    width: 1800px;
+    margin: 20px;
+    }
+    .passport_identity input {
+    font-size: 50px;
+    margin: 20px;
+    }
+    .passport_identity textarea {
+    font-size: 50px;
+    width: 600px;
+    margin: 20px;
+    }
+    .passport_ministry {
+    font-size: 50px;
+    }
+    .passport_institution_department {
+    font-size: 50px;
+    margin: 20px;
+    }
+    .passport_institution_department input {
+    font-size: 50px;
+    width: 1300px;
+    margin: 20px;
+    }
+    .passport_typological {
+    font-size: 50px;
+    width: 2100px;
+    margin: 20px;
+    }
+    .passport_definition {
+    font-size: 50px;
+    width: 550px;
+    margin: 20px;
+    }
+    .radio_button {
+    width: 50px;
+    height: 50px;
+    }
+    .passport_object_owner {
+    font-size: 50px;
+    width: 1500px;
+    margin: 20px;
+    margin-bottom: 10px;
+    }
+    .attribution {
+    width: 2100px;
+    font-size: 50px;
+    margin: 20px;
+    }
+    .attribution input {
+    font-size: 50px;
+    width: 800px;
+    margin: 20px;
+    }
+    button.material {
+    padding: 30px 50px;
+    font-size: 50px;
+    box-shadow: 0 15px #999;
+    margin: 20px;
+    }
+    .attribution_after_material input {
+    font-size: 50px;
+    margin: 20px;
+    }
+    .passport_reason {
+    font-size: 50px;
+    width: 2100px;
+    height: 300px;
+    margin: 20px;
+    }
+    .dates_restorers {
+    font-size: 50px;
+    width: 2100px;
+    margin: 20px;
+    }
+    .dates {
+    font-size: 50px;
+    width: 98%;
+    margin-top: 20px;
+    }
+    .restorers {
+    font-size: 50px;
+    width: 800px;
+    margin-top: 80px;
+    }
+    .passport_origin_description {
+    font-size: 50px;
+    width: 2100px;
+    height: 300px;
+    margin: 20px;
+    }
+    .passport_appearance_description {
+    font-size: 50px;
+    width: 2100px;
+    height: 1000px;
+    margin: 20px;
+    }
+    .passport_damages_description {
+    font-size: 50px;
+    width: 2100px;
+    height: 1000px;
+    margin: 20px;
+    }
+    .passport_signs_description {
+    font-size: 50px;
+    width: 2100px;
+    height: 300px;
+    margin: 20px;
+    }
+    .passport_size_description {
+    font-size: 50px;
+    width: 2100px;
+    height: 300px;
+    margin: 20px;
+    }
+    .researches {
+    font-size: 50px;
+    margin: 20px;
+    }
+    .researches textarea {
+    font-size: 50px;
+    height: 800px;
+    margin: 20px;
+    }
+    .passport_results_researches {
+    font-size: 50px;
+    width: 2100px;
+    height: 300px;
+    margin: 20px;
+    }
+    .passport_restoration_program {
+    font-size: 50px;
+    width: 2100px;
+    margin: 20px;
+    }
+    .passport_restoration_program textarea {
+    font-size: 50px;
+    height: 600px;
+    margin: 20px;
+    }
+    .treatments {
+    font-size: 50px;
+    width: 2100px;
+    height: 1200px;
+    }
+    .treatments textarea {
+    font-size: 50px;
+    height: 1050px;
+    }
+    .passport_treatments_results {
+    font-size: 50px;
+    width: 2100px;
+    height: 300px;
+    }
+    button.upload_passport {
+    padding: 30px 40px;
+    font-size: 50px;
+    border-radius: 15px;
+    margin-top: 25px;
+    box-shadow: 0 15px #999;
+    margin-bottom: 25px;
     }
 }
