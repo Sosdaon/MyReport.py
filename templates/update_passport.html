@@ -3,9 +3,10 @@
 <head>
 
     <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
-    <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet"/>
+    <link type="text/css" href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet"/>
     <meta charset="UTF-8">
     <title>Назва сайту - {{web_page_title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 {% block content -%}
@@ -26,152 +27,139 @@
 <div class="flash {{ctg}}">{{msg}}</div>
 {% endfor %}
 
-
-<div align="center">
-<h2>Заповнити подібний</h2>
-<hr width="1000px">
-</div>
+<div align="center" class="entrance_title">
+<p>Заповнити подібний</div>
+<hr class="underline">
 
 <form enctype="multipart/form-data" action="{{url_for('update_passport', id_post=passport.id)}}" method="post">
     <div align="center">
         <p>
-        <table>
+        <table class="passport_identity">
             <tr>
                 <th>№ реставраційного паспорта:</th>
                 <th>інвентарний № пам'ятки</th>
                 <th>Акт приймання</th>
             </tr>
             <tr>
-                <td><input name="passport_number" type="text" placeholder="{{passport_number}}" required></td>
-                <td><input type="text" name="inventory_number" placeholder="{{inventory_number}}" required></td>
-                <td><textarea name="acceptance_number" placeholder="№
+                <td><input name="passport_number" type="text" class="passport_identity" placeholder="{{passport_number}}" required></td>
+                <td><input type="text" name="inventory_number" class="passport_identity" placeholder="{{inventory_number}}" required></td>
+                <td><textarea name="acceptance_number" class="passport_identity" placeholder="№
 від: число/місяць/рік" required>{{acceptance_number}}</textarea></td>
             </tr>
         </table>
+        <div class="passport_ministry">
+            <p>Міністерство культури та інформаційної політики України
+            <p>ПАСПОРТ РЕСТАВРАЦІЇ ПАМ'ЯТКИ ІСТОРІЇ ТА КУЛЬТУРИ (РУХОМОЇ)
+        </div>
 
+        <div class="passport_institution_department">
+            <p><b>Назва закладу, який здійснює реставрацію</b></p>
+            <p><input type="text" name="institution_name" placeholder="{{institution_name}}" required></p>
+            <p><b>Назва відділу/сектору</b></p>
+            <p><input type="text" name="department_name" placeholder="{{department_name}}" required></p>
+        </div>
 
-        <p></p>
-        <h3>Міністерство культури та інформаційної політики України</h3>
-        <p></p>
-        <h3>ПАСПОРТ РЕСТАВРАЦІЇ ПАМ'ЯТКИ ІСТОРІЇ ТА КУЛЬТУРИ (РУХОМОЇ)</h3>
-        <p><b>Назва закладу, який здійснює реставрацію</b></p>
-        <p><textarea name="institution_name" rows="1" cols="92" placeholder="Назва установи/музею/учбового закладу"
-                     required>{{institution_name}}</textarea></p>
-        <p><b>Назва відділу/сектору</b></p>
-        <p><textarea name="department_name" rows="2" cols="92" placeholder="Відділ/сектор/майстерня"
-                     required>{{department_name}}</textarea></p>
+        <div class="passport_typological">
+        <p class="passport_title"><b>1. Типологічна приналежність пам'ятки</b>
+            <table>
+                <tr>
+                    <th>Визначення, характер пам'ятки:</th>
+                    <th>пам'ятка образотворчого мистецтва</th>
+                    <th>пам'ятка декоративно-ужиткового мистецтва</th>
+                    <th>археологічна пам'ятка</th>
+                    <th>документальна пам'ятка</th>
+                    <th>інша пам'ятка історії та культури</th>
+                </tr>
+                <tr>
+                    <td><input type="text" name="definition" placeholder="{{definition}}" class="passport_definition" required></td>
+                    <td><input type="radio" name="typological" class="radio_button" value="(1)" required>1</td>
+                    <td><input type="radio" name="typological" class="radio_button" value="(2)" required>2</td>
+                    <td><input type="radio" name="typological" class="radio_button" value="(3)" required>3</td>
+                    <td><input type="radio" name="typological" class="radio_button" value="(4)" required>4</td>
+                    <td><input type="radio" name="typological" class="radio_button" value="(5)" required>5</td>
+                </tr>
+            </table>
+        </div>
 
-        <p>
-            <b>1. Типологічна приналежність пам'ятки</b>
-        <table>
-            <tr>
-                <th>Визначення, характер пам'ятки:</th>
-                <th>пам'ятка образотворчого мистецтва</th>
-                <th>пам'ятка декоративно-ужиткового мистецтва</th>
-                <th>археологічна пам'ятка</th>
-                <th>документальна пам'ятка</th>
-                <th>інша пам'ятка історії та культури</th>
-            </tr>
-            <tr>
-                <td><textarea name="definition" placeholder="Цільова приналежність" required>{{definition}}</textarea></td>
-                <td><input type="radio" name="typological" value="(1)" required>1</td>
-                <td><input type="radio" name="typological" value="(2)" required>2</td>
-                <td><input type="radio" name="typological" value="(3)" required>3</td>
-                <td><input type="radio" name="typological" value="(4)" required>4</td>
-                <td><input type="radio" name="typological" value="(5)" required>5</td>
-            </tr>
-        </table>
+        <p class="passport_title"><b>2. Місце постійного зберігання, власник пам'ятки</b></p>
+        <p><input type="text" name="object_owner" class="passport_object_owner" placeholder="{{object_owner}}" required></p>
 
-        <p><b>2. Місце постійного зберігання, власник пам'ятки</b></p>
-        <p><textarea name="object_owner" rows="3" cols="92"
-                     placeholder="Назва установи/ім'я та прізвище хранителя/приватна колекція" required>{{object_owner}}</textarea>
-        </p>
+        <div class="attribution">
+            <p>
+                <table>
+                    <tr>
+                        <th>3. Атрибутивні дані про пам'ятку згідно з актом приймання</th>
+                        <th>Уточнення в процесі реставрації</th></tr>
+                    <tr>
+                        <td>Автор:<div align="center"><input type="text" name="author" placeholder="{{author}}" required></div></td>
+                        <td>*<div align="center"><input type="text" name="clarified_author" placeholder="{{clarified_author}}"></div></td></tr>
+                    <tr>
+                        <td>Назва:<div align="center"><input type="text" name="object_name" placeholder="{{object_name}}" required></div></td>
+                        <td>*<div align="center"><input type="text" name="clarified_object_name" placeholder="{{clarified_object_name}}"></div></td></tr>
+                    <tr>
+                        <td>Час створення:<div align="center"><input type="text" name="time_of_creation" placeholder="{{time_of_creation}}" required></div></td>
+                        <td>*<div align="center"><input type="text" name="clarified_time_of_creation"
+                                                        placeholder="{{clarified_time_of_creation}}"></div></td>
+                    <tr>
+                        <td>Матеріал, основа:<div align="center"><input type="text" name="material" placeholder="{{material}}" required></div></td>
+                        <td>*<div align="center"><input type="text" name="clarified_material" placeholder="{{clarified_material}}"></div></td></tr>
+                    <tr>
+                        <td>Техніка виконання:<div align="center"><input type="text" name="technique" placeholder="{{technique}}" required></div></td>
+                        <td>*<div align="center"><input type="text" name="clarified_technique" placeholder="{{clarified_technique}}"></div></td></tr>
+                    <tr>
+                        <td>Розміри:<div align="center"><input type="text" name="object_size" placeholder="{{object_size}}" required></div></td>
+                        <td>*<div align="center"><input type="text" name="clarified_size" placeholder="{{clarified_size}}"></div></td></tr>
+                    <tr>
+                        <td>Вага:<div align="center"><input type="text" name="weight" placeholder="{{weight}}" required></div></td>
+                        <td>*<div align="center"><input type="text" name="clarified_weight" placeholder="{{clarified_weight}}"></div></td></tr>
+                </table>
+        </div>
 
-        <p>
-        <table>
-            <tr>
-                <th>3. Атрибутивні дані про пам'ятку згідно з актом приймання</th>
-                <th>Уточнення в процесі реставрації</th>
-            </tr>
-            <tr>
-                <td>Автор:<div align="center"><textarea name="author" class="attribution" required>{{author}}</textarea></div></td>
-                <td><div align="center"><textarea name="clarified_author" class="clarified_attribution" >{{clarified_author}}</textarea></div></td>
-            </tr>
-            <tr>
-                <td>Назва:<div align="center"><textarea name="object_name" class="attribution" required>{{object_name}}</textarea></div></td>
-                <td><div align="center"><textarea name="clarified_object_name" class="clarified_attribution" >{{clarified_object_name}}</textarea></div></td>
-            </tr>
-            <tr>
-                <td>Час створення:<div align="center"><textarea name="time_of_creation" class="attribution" required>{{time_of_creation}}</textarea></div></td>
-                <td><div align="center"><textarea name="clarified_time_of_creation" class="clarified_attribution" >{{clarified_time_of_creation}}</textarea></div></td>
-            </tr>
-            <tr>
-                <td>Матеріал, основа:<div align="center"><textarea name="material" class="attribution" required>{{material}}</textarea></div></td>
-                <td><div align="center"><textarea name="clarified_material" class="clarified_attribution" >{{clarified_material}}</textarea></div></td>
-            </tr>
-            <tr>
-                <td>Техніка виконання:<div align="center"><textarea name="technique" class="attribution" required>{{technique}}</textarea></div></td>
-                <td><div align="center"><textarea name="clarified_technique" class="clarified_attribution" >{{clarified_technique}}</textarea></div></td>
-            </tr>
-            <tr>
-                <td>Розміри:<div align="center"><textarea name="object_size" class="attribution" required>{{object_size}}</textarea></div></td>
-                <td><div align="center"><textarea name="clarified_size" class="clarified_attribution" >{{clarified_size}}</textarea></div></td>
-            </tr>
-            <tr>
-                <td>Вага:<div align="center"><textarea name="weight" class="attribution" required>{{weight}}</textarea></div></td>
-                <td><div align="center"><textarea name="clarified_weight" class="clarified_attribution" >{{clarified_weight}}</textarea></div></td>
-            </tr>
-        </table>
-
-        <p><b>4. Підстава для проведення реставраційних заходів</b></p>
-        <p><textarea name="reason" contenteditable="true" rows="5" cols="140"
-                     placeholder="Вкажіть підставу проведення реставрації" required>{{reason}}</textarea>
-        </p>
-
+        <p class="passport_title"><b>4. Підстава для проведення реставраційних заходів</b></p>
+        <p><textarea name="reason" contenteditable="true" class="passport_reason"
+                     placeholder="Вкажіть підставу проведення реставрації" required>{{reason}}</textarea></p>
 
         <p>
-        <table>
+        <table class="dates_restorers">
             <tr>
                 <th>Дати</th>
                 <th>Реставратори</th>
             </tr>
             <tr>
-                <td>Дата передання пам'ятки на реставрацію:<input name="object_input_date" type="text"
+                <td>Дата передання пам'ятки на реставрацію:<input name="object_input_date" type="text" class="dates"
                                                                   placeholder="{{object_input_date}}" required></td>
-                <td><input name="execute_restorer" placeholder="Студент (курс)" type="text" required></td>
+                <td><input name="execute_restorer" placeholder="{{execute_restorer}}" type="text" class="restorers" required></td>
             </tr>
             <tr>
-                <td>Дата завершення реставраційних заходів:<input type="text" name="object_output_date"
+                <td>Дата завершення реставраційних заходів:<input type="text" name="object_output_date" class="dates"
                                                                   placeholder="{{object_output_date}}" required></td>
-                <td><input type="text" name="responsible_restorer" placeholder="{{responsible_restorer}}" required></td>
+                <td><input type="text" name="responsible_restorer" placeholder="{{responsible_restorer}}" class="restorers" required></td>
             </tr>
         </table>
 
+        <p class="passport_title"><b>5. Основні дані з історії пам'ятки (довідка про побутування; відомості про умови
+            зберігання, попередні дослідження, консерваційно-реставраційні заходи тощо), джерело надходження інформації</b></p>
+        <p><textarea name="origin_description" contenteditable="true" class="passport_origin_description"
+                     placeholder="Вкажіть дані з історії пам'ятки" required>{{origin_description}}</textarea></p>
 
-        <p><b>5. Основні дані з історії пам'ятки (довідка про побутування; відомості про умови зберігання,</b></p>
-        <p><b>попередні дослідження, консерваційно-реставраційні заходи тощо), джерело надходження інформації</b></p>
-        <p><textarea name="origin_description" contenteditable="true" rows="6" cols="140"
-                     placeholder="Вкажіть дані з історії пам'ятки" required>{{origin_description}}</textarea>
-        </p>
+        <p class="passport_title"><b>6. Стан пам'ятки до реставрації</b></p>
+        <p class="passport_title"><i>6.1 За візуальним спостереженням:</i></p>
+        <p><textarea name="appearance_description" id="changed_appearance_description"
+                     contenteditable="true" class="passport_appearance_description"
+                     placeholder="Вкажіть опис пам'ятки" required>{{appearance_description}}</textarea></p>
+        <p class="passport_title"><i>6.1.2 Втрати та пошкодження:</i></p>
+        <p><textarea name="damages_description" id="changed_damages_description" contenteditable="true"
+                     class="passport_damages_description" placeholder="Вкажіть втрати та пошкодження"
+                     required>{{damages_description}}</textarea></p>
+        <p class="passport_title"><i>6.1.3 Старі номери та позначення:</i></p>
+        <p><textarea name="signs_description" contenteditable="true" class="passport_signs_description"
+                     placeholder="Вкажіть номери та позначення" required>{{signs_description}}</textarea></p>
+        <p class="passport_title"><i>6.1.4 Розміри:</i></p>
+        <p><textarea name="size_description" contenteditable="true" class="passport_size_description"
+                     placeholder="Вкажіть розміри" required>{{size_description}}</textarea></p>
 
-        <p><b>6. Стан пам'ятки до реставрації</b></p>
-        <p><i>6.1 За візуальним спостереженням:</i></p>
-        <p><textarea name="appearance_description" id="changed_appearance_description" contenteditable="true" rows="30"
-                     cols="140" placeholder="Вкажіть опис пам'ятки" required>{{appearance_description}}</textarea></p>
-        <p><i>6.1.2 Втрати та пошкодження:</i></p>
-        <p><textarea name="damages_description" id="changed_damages_description" contenteditable="true" rows="30"
-                     cols="140" placeholder="Вкажіть втрати та пошкодження" required>{{damages_description}}</textarea></p>
-        <p><i>6.1.3 Старі номери та позначення:</i></p>
-        <p><textarea name="signs_description" contenteditable="true" rows="6" cols="140"
-                     placeholder="Вкажіть номери та позначення" required>{{signs_description}}</textarea>
-        </p>
-        <p><i>6.1.4 Розміри:</i></p>
-        <p><textarea name="size_description" contenteditable="true" rows="10" cols="92" placeholder="Вкажіть розміри"
-                     required>{{size_description}}</textarea></p>
-
-        <p><b>6.2. За даними лабораторних досліджень:</b></p>
-
-        <p>
+        <p class="passport_title"><b>6.2. За даними лабораторних досліджень:</b></p>
+        <div class="researches"><p>
         <table>
             <tr>
                 <th>Мета дослідження</th>
@@ -179,67 +167,59 @@
                 <th>Виконавець та дата</th>
             </tr>
             <tr>
-                <td><textarea name="purposes_researches" id="dynamic_purposes_researches_by_material"
-                              contenteditable="true" rows="30" cols="22" required>{{purposes_researches}}</textarea></td>
-                <td><textarea name="methods_researches" id="dynamic_methods_researches_by_material"
-                              contenteditable="true" rows="30" cols="35" required>{{methods_researches}}</textarea></td>
-                <td><textarea name="executor_date_researches" rows="30" cols="20" placeholder="Ім'я та прізвище виконавця;
-число/місяць/рік." required>{{executor_date_researches}}</textarea></td>
+                <td><textarea name="purposes_researches" id="changed_research_title" contenteditable="true" required>
+{{purposes_researches}}
+</textarea></td>
+                <td><textarea name="methods_researches" id="changed_research_description" contenteditable="true" required>
+{{methods_researches}}
+</textarea></td>
+                <td><textarea name="executor_date_researches" placeholder="Ім'я та прізвище виконавця;
+число/місяць/рік." required>{{executor_date_researches}}
+</textarea></td>
             </tr>
         </table>
-        </p>
+        </div>
 
-        <p><b>6.3 Загальний висновок за результатами досліджень:</b></p>
-        <p><textarea name="results_researches" contenteditable="true" rows="5" cols="140"
-                     placeholder="Вкажіть підставу проведення реставрації" required>{{results_researches}}</textarea>
-        </p>
+        <p class="passport_title"><b>6.3 Загальний висновок за результатами досліджень:</b></p>
+        <p><textarea name="results_researches" contenteditable="true" class="passport_results_researches"
+                     placeholder="Вкажіть підставу проведення реставрації" required>{{results_researches}}</textarea></p>
 
-
-        <TABLE>
-
+        <div class="passport_restoration_program">
+        <table>
             <tr>
                 <th>7. Програма проведення реставраційних заходів та їх обгрунтування</th>
             </tr>
             <tr>
-                <td><textarea name="restoration_program" id="dynamic_restoration_program_by_material"
-                              contenteditable="true" rows="20" cols="91" required>{{restoration_program}}</textarea></td>
+                <td><textarea name="restoration_program" id="changed_restoration_program" contenteditable="true" required>
+{{restoration_program}}</textarea></td>
+        </table>
+        </div>
 
-        </TABLE>
-
-
-        <p>
-            <b>8. Проведення реставраційних заходів:</b>
+        <p class="passport_title"><b>8. Проведення реставраційних заходів:</b></p>
+        <div class="treatments">
         <table>
             <tr>
                 <th>Опис операцій із зазначенням методу, методики, технології, інструментарію</th>
-                <th>Матеріали, хімікати (консентрація %)</th>
+                <th>Матеріали, хімікати (концентрація %)</th>
                 <th>Виконавець та дата</th>
             </tr>
             <tr>
-                <td><textarea name="treatments_descriptions" id="dynamic_treatments_descriptions_by_material"
-                              contenteditable="true" rows="29" cols="60" required>{{treatments_descriptions}}</textarea></td>
-                <td><textarea name="treatments_chemicals" id="dynamic_treatments_chemicals_by_material"
-                              contenteditable="true" rows="29" cols="35" required>{{treatments_chemicals}}
-</textarea></td>
-                <td><textarea name="treatments_executor_date" rows="29" cols="20" placeholder="Ім'я та прізвище виконавця;
-число/місяць/рік." required>{{treatments_executor_date}}
-</textarea></td>
+                <td><textarea name="treatments_descriptions" id="changed_treatments_descriptions" contenteditable="true"
+                              required>{{treatments_descriptions}}</textarea></td>
+                <td><textarea name="treatments_chemicals" id="changed_treatments_chemicals" contenteditable="true"
+                              required>{{treatments_chemicals}}</textarea></td>
+                <td><textarea name="treatments_executor_date" placeholder="Ім'я та прізвище виконавця;
+число/місяць/рік." required>{{treatments_executor_date}}</textarea></td>
             </tr>
         </table>
-        </p>
+        </div>
 
+        <p class="passport_title"><b>9. Стислий опис реставраційних заходів; опис змін технічного та зовнішнього стану
+            пам'ятки після реставрації, уточнення атрибуції тощо:</b></p>
+        <p><textarea name="treatments_results" contenteditable="true" placeholder="Вкажіть результат проведення реставраційних заходів"
+                     class="passport_treatments_results" required>{{treatments_results}}</textarea></p>
 
-        <p><b>9. Стислий опис реставраційних заходів; опис змін технічного та зовнішнього стану пам'ятки після
-            реставрації, уточнення атрибуції тощо:</b></p>
-        <p><textarea name="treatments_results" contenteditable="true" rows="5" cols="140"
-                     placeholder="Вкажіть результат проведення реставраційних заходів" required>{{treatments_results}}</textarea>
-        </p>
-
-
-        <p>
-            <button class="upload_passport"><b>Додати</b></button>
-        </p>
+        <p><button class="upload_passport">Додати</button></p>
     </div>
 </form>
-<div align="center"><p><h6>Використовувати застосунок виключно з освітньою метою.</h6></div>
 {% endblock %}

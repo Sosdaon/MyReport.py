@@ -2,7 +2,7 @@
 <html lang="ua">
 <head>
     <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
-    <link type="text/css" href="{{url_for('static', filename='css/style_entrance.css')}}" rel="stylesheet"/>
+    <link type="text/css" href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet"/>
     <meta charset="UTF-8">
     <title>Назва сайту - {{web_page_title}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,7 +39,7 @@
 
 <div class="popup_appearance" id="popup">
             <h1>Дійсно вийти?</h1>
-            <p><h3>Для повернення в цей кабінет необхідно буде внести електронну адресу та пароль.</h3></p>
+            <p><h3>Для повернення в цей кабінет необхідно буде внести електронну адресу та пароль.</h3>
             <a type="button" href="{{url_for('logout')}}" onclick="closePopup();" class="danger"><b>Вийти</b></a>
             <a type="button" onclick="closePopup();" class="cancel"><b>Скасувати</b></a>
 <script>

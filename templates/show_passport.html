@@ -2,15 +2,15 @@
 <html lang="ua">
 <head>
     <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
-    <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet"/>
+    <link type="text/css" href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet"/>
     <meta charset="UTF-8">
     <title>Назва сайту - {{web_page_title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 {% block content -%}
 {%- block main_menu -%}
 <ul class="main_menu_appearance">
-
 
     {% for main_choice in main_menu -%}
     <li><a href="{{main_choice.url}}">{{main_choice.menu_element}}</a></li>
@@ -24,150 +24,135 @@
 <div class="flash {{ctg}}">{{msg}}</div>
 {% endfor %}
 
+<div align="center" class="entrance_title">
+<p>Переглянути паспорт</div>
+<hr class="underline">
+
 
 <div align="center">
-<h2>Переглянути паспорт</h2>
-<hr width="1000px">
-</div>
-
-
-<div class="content">
-    <h1>{{object_name}} {{inventory_number}}</h1>
-
-    <div align="center">
         <p>
-        <table>
+        <table class="passport_identity">
             <tr>
                 <th>№ реставраційного паспорта:</th>
                 <th>інвентарний № пам'ятки</th>
                 <th>Акт приймання</th>
             </tr>
             <tr>
-                <td>{{passport_number}}</td>
-                <td>{{inventory_number}}</td>
-                <td>{{acceptance_number}}</td>
+                <td class="passport_show">{{passport_number}}</td>
+                <td class="passport_show">{{inventory_number}}</td>
+                <td class="passport_show">{{acceptance_number}}</td>
             </tr>
         </table>
+        <div class="passport_ministry">
+            <p>Міністерство культури та інформаційної політики України
+            <p>ПАСПОРТ РЕСТАВРАЦІЇ ПАМ'ЯТКИ ІСТОРІЇ ТА КУЛЬТУРИ (РУХОМОЇ)
+        </div>
 
-        <p></p>
-        <h3>Міністерство культури та інформаційної політики України</h3>
-        <p></p>
-        <h3>ПАСПОРТ РЕСТАВРАЦІЇ ПАМ'ЯТКИ ІСТОРІЇ ТА КУЛЬТУРИ (РУХОМОЇ)</h3>
+        <div class="passport_institution_department">
+            <p><b>Назва закладу, який здійснює реставрацію</b></p>
+            <p>{{institution_name}}</p>
+            <p><b>Назва відділу/сектору</b></p>
+            <p>{{department_name}}</p>
+        </div>
 
-        <p>
-        <h3>{{institution_name}}</h3>
-        <p>Назва закладу, який здійснює реставрацію</p>
-        <p>
-        <h3>{{department_name}}</h3>
-        <p>Назва відділу/сектору</p>
-
-        <p>
-            <b>1. Типологічна приналежність пам'ятки</b>
-        <table>
+        <div class="passport_typological">
+        <p class="passport_title"><b>1. Типологічна приналежність пам'ятки</b>
+            <table>
+                <tr>
+                    <th>Визначення, характер пам'ятки:</th>
+                    <th>пам'ятка образотворчого мистецтва</th>
+                    <th>пам'ятка декоративно-ужиткового мистецтва</th>
+                    <th>археологічна пам'ятка</th>
+                    <th>документальна пам'ятка</th>
+                    <th>інша пам'ятка історії та культури</th>
+                </tr>
             <tr>
-                <th>Визначення, характер пам'ятки:</th>
-                <th>пам'ятка образотворчого мистецтва</th>
-                <th>пам'ятка декоративно-ужиткового мистецтва</th>
-                <th>археологічна пам'ятка</th>
-                <th>документальна пам'ятка</th>
-                <th>інша пам'ятка історії та культури</th>
-            </tr>
-            <tr>
-                <td>{{definition}}</td>
+                <td class="passport_show">{{definition}}</td>
                 {% if typological == '(1)'%}
-                <td>{{typological}}</td>
+                <td class="passport_show">{{typological}}</td>
                 {% else %}
-                <td></td>
+                <td class="passport_show"></td>
                 {% endif %}
                 {% if typological == '(2)'%}
-                <td>{{typological}}</td>
+                <td class="passport_show">{{typological}}</td>
                 {% else %}
-                <td></td>
+                <td class="passport_show"></td>
                 {% endif %}
                 {% if typological == '(3)'%}
-                <td>{{typological}}</td>
+                <td class="passport_show">{{typological}}</td>
                 {% else %}
-                <td></td>
+                <td class="passport_show"></td>
                 {% endif %}
                 {% if typological == '(4)'%}
-                <td>{{typological}}</td>
+                <td class="passport_show">{{typological}}</td>
                 {% else %}
-                <td></td>
+                <td class="passport_show"></td>
                 {% endif %}
                 {% if typological == '(5)'%}
-                <td>{{typological}}</td>
+                <td class="passport_show">{{typological}}</td>
                 {% else %}
-                <td></td>
+                <td class="passport_show"></td>
                 {% endif %}
             </tr>
-        </table>
+            </table>
+        </div>
 
-        <p><b>2. Місце постійного зберігання, власник пам'ятки</b></p>
-        <p>{{object_owner}}</p>
+        <p class="passport_title"><b>2. Місце постійного зберігання, власник пам'ятки</b></p>
+        <p class="passport_title">{{object_owner}}</p>
 
-        <p>
-        <table>
-            <tr>
-                <th>3. Атрибутивні дані про пам'ятку згідно з актом приймання</th>
-                <th>Уточнення в процесі реставрації</th>
-            </tr>
-            <tr>
-                <td>Автор: {{author}}</td>
-                <td>{{clarified_author}}</td>
-            </tr>
-            <tr>
-                <td>Назва: {{object_name}}</td>
-                <td>{{clarified_object_name}}</td>
-            </tr>
-            <tr>
-                <td>Час створення: {{time_of_creation}}</td>
-                <td>{{clarified_time_of_creation}}</td>
-            </tr>
-            <tr>
-                <td>Матеріал, основа: {{material}}</td>
-                <td>{{clarified_material}}</td>
-            </tr>
-            <tr>
-                <td>Техніка виконання: {{technique}}</td>
-                <td>{{clarified_technique}}</td>
-            </tr>
-            <tr>
-                <td>Розміри: {{object_size}}</td>
-                <td>{{clarified_size}}</td>
-            </tr>
-            <tr>
-                <td>Вага: {{weight}}</td>
-                <td>{{clarified_weight}}</td>
-            </tr>
-        </table>
+        <div class="attribution">
+            <p>
+                <table>
+                    <tr>
+                        <th>3. Атрибутивні дані про пам'ятку згідно з актом приймання</th>
+                        <th>Уточнення в процесі реставрації</th></tr>
+                    <tr>
+                        <td class="passport_show">Автор:<div align="center">{{author}}</div></td>
+                        <td class="passport_show">*<div align="center">{{clarified_author}}</div></td></tr>
+                    <tr>
+                        <td class="passport_show">Назва:<div align="center">{{object_name}}</div></td>
+                        <td class="passport_show">*<div align="center">{{clarified_object_name}}</div></td></tr>
+                    <tr>
+                        <td class="passport_show">Час створення:<div align="center">{{time_of_creation}}</div></td>
+                        <td class="passport_show">*<div align="center">{{clarified_time_of_creation}}</div></td>
+                    <tr>
+                        <td class="passport_show">Матеріал, основа:<div align="center">{{material}}</div></td>
+                        <td class="passport_show">*<div align="center">{{clarified_material}}</div></td></tr>
+                    <tr>
+                        <td class="passport_show">Техніка виконання:<div align="center">{{technique}}</div></td>
+                        <td class="passport_show">*<div align="center">{{clarified_technique}}</div></td></tr>
+                    <tr>
+                        <td class="passport_show">Розміри:<div align="center">{{object_size}}</div></td>
+                        <td class="passport_show">*<div align="center">{{clarified_size}}</div></td></tr>
+                    <tr>
+                        <td class="passport_show">Вага:<div align="center">{{weight}}</div></td>
+                        <td class="passport_show">*<div align="center">{{clarified_weight}}</div></td></tr>
+                </table>
+        </div>
 
-        <p><b>4. Підстава для проведення реставраційних заходів</b></p>
-        <div align="justify"><p>{{reason}}</p></div>
-
+        <p class="passport_title"><b>4. Підстава для проведення реставраційних заходів</b></p>
+        <p class="passport_title">{{reason}}</p>
 
         <p>
-        <table>
+        <table class="dates_restorers">
             <tr>
                 <th>Дати</th>
                 <th>Реставратори</th>
             </tr>
             <tr>
-                <td>Дата передання пам'ятки на реставрацію: {{object_input_date}}</td>
-                <td>Виконавець: {{execute_restorer}}</td>
+                <td class="passport_show">Дата передання пам'ятки на реставрацію: {{object_input_date}}</td>
+                <td class="passport_show">{{execute_restorer}}</td>
             </tr>
             <tr>
-                <td>Дата завершення реставраційних заходів: {{object_output_date}}</td>
-                <td>Керівник: {{responsible_restorer}}</td>
+                <td class="passport_show">Дата завершення реставраційних заходів: {{object_output_date}}</td>
+                <td class="passport_show">{{responsible_restorer}}</td>
             </tr>
         </table>
 
         <p>
             <a href="{{url_for('download_passport')}}" class="download_passport">Завантажити</a>
         </p>
-
-<div align="center"><p><h6>Використовувати застосунок виключно з освітньою метою.</h6></div>
-{% endblock -%}
     </div>
-</div>
 </body>
 </html>
+{% endblock -%}
