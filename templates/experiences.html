@@ -2,9 +2,10 @@
 <html lang="ua">
 <head>
     <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
-    <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
+    <link type="text/css" href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet" />
     <meta charset="UTF-8">
     <title>Назва сайту - {{web_page_title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 {% block content -%}
@@ -25,10 +26,11 @@
 <div class="flash {{ctg}}">{{msg}}</div>
 {% endfor %}
 
+<div align="center" class="entrance_title">
+<p>Досвід</div>
+<hr class="underline">
 
 <div align="center">
-<h2>Досвід</h2>
-<hr width="1000px">
     <p><a href="{{url_for('add_experience')}}" class="cabinet_workflow_suggestions_links"><b>Додати досвід</b></a>
 <ul class="list_passports_appearance">
 {% if experiences %}
@@ -62,5 +64,4 @@
 {% endif %}
 </ul>
 </div>
-<div align="center"><p><h6>Використовувати застосунок виключно з освітньою метою.</h6></div>
 {% endblock %}

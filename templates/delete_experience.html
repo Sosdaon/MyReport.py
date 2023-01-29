@@ -2,9 +2,10 @@
 <html lang="ua">
 <head>
     <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
-    <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet"/>
+    <link type="text/css" href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet"/>
     <meta charset="UTF-8">
     <title>Назва сайту - {{web_page_title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 {% block content -%}
@@ -25,7 +26,13 @@
 <div class="flash {{ctg}}">{{msg}}</div>
 {% endfor %}
 
-<div class="content">
+<div align="center" class="entrance_title">
+<p>Видалити досвід</div>
+<hr class="underline">
+
+
+
+<div align="center">
         <p>
             <a onclick="openPopup(); window.scrollTo(0, 0);" class="delete_suggestion">Видалити</a>
         </p>
@@ -49,29 +56,14 @@
     </div>
 
 
-<div class="content" align="center">
-    <p class="light_text">Матеріал: <b class="light_text">{{experienced_material}}</b></p>
-    <p><b><i class="light_text">Послідовність опису матеріалу</i></b></p>
-    <p><b><i class="light_text">Характерні втрати та пошкодження</i></b></p>
-    <br><table>
-    <tr>
-        <th style="background: #D3D3D3; border: 1px solid grey;"><div class="light_text">Назви лабораторних дослідженнь:</div></th>
-        <th style="background: #D3D3D3; border: 1px solid grey;"><div class="light_text">Опис проведення лабораторних дослідженнь:</div></th>
-    </tr>
-</table>
-
-    <br><table>
-    <tr><th style="background: #D3D3D3; border: 1px solid grey;"><div class="light_text">Реставраційна програма:</div></th></tr>
-</table>
-
-    <br><table>
-    <tr>
-        <th style="background: #D3D3D3; border: 1px solid grey;"><div class="light_text">Опис проведення реставраційних заходів:</div></th>
-        <th style="background: #D3D3D3; border: 1px solid grey;"><div class="light_text">Матеріали та хімікати використані під час проведення реставраційних заходів:</div></th>
-    </tr>
-</table>
+<div align="center">
+    <ul class="list_passports_appearance">
+        <li class="portfolio_suggestions_links">
+            <p class="object_name_inventory_number_appearance">{{experienced_material}}</p>
+            <br>
+        </li>
+    </ul>
 </div>
-<div align="center"><p><h6>Використовувати застосунок виключно з освітньою метою.</h6></div>
 {% endblock %}
 <script>
 let popup = document.getElementById("popup");
@@ -84,7 +76,6 @@ function closePopup() {
     popup.classList.remove("open-popup_appearance");
 }
 </script>
-</div>
 </div>
 </body>
 </html>

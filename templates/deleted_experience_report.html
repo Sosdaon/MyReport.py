@@ -2,9 +2,10 @@
 <html lang="ua">
 <head>
     <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">
-    <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
+    <link type="text/css" href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet" />
     <meta charset="UTF-8">
     <title>Назва сайту - {{web_page_title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 {% block content -%}
@@ -25,9 +26,12 @@
 <div class="flash {{ctg}}">{{msg}}</div>
 {% endfor %}
 
+<div align="center" class="entrance_title">
+<p>Досвід успішно видалено</div>
+<hr class="underline">
 
-
-<div class="content">
-    <p>Досвід успішно видалено. Повернутися на <a href="{{url_for('index')}}" class="link_to_main" >головну сторінку</a>
+<div align="center">
+<br>
+<a href="{{url_for('index')}}" class="link_to_main">На головну</a>
 </div>
 {% endblock %}
