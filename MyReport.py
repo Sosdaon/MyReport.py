@@ -560,7 +560,6 @@ def update_experience(id_post):
 
     if request.method == 'POST':
         if len(request.form['experienced_material']) > 0:
-            dbase.delete_experience(id_post)
 
             dbase.store_experience(request.form['experienced_material'],
                                    request.form['experienced_description'],
@@ -603,8 +602,6 @@ def update_experience_2(id_post):
     if request.method == 'POST':
         if len(request.form['experienced_material']) > 0:
 
-            dbase.delete_experience_2(id_post)
-
             dbase.store_experience_2(request.form['experienced_material'],
                                      request.form['experienced_description'],
                                      request.form['experienced_damages_description'],
@@ -645,8 +642,6 @@ def update_experience_3(id_post):
 
     if request.method == 'POST':
         if len(request.form['experienced_material']) > 0:
-
-            dbase.delete_experience_3(id_post)
 
             dbase.store_experience_3(request.form['experienced_material'],
                                      request.form['experienced_description'],
